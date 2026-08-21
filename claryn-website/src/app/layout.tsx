@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Poppins } from 'next/font/google';
+import { Poppins, Raleway } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -8,8 +8,19 @@ import { siteConfig } from '@/lib/site-config';
 const poppins = Poppins({
   subsets: ['latin'],
   weight: ['300','400','500','600','700','800'],
-  variable: '--font-poppins',
+  variable: '--font-primary',
   display: 'swap',
+  fallback: ['system-ui', 'sans-serif'],
+  preload: true,
+});
+
+const raleway = Raleway({
+  subsets: ['latin'],
+  weight: ['400','500','600','700','800'],
+  variable: '--font-secondary',
+  display: 'swap',
+  fallback: ['system-ui', 'sans-serif'],
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -55,7 +66,7 @@ const orgSchema = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" className={poppins.variable}>
+    <html lang="en-IN" data-scroll-behavior="smooth" className={`${poppins.variable} ${raleway.variable}`}>
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }} />
       </head>
