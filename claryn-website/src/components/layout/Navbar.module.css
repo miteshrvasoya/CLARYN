@@ -1,29 +1,57 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   CLARYN NAVBAR — Navbar.module.css
+   Premium header: scroll-aware, animated dropdown, morphing hamburger,
+   mobile drawer from right, scroll progress bar
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── NAVBAR SHELL ────────────────────────────────────────────────────────── */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 200;
   height: var(--navbar-height);
   display: flex;
   align-items: center;
-  transition: background var(--transition-base), box-shadow var(--transition-base), backdrop-filter var(--transition-base);
+  will-change: background, box-shadow;
+  transition:
+    background  0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow  0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    height      0.25s ease;
 }
-.navbar--transparent {
-  background: transparent;
+
+/* Top of page — transparent over the light hero */
+.navbarTop {
+  background: rgba(247, 249, 252, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: none;
 }
-.navbar--solid {
-  background: rgba(13, 27, 42, 0.97);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+
+/* Scrolled — clean solid white */
+.navbarSolid {
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 1px 0 var(--color-gray-100),
+    0 4px 16px rgba(0, 0, 0, 0.05);
 }
-.navbar--light {
-  background: rgba(255,255,255,0.97);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 1px 0 var(--color-gray-200);
+
+/* ─── SCROLL PROGRESS BAR ─────────────────────────────────────────────────── */
+.progressBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-blue) 0%, var(--color-teal) 100%);
+  transition: width 0.1s linear;
+  border-radius: 0 2px 2px 0;
+  z-index: 10;
 }
+
+/* ─── INNER LAYOUT ────────────────────────────────────────────────────────── */
 .inner {
   display: flex;
   align-items: center;
@@ -33,148 +61,677 @@
   max-width: var(--container-max);
   margin-inline: auto;
   padding-inline: var(--container-pad);
+  height: 100%;
 }
-.logo { display: flex; align-items: center; gap: var(--space-3); text-decoration: none; flex-shrink: 0; }
-.logoText {
-  font-family: var(--font-secondary);
-  font-size: var(--text-xl);
-  font-weight: var(--fw-extrabold);
-  letter-spacing: 0.08em;
-  color: var(--color-white);
-  text-transform: uppercase;
-}
-.logoText--dark { color: var(--color-navy); }
-.logoSub {
-  font-size: 9px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.55);
-  line-height: 1;
-  display: block;
-  margin-top: 2px;
-}
-.logoSub--dark { color: var(--color-gray-400); }
 
-/* Desktop nav */
-.nav { display: flex; align-items: center; gap: var(--space-1); }
-.navItem { position: relative; }
-.navLink {
+/* ─── LOGO ────────────────────────────────────────────────────────────────── */
+.logo {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 0.4rem 0.75rem;
-  border-radius: var(--radius-md);
-  font-size: var(--text-sm);
-  font-weight: var(--fw-medium);
-  color: rgba(255,255,255,0.85);
-  transition: color var(--transition-fast), background var(--transition-fast);
-  cursor: pointer;
-  white-space: nowrap;
-  background: none;
-  border: none;
-  font-family: inherit;
-}
-.navLink--dark { color: var(--color-gray-700); }
-.navLink:hover, .navLink--active {
-  color: var(--color-white);
-  background: rgba(255,255,255,0.1);
-}
-.navLink--dark:hover, .navLink--dark.navLink--active {
-  color: var(--color-navy);
-  background: var(--color-blue-50);
+  gap: var(--space-3);
+  text-decoration: none;
+  flex-shrink: 0;
+  outline: none;
 }
 
-/* Dropdown */
-.dropdown {
+.logo:focus-visible {
+  outline: 2px solid var(--color-blue);
+  border-radius: var(--radius-md);
+  outline-offset: 3px;
+}
+
+/* Animated logo mark — two overlapping circles forming a water droplet */
+.logoMark {
+  width: 30px;
+  height: 30px;
+  border-radius: 50% 50% 50% 0;
+  background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-teal) 100%);
+  transform: rotate(-45deg);
+  flex-shrink: 0;
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.logo:hover .logoMark {
+  transform: rotate(-45deg) scale(1.1);
+}
+
+.logoMarkInner {
   position: absolute;
-  top: calc(100% + 8px);
+  inset: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.logoText {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.logoWordmark {
+  font-family: var(--font-secondary);
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-navy);
+  line-height: 1;
+  transition: color var(--transition-fast);
+}
+
+.logoTagline {
+  font-size: 8.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-gray-400);
+  line-height: 1;
+  transition: color var(--transition-fast);
+}
+
+/* ─── DESKTOP NAV ─────────────────────────────────────────────────────────── */
+.desktopNav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  justify-content: center;
+}
+
+/* Nav group — holds the button + dropdown */
+.navGroup {
+  position: relative;
+}
+
+/* Nav link / button */
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-primary);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--color-gray-700);
+  background: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    color       var(--transition-fast),
+    background  var(--transition-fast);
+  position: relative;
+  line-height: 1;
+}
+
+.navLink:hover {
+  color: var(--color-navy);
+  background: var(--color-gray-50);
+}
+
+.navLinkActive {
+  color: var(--color-blue);
+  font-weight: 600;
+}
+
+.navLinkActive:hover {
+  color: var(--color-blue);
+  background: rgba(0, 119, 200, 0.06);
+}
+
+/* Open state */
+.navLinkOpen {
+  color: var(--color-navy);
+  background: var(--color-gray-100);
+}
+
+/* Chevron rotation */
+.navChevron {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--color-gray-400);
+  flex-shrink: 0;
+}
+
+.navChevronOpen {
+  transform: rotate(180deg);
+  color: var(--color-blue);
+}
+
+/* Active underline dot */
+.navActiveLine {
+  position: absolute;
+  bottom: -2px;
   left: 50%;
   transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-blue);
+}
+
+/* ─── DROPDOWN ────────────────────────────────────────────────────────────── */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px) scale(0.97);
+  min-width: 260px;
   background: var(--color-white);
-  border: 1px solid var(--color-gray-200);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-xl);
-  min-width: 240px;
-  padding: var(--space-2);
+  border: 1px solid var(--color-gray-150, var(--color-gray-200));
+  border-radius: var(--radius-2xl);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.06),
+    0 16px 40px -4px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(0, 0, 0, 0.02);
   opacity: 0;
   visibility: hidden;
-  transform: translateX(-50%) translateY(6px);
-  transition: opacity var(--transition-fast), transform var(--transition-fast), visibility var(--transition-fast);
   pointer-events: none;
+  transition:
+    opacity    0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    transform  0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0.2s;
+  z-index: 50;
 }
-.navItem:hover .dropdown,
-.navItem:focus-within .dropdown {
+
+.dropdownOpen {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(0);
   pointer-events: auto;
+  transform: translateX(-50%) translateY(0) scale(1);
 }
+
+/* Arrow pointing up to nav item */
+.dropdownArrow {
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 10px;
+  height: 10px;
+  background: var(--color-white);
+  border-top: 1px solid var(--color-gray-200);
+  border-left: 1px solid var(--color-gray-200);
+  border-radius: 2px 0 0 0;
+}
+
+.dropdownInner {
+  padding: var(--space-3);
+}
+
+/* Dropdown header row */
+.dropdownHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3) var(--space-3);
+  border-bottom: 1px solid var(--color-gray-100);
+  margin-bottom: var(--space-2);
+}
+
+.dropdownHeaderIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: var(--color-blue-50);
+  color: var(--color-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dropdownHeaderTitle {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-navy);
+  flex: 1;
+  letter-spacing: 0.02em;
+}
+
+.dropdownHeaderCTA {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-blue);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: gap var(--transition-fast);
+}
+
+.dropdownHeaderCTA:hover {
+  gap: var(--space-2);
+}
+
+/* Dropdown links */
+.dropdownLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
 .dropdownLink {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 0.875rem;
+  gap: var(--space-3);
+  padding: 8px 10px;
   border-radius: var(--radius-md);
-  font-size: var(--text-sm);
+  font-size: 13px;
   color: var(--color-gray-700);
-  font-weight: var(--fw-medium);
-  transition: all var(--transition-fast);
+  font-weight: 500;
   text-decoration: none;
+  transition:
+    background var(--transition-fast),
+    color      var(--transition-fast),
+    transform  var(--transition-fast);
+  /* Staggered appear animation when dropdown opens */
+  animation: dropLinkIn 0.2s ease both;
 }
+
+@keyframes dropLinkIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .dropdownLink:hover {
   background: var(--color-blue-50);
   color: var(--color-blue);
+  transform: translateX(2px);
 }
 
-/* Actions */
-.actions { display: flex; align-items: center; gap: var(--space-2); flex-shrink: 0; }
+.dropdownLinkActive {
+  color: var(--color-blue);
+  background: rgba(0, 119, 200, 0.06);
+  font-weight: 600;
+}
 
-/* Mobile toggle */
-.menuBtn {
-  display: none;
+.dropdownLinkText {
+  flex: 1;
+}
+
+/* Tags inside dropdown */
+.dropdownTag {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: var(--radius-full);
+  padding: 2px 7px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.dropdownTagLive {
+  color: var(--color-success);
+  background: rgba(22, 163, 74, 0.1);
+  border: 1px solid rgba(22, 163, 74, 0.2);
+}
+
+.dropdownTagSoon {
+  color: var(--color-orange);
+  background: rgba(255, 138, 0, 0.1);
+  border: 1px solid rgba(255, 138, 0, 0.2);
+}
+
+/* ─── DESKTOP ACTIONS ─────────────────────────────────────────────────────── */
+.actions {
+  display: flex;
   align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.actionRegister {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  border-radius: var(--radius-lg);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-gray-600);
+  text-decoration: none;
+  border: 1.5px solid var(--color-gray-200);
+  background: transparent;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.actionRegister:hover {
+  color: var(--color-navy);
+  border-color: var(--color-gray-400);
+  background: var(--color-gray-50);
+}
+
+.actionCTA {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 7px 16px;
+  border-radius: var(--radius-lg);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-white);
+  background: var(--color-blue);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.actionCTA:hover {
+  background: #005fa3;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 119, 200, 0.3);
+}
+
+/* ─── HAMBURGER (animated morphing bars) ──────────────────────────────────── */
+.hamburger {
+  display: none;
+  flex-direction: column;
   justify-content: center;
+  gap: 5px;
   width: 40px;
   height: 40px;
+  padding: 8px;
+  border: 1.5px solid var(--color-gray-200);
   border-radius: var(--radius-md);
-  color: var(--color-white);
-  background: rgba(255,255,255,0.1);
-  border: none;
+  background: transparent;
   cursor: pointer;
-  transition: background var(--transition-fast);
+  flex-shrink: 0;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
 }
-.menuBtn--dark { color: var(--color-navy); background: var(--color-gray-100); }
-.menuBtn:hover { background: rgba(255,255,255,0.2); }
 
-/* Mobile drawer */
-.mobileMenu {
+.hamburger:hover {
+  background: var(--color-gray-50);
+  border-color: var(--color-gray-300);
+}
+
+.hamburger:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 2px;
+}
+
+.hamburgerBar {
+  display: block;
+  height: 1.5px;
+  background: var(--color-navy);
+  border-radius: 2px;
+  transform-origin: center;
+  transition:
+    transform  0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity    0.2s ease,
+    width      0.3s ease;
+  width: 100%;
+}
+
+/* Morphed to ✕ */
+.hamburgerOpen .hamburgerBar:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+.hamburgerOpen .hamburgerBar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburgerOpen .hamburgerBar:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* ─── BACKDROP ────────────────────────────────────────────────────────────── */
+.backdrop {
   position: fixed;
   inset: 0;
-  z-index: 99;
-  background: var(--color-navy);
+  z-index: 150;
+  background: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(0);
+  -webkit-backdrop-filter: blur(0);
+  pointer-events: none;
+  transition:
+    background       0.35s ease,
+    backdrop-filter  0.35s ease;
+}
+
+.backdropVisible {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  pointer-events: auto;
+}
+
+/* ─── MOBILE DRAWER ───────────────────────────────────────────────────────── */
+.mobileDrawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 300;
+  width: min(340px, 90vw);
+  background: var(--color-white);
   display: flex;
   flex-direction: column;
-  padding: calc(var(--navbar-height) + var(--space-4)) var(--container-pad) var(--space-8);
+  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.15);
+  transform: translateX(100%);
+  transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
   overflow-y: auto;
-  transform: translateX(-100%);
-  transition: transform 300ms ease;
+  overflow-x: hidden;
 }
-.mobileMenu--open { transform: translateX(0); }
-.mobileNavLink {
-  display: block;
-  padding: var(--space-4) 0;
-  font-size: var(--text-lg);
-  font-weight: var(--fw-semibold);
-  color: var(--color-white);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+
+.mobileDrawerOpen {
+  transform: translateX(0);
+}
+
+/* Drawer header */
+.drawerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-gray-100);
+  position: sticky;
+  top: 0;
+  background: var(--color-white);
+  z-index: 1;
+}
+
+.drawerLogo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
   text-decoration: none;
 }
-.mobileNavLink:hover { color: var(--color-blue-300); }
-.mobileSubLinks { display: flex; flex-direction: column; gap: var(--space-1); padding: var(--space-2) 0 var(--space-3) var(--space-4); }
-.mobileSubLink { display: block; padding: var(--space-2) 0; font-size: var(--text-sm); color: rgba(255,255,255,0.7); text-decoration: none; }
-.mobileSubLink:hover { color: var(--color-blue-300); }
 
+.drawerLogoMark {
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50% 50% 50% 0;
+  background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-teal) 100%);
+  transform: rotate(-45deg);
+  flex-shrink: 0;
+}
+
+/* Close button (✕) */
+.drawerClose {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.drawerClose:hover {
+  background: var(--color-gray-100);
+  border-color: var(--color-gray-300);
+}
+
+.drawerCloseBar {
+  display: block;
+  position: absolute;
+  width: 14px;
+  height: 1.5px;
+  background: var(--color-navy);
+  border-radius: 2px;
+}
+
+.drawerCloseBar:nth-child(1) { transform: rotate(45deg); }
+.drawerCloseBar:nth-child(2) { transform: rotate(-45deg); }
+
+/* ─── MOBILE LINKS ────────────────────────────────────────────────────────── */
+.drawerLinks {
+  flex: 1;
+  padding: var(--space-2) var(--space-3);
+}
+
+.drawerItem {
+  border-bottom: 1px solid var(--color-gray-100);
+  /* Stagger-in animation */
+  animation: drawerItemIn 0.35s ease both;
+}
+
+.drawerItem:last-child {
+  border-bottom: none;
+}
+
+@keyframes drawerItemIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.drawerLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-4) var(--space-2);
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-navy);
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: color var(--transition-fast);
+}
+
+.drawerLink:hover {
+  color: var(--color-blue);
+}
+
+.drawerLinkActive {
+  color: var(--color-blue);
+}
+
+.drawerChevron {
+  color: var(--color-gray-400);
+  flex-shrink: 0;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), color var(--transition-fast);
+}
+
+.drawerChevronOpen {
+  transform: rotate(180deg);
+  color: var(--color-blue);
+}
+
+/* Mobile sub-links collapse/expand */
+.drawerSub {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.drawerSubOpen {
+  grid-template-rows: 1fr;
+}
+
+.drawerSub > * {
+  overflow: hidden;
+}
+
+.drawerSubLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  margin: 1px var(--space-1);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-gray-600);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.drawerSubLink:hover {
+  background: var(--color-blue-50);
+  color: var(--color-blue);
+  padding-left: var(--space-5);
+}
+
+/* ─── MOBILE ACTIONS ──────────────────────────────────────────────────────── */
+.drawerActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border-top: 1px solid var(--color-gray-100);
+  background: var(--color-gray-50);
+}
+
+/* Override btn--outline-white to look right on white background */
+.drawerActions :global(.btn--outline-white) {
+  color: var(--color-navy) !important;
+  border-color: var(--color-gray-300) !important;
+}
+
+.drawerActions :global(.btn--outline-white):hover {
+  border-color: var(--color-navy) !important;
+  background: var(--color-gray-100) !important;
+}
+
+/* ─── RESPONSIVE BREAKPOINTS ──────────────────────────────────────────────── */
 @media (max-width: 1024px) {
-  .nav, .actions { display: none; }
-  .menuBtn { display: flex; }
+  .desktopNav,
+  .actions {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}
+
+/* Extra adjustments for very narrow screens */
+@media (max-width: 400px) {
+  .logoTagline { display: none; }
+}
+
+/* ─── REDUCED MOTION ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .navbar,
+  .dropdown,
+  .mobileDrawer,
+  .hamburgerBar,
+  .backdrop,
+  .drawerItem,
+  .dropdownLink {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }
