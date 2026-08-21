@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model ProductRegistration {
+  id               String   @id @default(cuid())
+  name             String
+  mobile           String
+  email            String
+  productId        String
+  serialNumber     String?
+  purchaseDate     DateTime
+  purchasePlatform String
+  orderId          String?
+  pincode          String?
+  waterSource      String?
+  notes            String?
+  marketingConsent Boolean  @default(false)
+  registeredAt     DateTime @default(now())
+}
+
+model WarrantyClaim {
+  id               String   @id @default(cuid())
+  name             String
+  email            String
+  phone            String
+  productId        String
+  serialNumber     String?
+  purchaseDate     DateTime
+  purchasePlatform String
+  orderId          String?
+  issueDescription String
+  sourceTDS        String?
+  purifiedTDS      String?
+  status           String   @default("pending")
+  submittedAt      DateTime @default(now())
+}
