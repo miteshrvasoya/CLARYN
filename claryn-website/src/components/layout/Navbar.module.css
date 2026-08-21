@@ -1,0 +1,180 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--navbar-height);
+  display: flex;
+  align-items: center;
+  transition: background var(--transition-base), box-shadow var(--transition-base), backdrop-filter var(--transition-base);
+}
+.navbar--transparent {
+  background: transparent;
+}
+.navbar--solid {
+  background: rgba(13, 27, 42, 0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+}
+.navbar--light {
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 var(--color-gray-200);
+}
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+.logo { display: flex; align-items: center; gap: var(--space-3); text-decoration: none; flex-shrink: 0; }
+.logoText {
+  font-family: var(--font-secondary);
+  font-size: var(--text-xl);
+  font-weight: var(--fw-extrabold);
+  letter-spacing: 0.08em;
+  color: var(--color-white);
+  text-transform: uppercase;
+}
+.logoText--dark { color: var(--color-navy); }
+.logoSub {
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  line-height: 1;
+  display: block;
+  margin-top: 2px;
+}
+.logoSub--dark { color: var(--color-gray-400); }
+
+/* Desktop nav */
+.nav { display: flex; align-items: center; gap: var(--space-1); }
+.navItem { position: relative; }
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: var(--fw-medium);
+  color: rgba(255,255,255,0.85);
+  transition: color var(--transition-fast), background var(--transition-fast);
+  cursor: pointer;
+  white-space: nowrap;
+  background: none;
+  border: none;
+  font-family: inherit;
+}
+.navLink--dark { color: var(--color-gray-700); }
+.navLink:hover, .navLink--active {
+  color: var(--color-white);
+  background: rgba(255,255,255,0.1);
+}
+.navLink--dark:hover, .navLink--dark.navLink--active {
+  color: var(--color-navy);
+  background: var(--color-blue-50);
+}
+
+/* Dropdown */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  min-width: 240px;
+  padding: var(--space-2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(6px);
+  transition: opacity var(--transition-fast), transform var(--transition-fast), visibility var(--transition-fast);
+  pointer-events: none;
+}
+.navItem:hover .dropdown,
+.navItem:focus-within .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+.dropdownLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.875rem;
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--color-gray-700);
+  font-weight: var(--fw-medium);
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+.dropdownLink:hover {
+  background: var(--color-blue-50);
+  color: var(--color-blue);
+}
+
+/* Actions */
+.actions { display: flex; align-items: center; gap: var(--space-2); flex-shrink: 0; }
+
+/* Mobile toggle */
+.menuBtn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  color: var(--color-white);
+  background: rgba(255,255,255,0.1);
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+.menuBtn--dark { color: var(--color-navy); background: var(--color-gray-100); }
+.menuBtn:hover { background: rgba(255,255,255,0.2); }
+
+/* Mobile drawer */
+.mobileMenu {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: var(--color-navy);
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--navbar-height) + var(--space-4)) var(--container-pad) var(--space-8);
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform 300ms ease;
+}
+.mobileMenu--open { transform: translateX(0); }
+.mobileNavLink {
+  display: block;
+  padding: var(--space-4) 0;
+  font-size: var(--text-lg);
+  font-weight: var(--fw-semibold);
+  color: var(--color-white);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  text-decoration: none;
+}
+.mobileNavLink:hover { color: var(--color-blue-300); }
+.mobileSubLinks { display: flex; flex-direction: column; gap: var(--space-1); padding: var(--space-2) 0 var(--space-3) var(--space-4); }
+.mobileSubLink { display: block; padding: var(--space-2) 0; font-size: var(--text-sm); color: rgba(255,255,255,0.7); text-decoration: none; }
+.mobileSubLink:hover { color: var(--color-blue-300); }
+
+@media (max-width: 1024px) {
+  .nav, .actions { display: none; }
+  .menuBtn { display: flex; }
+}
