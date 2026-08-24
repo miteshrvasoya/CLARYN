@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ChevronDown, ArrowRight } from 'lucide-react';
 import { siteConfig } from '@/lib/site-config';
@@ -71,13 +72,14 @@ export function Navbar() {
 
           {/* ── LOGO ───────────────────────────────────────────────────── */}
           <Link href="/" className={styles.logo} aria-label="CLARYN — Home">
-            <div className={styles.logoMark} aria-hidden>
-              <div className={styles.logoMarkInner} />
-            </div>
-            <div>
-              <span className={styles.logoWordmark}>CLARYN</span>
-              <span className={styles.logoTagline}>Clear Water. Clearer Life.</span>
-            </div>
+            <Image
+              src="/brand/logo/primary-brand-logo.png"
+              alt="CLARYN — Clear Water. Clearer Life."
+              width={160}
+              height={52}
+              priority
+              className={styles.logoImage}
+            />
           </Link>
 
           {/* ── DESKTOP NAV ────────────────────────────────────────────── */}
@@ -192,7 +194,13 @@ export function Navbar() {
         {/* Drawer header */}
         <div className={styles.drawerHeader}>
           <Link href="/" className={styles.logo} onClick={() => setMenuOpen(false)}>
-            <div className={styles.logoMark} aria-hidden><div className={styles.logoMarkInner} /></div>
+            <Image
+              src="/brand/logo/brand-logo-icon.png"
+              alt="CLARYN"
+              width={36}
+              height={36}
+              className={styles.logoIcon}
+            />
             <span className={styles.logoWordmark}>CLARYN</span>
           </Link>
           <button className={styles.drawerClose} onClick={() => setMenuOpen(false)} aria-label="Close menu">

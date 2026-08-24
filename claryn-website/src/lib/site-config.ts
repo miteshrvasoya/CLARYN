@@ -7,7 +7,7 @@ export const siteConfig = {
   tagline:     'Clear Water. Clearer Life.',
   description: 'CLARYN is a water solutions and water technology brand by Udarta Watertech Private Limited. Premium RO membranes, water purification systems, and smart water technology for Indian homes and businesses.',
   url:         process.env.NEXT_PUBLIC_SITE_URL ?? 'https://claryn.in',
-  ogImage:     '/og-image.jpg',
+  ogImage:     '/brand/logo/brand-logo.png',
 
   company: {
     name:         'Udarta Watertech Private Limited',

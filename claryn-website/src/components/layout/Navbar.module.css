@@ -62,30 +62,34 @@
   outline-offset: 3px;
 }
 
-/* Droplet mark — two CSS shapes */
-.logoMark {
-  width: 28px;
-  height: 28px;
-  border-radius: 50% 50% 50% 0;
-  /* Official brand blue gradient matching the water droplet in logo */
-  background: linear-gradient(135deg, #0D1B2A 0%, #0077C8 100%);
-  transform: rotate(-45deg);
+/* Brand logo image — full horizontal lockup */
+.logoImage {
+  display: block;
+  height: 42px;
+  width: auto;
+  object-fit: contain;
   flex-shrink: 0;
-  position: relative;
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Ensures the white-background PNG blends cleanly on frosted navbar */
+  mix-blend-mode: multiply;
 }
 
-.logo:hover .logoMark {
-  transform: rotate(-45deg) scale(1.12);
+.logo:hover .logoImage {
+  opacity: 0.88;
+  transform: scale(1.03);
 }
 
-.logoMarkInner {
-  position: absolute;
-  inset: 5px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.22);
+/* Brand icon — compact C+droplet mark for mobile drawer */
+.logoIcon {
+  display: block;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
 }
 
+/* Keep logoWordmark usable in mobile drawer alongside the icon */
 .logoWordmark {
   display: block;
   font-family: var(--font-mono);

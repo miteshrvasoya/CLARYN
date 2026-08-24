@@ -69,6 +69,15 @@ export const metadata: Metadata = {
   creator: 'CLARYN',
   publisher: 'Udarta Watertech Private Limited',
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
+  icons: {
+    icon: [
+      { url: '/brand/logo/monogram.png', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/brand/logo/monogram.png', type: 'image/png' },
+    ],
+    shortcut: '/brand/logo/brand-logo-icon.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_IN',
@@ -93,7 +102,7 @@ const orgSchema = {
   name: 'CLARYN',
   legalName: 'Udarta Watertech Private Limited',
   url: siteConfig.url,
-  logo: `${siteConfig.url}/brand/logo/brand-logo.png`,
+  logo: `${siteConfig.url}/brand/logo/primary-brand-logo.png`,
   description: siteConfig.description,
   brand: { '@type': 'Brand', name: 'CLARYN' },
 };

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Phone, Mail, MapPin, Globe, Share2, Rss, Link2 } from 'lucide-react';
 import { siteConfig } from '@/lib/site-config';
 import styles from './Footer.module.css';
@@ -20,8 +21,16 @@ export function Footer() {
         <div className={styles.grid}>
           {/* Brand Column */}
           <div className={styles.brandCol}>
-            <Link href="/" className={styles.logoText} aria-label="CLARYN Home">CLARYN</Link>
-            <p className={styles.tagline}>Clear Water. Clearer Life.<br />
+            <Link href="/" className={styles.logoLink} aria-label="CLARYN Home">
+              <Image
+                src="/brand/logo/primary-brand-logo.png"
+                alt="CLARYN — Clear Water. Clearer Life."
+                width={160}
+                height={52}
+                className={styles.footerLogoImage}
+              />
+            </Link>
+            <p className={styles.tagline}>
               <span style={{ fontSize: 'var(--text-xs)', color: 'rgba(255,255,255,0.35)' }}>By Udarta Watertech Private Limited</span>
             </p>
             <p className={styles.description}>
