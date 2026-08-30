@@ -3,7 +3,7 @@ import { Public_Sans, Fraunces, IBM_Plex_Mono, Poppins, Raleway } from 'next/fon
 import './globals.css';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-import { ScrollClarityIndicator } from '@/components/home/HeroSection';
+/* ScrollClarityIndicator removed — new design uses section-level scroll storytelling */
 import { siteConfig } from '@/lib/site-config';
 
 // ─── CLARYN Official Brand Fonts (from Pack.png spec: Poppins / Raleway) ─────
@@ -119,7 +119,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <Navbar />
-        <ScrollClarityIndicator />
+        {/* Scroll storytelling is now handled per-section */}
         <main id="main-content">{children}</main>
         <Footer />
       </body>

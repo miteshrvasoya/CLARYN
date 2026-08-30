@@ -479,3 +479,193 @@ p  { line-height: var(--lh-relaxed); }
   main { padding-top: 0 !important; }
   body { color: #000; background: #fff; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CLARYN REDESIGN — Extended Tokens & Animations
+   Added for the premium landing page experience
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Water visualization palette ─────────────────────────────────────── */
+  --water-clear:     rgba(0, 119, 200, 0.06);
+  --water-mid:       rgba(0, 119, 200, 0.14);
+  --water-dense:     rgba(0, 119, 200, 0.28);
+  --water-particle:  rgba(0, 180, 166, 0.55);
+  --water-mineral:   rgba(160, 120, 64, 0.40);
+  --water-surface:   rgba(0, 119, 200, 0.08);
+
+  /* ── Hero surface ─────────────────────────────────────────────────────── */
+  --hero-surface:    #F4F7FA;
+  --hero-dark:       #0A1520;
+
+  /* ── Diagnostic palette ───────────────────────────────────────────────── */
+  --diag-bg:         #070E17;
+  --diag-surface:    rgba(255,255,255,0.04);
+  --diag-border:     rgba(255,255,255,0.08);
+  --diag-accent:     #0088DD;
+
+  /* ── Cinematic section tones ──────────────────────────────────────────── */
+  --section-dark:    #08111C;
+  --section-deep:    #060F1A;
+  --section-mid:     #0D1B2A;
+
+  /* ── Extended spacing ─────────────────────────────────────────────────── */
+  --space-32: 8rem;
+  --space-40: 10rem;
+  --space-48: 12rem;
+
+  /* ── Type extensions ──────────────────────────────────────────────────── */
+  --text-7xl:  4.5rem;   /* 72px */
+  --text-8xl:  6rem;     /* 96px */
+  --text-9xl:  8rem;     /* 128px */
+  --text-10xl: 10rem;    /* 160px */
+
+  /* ── Cinematic transitions ────────────────────────────────────────────── */
+  --transition-cinematic: 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-spring:    400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-smooth:    350ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* ── Z-index scale ────────────────────────────────────────────────────── */
+  --z-base:    0;
+  --z-raised:  10;
+  --z-float:   20;
+  --z-overlay: 100;
+  --z-nav:     200;
+  --z-modal:   300;
+}
+
+/* ─── WATER PHYSICS KEYFRAMES ────────────────────────────────────────────── */
+
+@keyframes waterDrop {
+  0%   { transform: translateY(-10%) scale(0.8); opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 0.7; }
+  100% { transform: translateY(110%) scale(1.05); opacity: 0; }
+}
+
+@keyframes particleFloat {
+  0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0.6; }
+  25%  { transform: translateY(-12px) translateX(4px) scale(0.9); }
+  50%  { transform: translateY(-8px) translateX(-3px) scale(1.05); opacity: 0.8; }
+  75%  { transform: translateY(-18px) translateX(2px) scale(0.95); opacity: 0.5; }
+  100% { transform: translateY(-32px) translateX(-1px) scale(0.8); opacity: 0; }
+}
+
+@keyframes waterSurface {
+  0%   { transform: scaleX(1) translateY(0); }
+  33%  { transform: scaleX(1.02) translateY(-2px); }
+  66%  { transform: scaleX(0.98) translateY(2px); }
+  100% { transform: scaleX(1) translateY(0); }
+}
+
+@keyframes flowDown {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  10%  { opacity: 0.6; }
+  90%  { opacity: 0.4; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+
+@keyframes gentlePulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%       { opacity: 0.8; transform: scale(1.03); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes drawLine {
+  from { stroke-dashoffset: 100; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes gaugeIn {
+  from { stroke-dasharray: 0 251; }
+  to   { /* controlled by JS inline style */ }
+}
+
+@keyframes numberCount {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── INTERSECTION OBSERVER REVEAL UTILITIES ─────────────────────────────── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+              transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal--left {
+  transform: translateX(-24px);
+}
+.reveal--left.is-visible {
+  transform: translateX(0);
+}
+.reveal--right {
+  transform: translateX(24px);
+}
+.reveal--right.is-visible {
+  transform: translateX(0);
+}
+.reveal--delay-1 { transition-delay: 80ms; }
+.reveal--delay-2 { transition-delay: 160ms; }
+.reveal--delay-3 { transition-delay: 240ms; }
+.reveal--delay-4 { transition-delay: 320ms; }
+.reveal--delay-5 { transition-delay: 400ms; }
+
+/* ─── REDUCED MOTION ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal,
+  .reveal--left,
+  .reveal--right {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+

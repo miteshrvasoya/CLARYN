@@ -11,22 +11,22 @@ type NavChild = { label: string; href: string; tag?: string };
 type NavItem  = { label: string; href: string; children?: readonly NavChild[] };
 
 export function Navbar() {
-  const pathname                     = usePathname();
-  const [scrolled,   setScrolled]    = useState(false);
-  const [menuOpen,   setMenuOpen]    = useState(false);
-  const [activeMenu, setActiveMenu]  = useState<string | null>(null);
-  const [mobileOpen, setMobileOpen]  = useState<string | null>(null);
-  const innerRef                     = useRef<HTMLDivElement>(null);
+  const pathname                    = usePathname();
+  const [scrolled,  setScrolled]   = useState(false);
+  const [menuOpen,  setMenuOpen]   = useState(false);
+  const [activeMenu,setActiveMenu] = useState<string | null>(null);
+  const [mobileOpen,setMobileOpen] = useState<string | null>(null);
+  const innerRef                   = useRef<HTMLDivElement>(null);
 
   /* Scroll detection */
   useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 20);
+    const h = () => setScrolled(window.scrollY > 40);
     h();
     window.addEventListener('scroll', h, { passive: true });
     return () => window.removeEventListener('scroll', h);
   }, []);
 
-  /* Body lock */
+  /* Body lock when mobile menu open */
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
@@ -36,6 +36,7 @@ export function Navbar() {
   useEffect(() => {
     setMenuOpen(false);
     setActiveMenu(null);
+    setMobileOpen(null);
   }, [pathname]);
 
   /* Click outside closes desktop dropdown */
@@ -43,7 +44,6 @@ export function Navbar() {
     if (innerRef.current && !innerRef.current.contains(e.target as Node))
       setActiveMenu(null);
   }, []);
-
   useEffect(() => {
     document.addEventListener('mousedown', handleOutside);
     return () => document.removeEventListener('mousedown', handleOutside);
@@ -74,9 +74,9 @@ export function Navbar() {
           <Link href="/" className={styles.logo} aria-label="CLARYN — Home">
             <Image
               src="/brand/logo/primary-brand-logo.png"
-              alt="CLARYN — Clear Water. Clearer Life."
-              width={160}
-              height={52}
+              alt="CLARYN"
+              width={140}
+              height={46}
               priority
               className={styles.logoImage}
             />
@@ -130,7 +130,7 @@ export function Navbar() {
                             className={`${styles.dropdownLink} ${isActive(child.href) ? styles.dropdownLinkActive : ''}`}
                             role="menuitem"
                             tabIndex={open ? 0 : -1}
-                            style={{ animationDelay: `${i * 28}ms` }}
+                            style={{ animationDelay: `${i * 30}ms` }}
                             onClick={() => setActiveMenu(null)}
                           >
                             <span>{child.label}</span>
@@ -151,13 +151,11 @@ export function Navbar() {
 
           {/* ── ACTIONS ────────────────────────────────────────────────── */}
           <div className={styles.actions}>
-            {/* Plain text link — not a button */}
             <Link href="/register-product" className={styles.actionText}>
-              Register Product
+              Register
             </Link>
-            {/* Single primary CTA */}
-            <Link href="/find-your-solution" className={styles.actionCTA}>
-              Find My Solution
+            <Link href="/find-your-solution" className={styles.actionCTA} id="nav-cta">
+              Find Your Water Solution
               <ArrowRight size={13} aria-hidden />
             </Link>
           </div>
@@ -191,14 +189,13 @@ export function Navbar() {
         aria-label="Mobile navigation"
         aria-hidden={!menuOpen}
       >
-        {/* Drawer header */}
         <div className={styles.drawerHeader}>
-          <Link href="/" className={styles.logo} onClick={() => setMenuOpen(false)}>
+          <Link href="/" className={styles.logo} onClick={() => setMenuOpen(false)} aria-label="CLARYN Home">
             <Image
               src="/brand/logo/brand-logo-icon.png"
               alt="CLARYN"
-              width={36}
-              height={36}
+              width={28}
+              height={28}
               className={styles.logoIcon}
             />
             <span className={styles.logoWordmark}>CLARYN</span>
@@ -209,15 +206,17 @@ export function Navbar() {
           </button>
         </div>
 
-        {/* Links */}
         <div className={styles.drawerLinks}>
           {navItems.map((item, idx) => {
             const open   = mobileOpen === item.label;
             const active = isActive(item.href);
 
             return (
-              <div key={item.label} className={styles.drawerItem}
-                style={{ animationDelay: menuOpen ? `${50 + idx * 55}ms` : '0ms' }}>
+              <div
+                key={item.label}
+                className={styles.drawerItem}
+                style={{ animationDelay: menuOpen ? `${60 + idx * 50}ms` : '0ms' }}
+              >
                 {item.children?.length ? (
                   <>
                     <button
@@ -235,9 +234,12 @@ export function Navbar() {
                     <div className={`${styles.drawerSub} ${open ? styles.drawerSubOpen : ''}`}>
                       <div>
                         {item.children.map(child => (
-                          <Link key={child.href} href={child.href}
+                          <Link
+                            key={child.href}
+                            href={child.href}
                             className={styles.drawerSubLink}
-                            onClick={() => setMenuOpen(false)}>
+                            onClick={() => setMenuOpen(false)}
+                          >
                             {child.label}
                             {child.tag && (
                               <span className={`${styles.tag} ${child.tag === 'Live' ? styles.tagLive : styles.tagSoon}`}>
@@ -250,9 +252,11 @@ export function Navbar() {
                     </div>
                   </>
                 ) : (
-                  <Link href={item.href}
+                  <Link
+                    href={item.href}
                     className={`${styles.drawerLink} ${active ? styles.drawerLinkActive : ''}`}
-                    onClick={() => setMenuOpen(false)}>
+                    onClick={() => setMenuOpen(false)}
+                  >
                     {item.label}
                   </Link>
                 )}
@@ -261,13 +265,17 @@ export function Navbar() {
           })}
         </div>
 
-        {/* Mobile CTAs */}
         <div className={styles.drawerActions}>
           <Link href="/register-product" className={styles.mobileRegister} onClick={() => setMenuOpen(false)}>
             Register Product
           </Link>
-          <Link href="/find-your-solution" className="btn btn--primary" onClick={() => setMenuOpen(false)}>
-            Find My Solution <ArrowRight size={14} aria-hidden />
+          <Link
+            href="/find-your-solution"
+            className="btn btn--primary"
+            onClick={() => setMenuOpen(false)}
+            style={{ justifyContent: 'center', borderRadius: '10px', padding: '0.875rem' }}
+          >
+            Find Your Water Solution <ArrowRight size={14} aria-hidden />
           </Link>
         </div>
       </nav>

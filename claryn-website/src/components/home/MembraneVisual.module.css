@@ -1,0 +1,288 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   MEMBRANE VISUAL — Dark engineering section, exploded 5-layer CSS visualization
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.membraneSection {
+  background: var(--section-mid);
+  padding: clamp(5rem, 10vw, 9rem) 0;
+  overflow: hidden;
+}
+
+.membraneInner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding-inline: clamp(1.5rem, 5vw, 4rem);
+  align-items: center;
+}
+
+/* ── Left text ───────────────────────────────────────────────────────────── */
+.membraneText {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.membraneEyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  opacity: 0.8;
+  margin-bottom: 1.25rem;
+}
+
+.membraneHeading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.membraneDesc {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.membraneNote {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.25);
+  font-style: italic;
+  margin-bottom: 2rem;
+}
+
+/* Layer info panel */
+.layerInfo {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: rgba(0, 119, 200, 0.07);
+  border: 1px solid rgba(0, 119, 200, 0.15);
+  border-radius: 10px;
+  min-height: 80px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  margin-bottom: 2.5rem;
+}
+.layerInfoVisible {
+  opacity: 1;
+}
+
+.layerInfoNum {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--brand-blue);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.layerInfoName {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.88);
+  margin-bottom: 0.3rem;
+}
+
+.layerInfoRole {
+  font-size: 0.8125rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.5;
+}
+
+/* Spec callout */
+.membraneSpec {
+  display: flex;
+  align-items: baseline;
+  gap: 0.625rem;
+}
+
+.membraneSpecNum {
+  font-family: var(--font-mono);
+  font-size: 3rem;
+  font-weight: 800;
+  color: rgba(0, 119, 200, 0.35);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.membraneSpecLabel {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+}
+
+/* ── Right: Diagram ──────────────────────────────────────────────────────── */
+.membraneDiagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.membraneDiagramInner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  max-width: 420px;
+  gap: 0.5rem;
+}
+
+/* ── Water flow arrows ───────────────────────────────────────────────────── */
+.flowArrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.flowLine {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(0,119,200,0.35));
+}
+.flowArrowOut .flowLine {
+  background: linear-gradient(to right, rgba(0,180,166,0.35), transparent);
+}
+
+.flowLabel {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  white-space: nowrap;
+}
+
+/* ── Layer stack ─────────────────────────────────────────────────────────── */
+.layers {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  position: relative;
+}
+
+.layer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.04);
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.layerPrimary {
+  border-color: rgba(0, 119, 200, 0.3) !important;
+}
+
+.layerHovered {
+  border-color: rgba(0, 119, 200, 0.6) !important;
+  box-shadow: 0 0 20px rgba(0, 119, 200, 0.2);
+  z-index: 2;
+}
+
+/* Membrane texture lines */
+.layerTexture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.layerTextureLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255,255,255,0.06);
+  animation: shimmer 3s linear infinite;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
+  background-size: 200% 100%;
+}
+
+.layerNum {
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.25);
+  position: relative;
+  z-index: 1;
+  margin-right: auto;
+}
+.layerPrimary .layerNum {
+  color: rgba(0, 119, 200, 0.6);
+}
+
+/* Hover annotation */
+.layerAnnotation {
+  position: absolute;
+  right: 1rem;
+  z-index: 1;
+  animation: fadeIn 0.15s ease both;
+}
+
+.layerAnnotationName {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+
+/* ── Hint ────────────────────────────────────────────────────────────────── */
+.explodeHint {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .membraneInner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .membraneDiagramInner {
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .layer {
+    transition: none !important;
+  }
+  .layerInfo {
+    transition: none;
+  }
+  .layerTextureLine {
+    animation: none;
+  }
+}

@@ -1,914 +1,476 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   CLARYN HERO — HeroSection.module.css
-   Typography: Fraunces (display) + IBM Plex Mono (labels) + Public Sans (body)
-   Palette: Ink / Filtered Paper / Spruce Teal / Clear Aqua / Silt Clay
+   CLARYN HERO — Cinematic, minimal, water-first
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ─── HERO SHELL ──────────────────────────────────────────────────────────── */
 .hero {
-  /* Light blue-grey hero background — complements the brand navy/blue palette */
-  background: var(--hero-bg, #EFF5FB);
-  padding-top: var(--navbar-height);
   position: relative;
+  min-height: 100svh;
+  background: var(--hero-surface);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Very subtle dot-grid — only on Filtered Paper */
-.hero::before {
-  content: '';
+/* ── Canvas overlay ──────────────────────────────────────────────────────── */
+.canvas {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(13,31,38,0.05) 1px, transparent 1px);
-  background-size: 32px 32px;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   z-index: 0;
 }
 
-/* ─── GRID ────────────────────────────────────────────────────────────────── */
-.heroGrid {
+/* ── Inner layout ────────────────────────────────────────────────────────── */
+.heroInner {
   position: relative;
   z-index: 1;
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: clamp(3.5rem, 7vw, 5.5rem) clamp(1.25rem, 4vw, 2.5rem) clamp(4rem, 8vw, 6rem);
   display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: clamp(3rem, 6vw, 6rem);
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  max-width: 1360px;
+  width: 100%;
+  margin: 0 auto;
+  padding: calc(var(--navbar-height) + 5rem) clamp(1.5rem, 5vw, 4rem) 4rem;
+  min-height: 100svh;
   align-items: center;
-  min-height: calc(96svh - var(--navbar-height));
 }
 
-/* ─── LEFT COLUMN ─────────────────────────────────────────────────────────── */
+/* ── Mounted state (entry animation) ─────────────────────────────────────── */
 .heroLeft {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(var(--space-6), 3vw, var(--space-8));
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.heroMounted .heroLeft {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* ─── EYEBROW (Plex Mono) ──────────────────────────────────────────────────────── */
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--brand-blue, #0077C8);
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.eyebrowSep {
-  color: var(--clear-aqua);
-  font-weight: 400;
-  opacity: 0.6;
-}
-
-.eyebrowDash {
-  color: var(--ink-subtle);
-  margin-inline: 2px;
-}
-
-.eyebrowMsg {
-  color: var(--ink-muted);
-  font-weight: 500;
-  letter-spacing: 0.12em;
-}
-
-/* ─── HEADLINE (Fraunces serif) ───────────────────────────────────────────── */
-.headline {
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 6.5vw, 5.25rem);
-  font-weight: 700;
-  color: var(--ink);
-  line-height: 1.05;
-  letter-spacing: -0.025em;
-
-  /* Blur-to-sharp resolve on load — starts blurred, desaturated */
-  filter: blur(6px);
+.heroRight {
   opacity: 0;
   transition:
-    filter  0.7s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.6s ease;
+    opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
 }
-
-.headlineResolved {
-  filter: blur(0px);
+.heroMounted .heroRight {
   opacity: 1;
 }
 
-/* The italic "understanding it." line */
-.headlineEm {
-  font-style: italic;
-  /* Brand blue for the key phrase — matches the water droplet color */
-  color: var(--brand-blue, #0077C8);
-  font-weight: 600;
+/* ── Left: Brand content ─────────────────────────────────────────────────── */
+.heroEyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  opacity: 0.75;
+  margin-bottom: 2rem;
 }
 
-/* ─── BODY TEXT ──────────────────────────────────────────────────────────── */
-.bodyText {
-  font-family: var(--font-body);
-  font-size: clamp(var(--text-base), 1.4vw, 1.05rem);
-  color: var(--ink-muted);
-  line-height: 1.78;
-  max-width: 500px;
-}
-
-/* ─── SOURCE PICKER ───────────────────────────────────────────────────────── */
-.sourcePicker {
+/* ── CLARYN wordmark ─────────────────────────────────────────────────────── */
+.heroHeadline {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: 0.375rem;
+  margin-bottom: 3rem;
+}
+
+.heroWordmark {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(4.5rem, 10vw, 9rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  color: var(--brand-navy);
+  /* No text-fill or gradient — pure, strong navy */
+}
+
+.heroTagline {
+  display: block;
+  font-family: var(--font-body);
+  font-size: clamp(1.125rem, 2.2vw, 1.75rem);
+  font-weight: 300;
+  font-style: normal;
+  letter-spacing: 0.01em;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
+/* ── Source picker ───────────────────────────────────────────────────────── */
+.sourcePicker {
+  margin-bottom: 2.5rem;
 }
 
 .sourcePickerLabel {
   font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ink-subtle);
-  line-height: 1;
+  color: var(--text-subtle);
+  margin-bottom: 0.875rem;
 }
 
 .sourceBtns {
   display: flex;
-  gap: var(--space-3);
+  gap: 0.625rem;
   flex-wrap: wrap;
 }
 
-/* Base source button */
+/* ── Source button — tactile, physical feel ──────────────────────────────── */
 .sourceBtn {
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  padding: var(--space-4) var(--space-5);
-  border-radius: var(--radius-xl);
-  border: 1.5px solid transparent;
-  background: transparent;
+  align-items: flex-start;
+  gap: 0.2rem;
+  padding: 0.875rem 1.125rem;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(13, 27, 42, 0.1);
+  border-radius: 10px;
   cursor: pointer;
   text-align: left;
   transition:
-    border-color  var(--transition-base),
-    background    var(--transition-base),
-    transform     var(--transition-base),
-    box-shadow    var(--transition-base);
-  min-width: 130px;
+    background var(--transition-base),
+    border-color var(--transition-base),
+    transform var(--transition-fast),
+    box-shadow var(--transition-base);
+  min-width: 120px;
 }
 
 .sourceBtn:hover {
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 119, 200, 0.25);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 119, 200, 0.10);
 }
 
-/* Borewell — Silt Clay tint (earthy, unfiltered) */
-.sourceBtn--silt {
-  background: rgba(166, 124, 82, 0.06);
-  border-color: rgba(166, 124, 82, 0.2);
+.sourceBtnActive {
+  background: var(--brand-navy) !important;
+  border-color: var(--brand-navy) !important;
+  box-shadow: 0 4px 20px rgba(13, 27, 42, 0.25) !important;
+  transform: translateY(-1px);
+}
+.sourceBtnActive .sourceBtnLabel {
+  color: #FFFFFF;
+}
+.sourceBtnActive .sourceBtnSub {
+  color: rgba(255, 255, 255, 0.55);
 }
 
-.sourceBtn--silt:hover,
-.sourceBtn--silt.sourceBtnActive {
-  background: rgba(166, 124, 82, 0.12);
-  border-color: rgba(166, 124, 82, 0.45);
-  box-shadow: 0 4px 16px rgba(166, 124, 82, 0.15);
+/* Source-specific active tints */
+.sourceBtn__borewell.sourceBtnActive {
+  background: #4a3520 !important;
+  border-color: #4a3520 !important;
 }
-
-/* Municipal — Clear Aqua tint (treated, clearer) */
-.sourceBtn--aqua {
-  background: rgba(79, 182, 166, 0.06);
-  border-color: rgba(79, 182, 166, 0.2);
-}
-
-.sourceBtn--aqua:hover,
-.sourceBtn--aqua.sourceBtnActive {
-  background: rgba(79, 182, 166, 0.12);
-  border-color: rgba(79, 182, 166, 0.45);
-  box-shadow: 0 4px 16px rgba(79, 182, 166, 0.15);
-}
-
-/* Not Sure — neutral */
-.sourceBtn--neutral {
-  background: rgba(10, 30, 36, 0.03);
-  border-color: rgba(10, 30, 36, 0.12);
-}
-
-.sourceBtn--neutral:hover,
-.sourceBtn--neutral.sourceBtnActive {
-  background: rgba(10, 30, 36, 0.07);
-  border-color: rgba(10, 30, 36, 0.25);
-  box-shadow: 0 4px 16px rgba(10, 30, 36, 0.08);
+.sourceBtn__municipal.sourceBtnActive {
+  background: #00485c !important;
+  border-color: #00485c !important;
 }
 
 .sourceBtnLabel {
+  display: block;
   font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: 700;
-  color: var(--ink);
-  line-height: 1;
+  font-size: 0.9375rem;
+  font-weight: 600;
   letter-spacing: -0.01em;
+  color: var(--brand-navy);
+  transition: color var(--transition-fast);
 }
 
 .sourceBtnSub {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--ink-subtle);
-  letter-spacing: 0.04em;
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  transition: color var(--transition-fast);
 }
 
-/* Source context reveal */
+/* ── Context reveal ──────────────────────────────────────────────────────── */
 .sourceContext {
+  margin-top: 0.875rem;
+  height: 0;
   overflow: hidden;
-  max-height: 0;
   opacity: 0;
   transition:
-    max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity    0.3s ease;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  border-left: 2px solid var(--brand-blue, #0077C8);
-  padding-left: var(--space-4);
+    height var(--transition-smooth),
+    opacity var(--transition-smooth);
 }
-
 .sourceContextOpen {
-  max-height: 200px;
+  height: 40px;
   opacity: 1;
 }
 
-.sourceContextTDS {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--brand-blue, #0077C8);
-  letter-spacing: 0.05em;
-  display: flex;
+.sourceTDS {
+  display: inline-flex;
   align-items: baseline;
-  gap: var(--space-2);
-}
-
-.sourceContextTDSNote {
-  font-weight: 500;
-  color: var(--ink-muted);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.sourceContextText {
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  color: var(--ink-muted);
-  line-height: 1.75;
-}
-
-/* ─── CTA: RISING WATER FILL ──────────────────────────────────────────────── */
-.ctas {
-  display: flex;
-  align-items: center;
-  gap: var(--space-6);
-  flex-wrap: wrap;
-}
-
-/* Primary — water rises on hover */
-.ctaPrimary {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  overflow: hidden;
-  border: 2px solid var(--brand-blue, #0077C8);
-  border-radius: var(--radius-lg);
-  padding: 0.8rem 1.6rem;
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: 700;
-  text-decoration: none;
-  cursor: pointer;
-  color: var(--brand-blue, #0077C8);
-  transition:
-    color      0.35s ease,
-    box-shadow 0.35s ease;
-  letter-spacing: 0.01em;
-}
-
-/* The water fill layer */
-.ctaPrimaryFill {
-  position: absolute;
-  inset: 0;
-  background: var(--brand-blue, #0077C8);
-  transform: translateY(101%);
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: inherit;
-}
-
-.ctaPrimary:hover .ctaPrimaryFill {
-  transform: translateY(0);
-}
-
-.ctaPrimary:hover {
-  color: #FFFFFF;
-  box-shadow: 0 6px 24px rgba(0, 119, 200, 0.35);
-}
-
-.ctaPrimaryContent {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-
-/* Ghost secondary link */
-.ctaGhost {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--ink-muted);
-  text-decoration: none;
-  border-bottom: 1px solid var(--color-gray-300);
-  padding-bottom: 1px;
-  transition:
-    color        var(--transition-base),
-    border-color var(--transition-base);
-}
-
-.ctaGhost:hover {
-  color: var(--spruce-teal);
-  border-color: var(--spruce-teal);
-}
-
-/* ─── PILLARS STRIP ─────────────────────────────────────────────────────────── */
-.pillars {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  padding-top: var(--space-4);
-  border-top: 1px solid var(--color-gray-200);
-}
-
-.pillar {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
+  gap: 0.5rem;
   font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-subtle);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--brand-blue);
+}
+.sourceTDSUnit {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-muted);
 }
 
-.pillarDivider {
-  color: var(--color-gray-300);
+/* ── CTA ─────────────────────────────────────────────────────────────────── */
+.heroCTAs {
+  margin-bottom: 2.5rem;
 }
 
-/* ─── RIGHT COLUMN ────────────────────────────────────────────────────────── */
-.heroRight {
-  display: flex;
+.heroCTA {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.heroCTAText {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.875rem 1.5rem;
+  background: var(--brand-blue);
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  transition:
+    background var(--transition-fast),
+    padding var(--transition-base);
+}
+
+.heroCTAArrow {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   CLARITY COLUMN
-   ═══════════════════════════════════════════════════════════════════════════ */
-.clarityFigure {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-3);
-  width: 100%;
-  max-width: 340px;
-}
-
-.clarityCaption {
-  /* Visually hidden — screen reader only */
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
+  width: 0;
+  height: 52px;
+  background: var(--brand-blue-dark);
+  color: #FFFFFF;
   overflow: hidden;
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
+  transition:
+    width var(--transition-base),
+    background var(--transition-fast);
 }
 
-/* Output section at top */
-.clarityOutput {
+.heroCTA:hover .heroCTAText {
+  background: var(--brand-blue-dark);
+  padding-right: 1rem;
+}
+.heroCTA:hover .heroCTAArrow {
+  width: 48px;
+}
+.heroCTA:focus-visible {
+  outline: 3px solid var(--brand-blue);
+  outline-offset: 3px;
+}
+
+/* ── Discipline strip ────────────────────────────────────────────────────── */
+.heroStrip {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding-left: 58px; /* align with layer area */
+  gap: 0;
+  flex-wrap: wrap;
 }
 
-.clarityOutputReadout {
+.heroStripItem {
   display: flex;
-  align-items: baseline;
-  gap: 4px;
-}
-
-.clarityOutputVal {
+  align-items: center;
+  gap: 0;
   font-family: var(--font-mono);
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--clear-aqua);
-  letter-spacing: -0.03em;
-  line-height: 1;
-}
-
-.clarityOutputUnit {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--clear-aqua);
-  opacity: 0.6;
+  font-size: 0.6875rem;
+  font-weight: 400;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  color: var(--text-subtle);
 }
 
-.clarityOutputLabel {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(79, 182, 166, 0.5);
+.heroStripDot {
+  margin-inline: 0.625rem;
+  opacity: 0.4;
 }
 
-/* ── The Cylinder ──────────────────────────────────────────────────────────── */
-.clarityTube {
-  position: relative;
-  width: 100%;
-  height: 380px;
+/* ── Right: Column labels ────────────────────────────────────────────────── */
+.heroRight {
   display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  border-radius: 8px 8px 6px 6px;
-
-  /* Glass border */
-  border: 1.5px solid rgba(10, 30, 36, 0.12);
-
-  /* Very subtle glass background */
-  background: rgba(238, 242, 239, 0.4);
-
-  box-shadow:
-    inset 0 0 20px rgba(10, 30, 36, 0.04),
-    0 2px 40px rgba(10, 30, 36, 0.1);
-}
-
-/* Glass highlight — left edge */
-.clarityGlassHighlight {
-  position: absolute;
-  left: 6px;
-  top: 12px;
-  bottom: 12px;
-  width: 5px;
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.6) 0%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  border-radius: 3px;
-  z-index: 10;
-  pointer-events: none;
-}
-
-/* Glass edge — right shadow */
-.clarityGlassEdge {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 18px;
-  background: linear-gradient(to left, rgba(10, 30, 36, 0.06), transparent);
-  z-index: 10;
-  pointer-events: none;
-}
-
-/* Bottom turbid water zone */
-.clarityInputWater {
-  flex: 20;
-  background: linear-gradient(
-    to top,
-    rgba(166, 124, 82, 0.45) 0%,
-    rgba(166, 124, 82, 0.2)  60%,
-    rgba(166, 124, 82, 0.05) 100%
-  );
-  position: relative;
-  overflow: hidden;
-}
-
-.clarityInputLabel {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--silt-clay);
-  position: absolute;
-  bottom: var(--space-3);
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0.7;
-  white-space: nowrap;
-}
-
-/* Sediment particles in input zone */
-.particles {
-  position: absolute;
-  inset: 0;
-}
-
-.particle {
-  position: absolute;
-  border-radius: 50%;
-  background: var(--silt-clay);
-  opacity: 0;
-  animation: sedimentFloat linear infinite;
-}
-
-@keyframes sedimentFloat {
-  0%   { opacity: 0;    transform: translateY(0) scale(1); }
-  10%  { opacity: 0.45; }
-  85%  { opacity: 0.25; }
-  100% { opacity: 0;    transform: translateY(-30px) scale(0.6); }
-}
-
-/* Filter layers section */
-.clarityLayers {
-  flex: 80;
-  display: flex;
-  flex-direction: column;
+  justify-content: flex-end;
+  padding-right: 2rem;
   position: relative;
 }
 
-/* Individual filter layer */
-.clarityLayer {
+.columnLabels {
   position: relative;
+  height: 520px;
+  width: 240px;
+}
+
+.columnLabel {
+  position: absolute;
+  left: 0;
   display: flex;
   align-items: center;
-  border-top: 1px solid rgba(10, 30, 36, 0.07);
-  transition: filter 0.3s ease;
+  gap: 0.75rem;
+  opacity: 0.6;
+  transition: opacity var(--transition-base);
+}
+.columnLabel:hover {
+  opacity: 1;
 }
 
-.clarityLayer:hover {
-  filter: brightness(1.04);
+.columnLabelPrimary {
+  opacity: 0.9;
 }
 
-/* Layer shade variants */
-.clarityLayer--sediment {
-  background: linear-gradient(to right,
-    rgba(166, 124, 82, 0.18),
-    rgba(166, 124, 82, 0.08)
-  );
-}
-
-.clarityLayer--carbon {
-  background: linear-gradient(to right,
-    rgba(50, 65, 72, 0.18),
-    rgba(50, 65, 72, 0.06)
-  );
-}
-
-.clarityLayer--membrane {
-  background: linear-gradient(to right,
-    rgba(31, 111, 100, 0.2),
-    rgba(31, 111, 100, 0.08)
-  );
-}
-
-.clarityLayer--mineral {
-  background: linear-gradient(to right,
-    rgba(79, 182, 166, 0.18),
-    rgba(79, 182, 166, 0.07)
-  );
-}
-
-/* Primary layer (RO Membrane) — slightly thicker border */
-.clarityLayerPrimary {
-  border-top: 1.5px solid rgba(31, 111, 100, 0.25);
-  border-bottom: 1.5px solid rgba(31, 111, 100, 0.25);
-}
-
-/* Animated scan line across membrane layer */
-.clarityLayerScan {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(31, 111, 100, 0.12) 40%,
-    rgba(31, 111, 100, 0.22) 50%,
-    rgba(31, 111, 100, 0.12) 60%,
-    transparent 100%
-  );
-  animation: scanSweep 4s ease-in-out infinite;
-  pointer-events: none;
-}
-
-@keyframes scanSweep {
-  0%   { transform: translateX(-100%); opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { transform: translateX(100%); opacity: 0; }
-}
-
-/* Layer annotation — tick + labels on right side */
-.clarityLayerAnnotation {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding-right: var(--space-3);
-  pointer-events: none;
-}
-
-.clarityLayerTick {
-  width: 8px;
+.columnLabelTick {
+  width: 20px;
   height: 1px;
-  background: rgba(10, 30, 36, 0.2);
+  background: rgba(13, 27, 42, 0.2);
   flex-shrink: 0;
 }
-
-.clarityLayerLabel {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 100px;
+.columnLabelPrimary .columnLabelTick {
+  background: var(--brand-blue);
+  width: 28px;
 }
 
-.clarityLayerName {
+.columnLabelContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.columnLabelName {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-navy);
+}
+.columnLabelPrimary .columnLabelName {
+  color: var(--brand-blue);
+}
+
+.columnLabelSpec {
+  font-size: 0.6875rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+/* ── Output readout ──────────────────────────────────────────────────────── */
+.columnOutput {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.375rem;
+}
+
+.columnOutputVal {
+  font-family: var(--font-mono);
+  font-size: 1.75rem;
   font-weight: 700;
-  color: var(--ink);
-  letter-spacing: 0.06em;
+  color: var(--brand-teal);
   line-height: 1;
 }
 
-.clarityLayerPrimary .clarityLayerName {
-  color: var(--spruce-teal);
-}
-
-.clarityLayerSpec {
+.columnOutputUnit {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 0.6875rem;
   font-weight: 500;
-  color: rgba(10, 30, 36, 0.38);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
 }
 
-/* Rising clean-water particles (above the layers) */
-.risingParticles {
+/* ── Scroll hint ─────────────────────────────────────────────────────────── */
+.scrollHint {
   position: absolute;
-  /* Cover the top portion of the tube — above layers */
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 35%;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.risingParticle {
-  position: absolute;
-  bottom: 0;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: var(--clear-aqua);
-  opacity: 0;
-  animation: riseClean linear infinite;
-}
-
-@keyframes riseClean {
-  0%   { opacity: 0;    transform: translateY(0); }
-  15%  { opacity: 0.7; }
-  80%  { opacity: 0.3; }
-  100% { opacity: 0;    transform: translateY(-80px); }
-}
-
-/* ── Input row ──────────────────────────────────────────────────────────── */
-.clarityInputRow {
-  width: 100%;
-  padding-left: 58px;
-}
-
-.clarityInputReadout {
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: fadeIn 1s ease 2s forwards;
 }
 
-.clarityInputVal {
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--silt-clay);
-  letter-spacing: -0.02em;
+.scrollLine {
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(to bottom, transparent, rgba(13,27,42,0.25));
+  animation: waterDrop 2s ease-in-out infinite;
 }
 
-.clarityInputUnit {
+.scrollLabel {
   font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(166, 124, 82, 0.5);
+  color: var(--text-subtle);
 }
 
-.clarityNote {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: rgba(10, 30, 36, 0.28);
-  letter-spacing: 0.04em;
-  line-height: 1.5;
-  font-style: italic;
-  padding-left: 58px;
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   SCROLL CLARITY INDICATOR — fixed thin column
-   ═══════════════════════════════════════════════════════════════════════════ */
-.scrollIndicator {
-  position: fixed;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 90;
-  width: 6px;
-  height: 100px;
-  border-radius: 4px;
-  border: 1px solid rgba(10, 30, 36, 0.1);
-  background: rgba(166, 124, 82, 0.12); /* starts silt-tinted */
-  overflow: hidden;
-}
-
-/* The glass face */
-.scrollIndicatorGlass {
-  position: absolute;
-  left: 1px;
-  top: 4px;
-  bottom: 4px;
-  width: 1.5px;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 1px;
-  pointer-events: none;
-}
-
-/* Fill — rises from bottom, clears from silt-clay → clear-aqua */
-.scrollIndicatorFill {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(
-    to top,
-    var(--clear-aqua)  0%,
-    var(--spruce-teal) 50%,
-    var(--silt-clay)   100%
-  );
-  transition: height 0.15s linear;
-  border-radius: 0 0 3px 3px;
-}
-
-/* ─── HERO ENTRY ANIMATION ────────────────────────────────────────────────── */
-/* The rest of the left column also fades in (but no blur — just the headline has that) */
-.heroLeft > *:not(.headline) {
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.heroVisible .heroLeft > *:not(.headline) {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Stagger each child */
-.heroVisible .heroLeft > *:nth-child(1) { transition-delay: 0.05s; }
-.heroVisible .heroLeft > *:nth-child(2) { transition-delay: 0.15s; } /* headline handles itself */
-.heroVisible .heroLeft > *:nth-child(3) { transition-delay: 0.3s;  }
-.heroVisible .heroLeft > *:nth-child(4) { transition-delay: 0.4s;  }
-.heroVisible .heroLeft > *:nth-child(5) { transition-delay: 0.5s;  }
-.heroVisible .heroLeft > *:nth-child(6) { transition-delay: 0.6s;  }
-
-/* Right column fades in */
-.heroRight {
-  opacity: 0;
-  transform: translateX(16px);
-  transition: opacity 0.7s ease 0.25s, transform 0.7s ease 0.25s;
-}
-
-.heroVisible .heroRight {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* ─── RESPONSIVE ──────────────────────────────────────────────────────────── */
+/* ── Responsive ──────────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
-  .heroGrid {
+  .heroInner {
     grid-template-columns: 1fr;
-    min-height: auto;
-    gap: var(--space-12);
-    padding-block: clamp(2.5rem, 6vw, 4rem);
+    padding-top: calc(var(--navbar-height) + 4rem);
   }
-
   .heroRight {
-    order: -1; /* show column above text on tablet */
-    justify-content: flex-start;
-    transform: none;
-  }
-
-  .clarityFigure {
-    max-width: 100%;
-    flex-direction: row;
-    align-items: stretch;
-    flex-wrap: wrap;
-    gap: var(--space-4);
-  }
-
-  .clarityTube {
-    height: 200px;
-    flex: 1 0 280px;
-  }
-
-  .bodyText {
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 768px) {
-  .headline {
-    font-size: clamp(2.5rem, 10vw, 3.75rem);
-  }
-
-  .sourceBtns {
-    flex-direction: column;
-  }
-
-  .sourceBtn {
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    min-width: auto;
-    gap: var(--space-4);
-  }
-
-  .ctas {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .scrollIndicator {
-    display: none; /* too small on mobile to be useful */
-  }
-
-  .clarityFigure {
-    display: none; /* hide on small screens to keep hero clean */
-  }
-}
-
-@media (max-width: 480px) {
-  .pillars {
     display: none;
   }
+  .heroWordmark {
+    font-size: clamp(3.5rem, 14vw, 6rem);
+  }
 }
 
-/* ─── REDUCED MOTION ──────────────────────────────────────────────────────── */
-@media (prefers-reduced-motion: reduce) {
-  .headline {
-    filter: none !important;
-    opacity: 1 !important;
-    transition: none !important;
+@media (max-width: 640px) {
+  .heroInner {
+    padding-top: calc(var(--navbar-height-mobile) + 3rem);
+    padding-bottom: 3rem;
   }
+  .sourceBtns {
+    gap: 0.5rem;
+  }
+  .sourceBtn {
+    padding: 0.75rem 0.875rem;
+    min-width: 100px;
+  }
+  .heroWordmark {
+    font-size: clamp(3rem, 18vw, 5rem);
+  }
+  .heroTagline {
+    font-size: 1.125rem;
+  }
+}
 
-  .heroLeft > *:not(.headline),
-  .heroRight {
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .heroLeft, .heroRight {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
   }
-
-  .particle,
-  .risingParticle,
-  .clarityLayerScan,
-  .scrollIndicatorFill {
-    animation: none !important;
-    transition: none !important;
+  .scrollHint {
+    animation: none;
+    opacity: 0.5;
   }
-
-  .ctaPrimaryFill {
-    transition: none !important;
+  .scrollLine {
+    animation: none;
   }
 }
