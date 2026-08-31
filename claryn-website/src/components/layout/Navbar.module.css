@@ -18,10 +18,18 @@
 
 /* ── Transparent state (top of page) ────────────────────────────────────── */
 .navbarTop {
-  background: transparent;
+  /* Protective gradient — ensures logo/links are always visible on dark hero.
+     Fades to transparent so the hero canvas shows through cleanly. */
+  background: linear-gradient(
+    to bottom,
+    rgba(4, 10, 20, 0.75) 0%,
+    rgba(4, 10, 20, 0.25) 65%,
+    rgba(4, 10, 20, 0) 100%
+  );
   border-bottom: 1px solid transparent;
   padding-block: 1.25rem;
 }
+
 
 /* ── Frosted state (scrolled) ────────────────────────────────────────────── */
 .navbarSolid {

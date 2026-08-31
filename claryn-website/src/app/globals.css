@@ -161,14 +161,15 @@
 
 /* ─── RESET ─────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: #070E1A; }
+
 body {
   font-family: var(--font-body);
   font-size: var(--text-base);
   line-height: var(--lh-relaxed);
   color: var(--ink-text);
-  /* Clean white — filtered-paper is only applied to the hero section explicitly */
-  background: #FFFFFF;
+  /* Dark base — hero is always dark. Each section defines its own bg. */
+  background: #070E1A;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
