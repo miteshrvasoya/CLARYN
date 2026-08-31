@@ -8,10 +8,10 @@ const year = new Date().getFullYear();
 
 const socialLinks = [
   { label: 'Instagram', href: siteConfig.social.instagram, Icon: Share2 },
-  { label: 'Facebook',  href: siteConfig.social.facebook,  Icon: Globe  },
-  { label: 'YouTube',   href: siteConfig.social.youtube,   Icon: Rss    },
-  { label: 'LinkedIn',  href: siteConfig.social.linkedin,  Icon: Link2  },
-  { label: 'X',         href: siteConfig.social.x,         Icon: Share2 },
+  { label: 'Facebook', href: siteConfig.social.facebook, Icon: Globe },
+  { label: 'YouTube', href: siteConfig.social.youtube, Icon: Rss },
+  { label: 'LinkedIn', href: siteConfig.social.linkedin, Icon: Link2 },
+  { label: 'X', href: siteConfig.social.x, Icon: Share2 },
 ].filter(s => Boolean(s.href));
 
 export function Footer() {
@@ -29,15 +29,15 @@ export function Footer() {
 
         {/* Brand column */}
         <div className={styles.brandCol}>
-          <Link href="/" className={styles.logoLink} aria-label="CLARYN — Home">
+          {/* <Link href="/" className={styles.logoLink} aria-label="CLARYN — Home">
             <Image
-              src="/brand/logo/primary-brand-logo.png"
+              src="/brand/logo/PRIMARY_BRAND_LOGO_TEXT_PNG.png"
               alt="CLARYN"
               width={140}
               height={46}
               className={styles.footerLogoImage}
             />
-          </Link>
+          </Link> */}
           <p className={styles.description}>
             A precision water technology brand by Udarta Watertech Private Limited.
             If it improves water, it belongs to CLARYN.
@@ -85,43 +85,43 @@ export function Footer() {
         {/* Products */}
         <div className={styles.linkCol}>
           <p className={styles.colTitle}>Products</p>
-          <Link href="/products"                            className={styles.footerLink}>All Products</Link>
-          <Link href="/products?category=ro-membranes"     className={styles.footerLink}>RO Membranes</Link>
-          <Link href="/products?category=ro-systems"       className={styles.footerLink}>RO Systems</Link>
-          <Link href="/products?category=filters"          className={styles.footerLink}>Water Filters</Link>
-          <Link href="/find-your-solution"                 className={styles.footerLink}>Find Your Solution</Link>
-          <Link href="/register-product"                   className={styles.footerLink}>Register Product</Link>
+          <Link href="/products" className={styles.footerLink}>All Products</Link>
+          <Link href="/products?category=ro-membranes" className={styles.footerLink}>RO Membranes</Link>
+          <Link href="/products?category=ro-systems" className={styles.footerLink}>RO Systems</Link>
+          <Link href="/products?category=filters" className={styles.footerLink}>Water Filters</Link>
+          <Link href="/find-your-solution" className={styles.footerLink}>Find Your Solution</Link>
+          <Link href="/register-product" className={styles.footerLink}>Register Product</Link>
         </div>
 
         {/* Knowledge */}
         <div className={styles.linkCol}>
           <p className={styles.colTitle}>Knowledge</p>
-          <Link href="/learn"                              className={styles.footerLink}>Water Knowledge Hub</Link>
-          <Link href="/learn?category=water-quality"       className={styles.footerLink}>Water Quality</Link>
-          <Link href="/learn?category=ro-technology"       className={styles.footerLink}>RO Technology</Link>
-          <Link href="/learn?category=tds-hard-water"      className={styles.footerLink}>TDS &amp; Hard Water</Link>
-          <Link href="/learn?category=maintenance"         className={styles.footerLink}>Maintenance</Link>
-          <Link href="/blog"                               className={styles.footerLink}>Blog</Link>
+          <Link href="/learn" className={styles.footerLink}>Water Knowledge Hub</Link>
+          <Link href="/learn?category=water-quality" className={styles.footerLink}>Water Quality</Link>
+          <Link href="/learn?category=ro-technology" className={styles.footerLink}>RO Technology</Link>
+          <Link href="/learn?category=tds-hard-water" className={styles.footerLink}>TDS &amp; Hard Water</Link>
+          <Link href="/learn?category=maintenance" className={styles.footerLink}>Maintenance</Link>
+          <Link href="/blog" className={styles.footerLink}>Blog</Link>
         </div>
 
         {/* Support */}
         <div className={styles.linkCol}>
           <p className={styles.colTitle}>Support</p>
-          <Link href="/support"                            className={styles.footerLink}>Support Center</Link>
-          <Link href="/faq"                                className={styles.footerLink}>FAQ</Link>
-          <Link href="/warranty"                           className={styles.footerLink}>Warranty</Link>
-          <Link href="/installation"                       className={styles.footerLink}>Installation</Link>
-          <Link href="/contact"                            className={styles.footerLink}>Contact Us</Link>
+          <Link href="/support" className={styles.footerLink}>Support Center</Link>
+          <Link href="/faq" className={styles.footerLink}>FAQ</Link>
+          <Link href="/warranty" className={styles.footerLink}>Warranty</Link>
+          <Link href="/installation" className={styles.footerLink}>Installation</Link>
+          <Link href="/contact" className={styles.footerLink}>Contact Us</Link>
         </div>
 
         {/* Company */}
         <div className={styles.linkCol}>
           <p className={styles.colTitle}>Company</p>
-          <Link href="/about"                              className={styles.footerLink}>About CLARYN</Link>
-          <Link href="/company"                            className={styles.footerLink}>Udarta Watertech</Link>
-          <Link href="/resources"                          className={styles.footerLink}>Resources</Link>
-          <Link href="/privacy"                            className={styles.footerLink}>Privacy Policy</Link>
-          <Link href="/terms"                              className={styles.footerLink}>Terms of Use</Link>
+          <Link href="/about" className={styles.footerLink}>About CLARYN</Link>
+          <Link href="/company" className={styles.footerLink}>Udarta Watertech</Link>
+          <Link href="/resources" className={styles.footerLink}>Resources</Link>
+          <Link href="/privacy" className={styles.footerLink}>Privacy Policy</Link>
+          <Link href="/terms" className={styles.footerLink}>Terms of Use</Link>
         </div>
       </div>
 
@@ -131,8 +131,8 @@ export function Footer() {
           &copy; {year} Udarta Watertech Private Limited. All rights reserved. CLARYN™ is a registered trademark.
         </p>
         <div className={styles.legalLinks}>
-          <Link href="/privacy"     className={styles.legalLink}>Privacy Policy</Link>
-          <Link href="/terms"       className={styles.legalLink}>Terms of Use</Link>
+          <Link href="/privacy" className={styles.legalLink}>Privacy Policy</Link>
+          <Link href="/terms" className={styles.legalLink}>Terms of Use</Link>
           <Link href="/sitemap.xml" className={styles.legalLink}>Sitemap</Link>
         </div>
       </div>

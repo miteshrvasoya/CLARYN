@@ -180,20 +180,45 @@
   color: #FFFFFF;
 }
 
-/* ── Responsive ──────────────────────────────────────────────────────────── */
+/* ── Responsive ────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .scrollStory {
     grid-template-columns: 1fr;
   }
   .sticky {
     position: relative;
-    height: 40vw;
-    min-height: 240px;
+    height: 50vw;
+    min-height: 200px;
+    max-height: 300px;
     border-right: none;
     border-bottom: 1px solid rgba(255,255,255,0.05);
   }
   .stickyNum {
-    font-size: 3.5rem;
+    font-size: 3rem;
+  }
+  .clarityTrack {
+    bottom: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+  }
+  .stagesIntro {
+    padding: 2.5rem 1.5rem 2rem;
+  }
+  .stage {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sticky {
+    height: 44vw;
+    min-height: 160px;
+  }
+  .stickyNum {
+    font-size: 2.5rem;
+  }
+  .stage {
+    padding: 1.75rem 1.25rem;
   }
 }
 

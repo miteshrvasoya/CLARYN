@@ -8,15 +8,15 @@ import { siteConfig } from '@/lib/site-config';
 import styles from './Navbar.module.css';
 
 type NavChild = { label: string; href: string; tag?: string };
-type NavItem  = { label: string; href: string; children?: readonly NavChild[] };
+type NavItem = { label: string; href: string; children?: readonly NavChild[] };
 
 export function Navbar() {
-  const pathname                    = usePathname();
-  const [scrolled,  setScrolled]   = useState(false);
-  const [menuOpen,  setMenuOpen]   = useState(false);
-  const [activeMenu,setActiveMenu] = useState<string | null>(null);
-  const [mobileOpen,setMobileOpen] = useState<string | null>(null);
-  const innerRef                   = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState<string | null>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
 
   /* Scroll detection */
   useEffect(() => {
@@ -73,7 +73,7 @@ export function Navbar() {
           {/* ── LOGO ───────────────────────────────────────────────────── */}
           <Link href="/" className={styles.logo} aria-label="CLARYN — Home">
             <Image
-              src="/brand/logo/primary-brand-logo.png"
+              src="/brand/logo/PRIMARY_BRAND_LOGO_TEXT_PNG.png"
               alt="CLARYN"
               width={140}
               height={46}
@@ -86,8 +86,8 @@ export function Navbar() {
           <nav className={styles.desktopNav} aria-label="Primary navigation">
             {navItems.map(item => {
               const hasMenu = !!item.children?.length;
-              const open    = activeMenu === item.label;
-              const active  = isActive(item.href);
+              const open = activeMenu === item.label;
+              const active = isActive(item.href);
 
               return (
                 <div key={item.label} className={styles.navGroup}>
@@ -208,7 +208,7 @@ export function Navbar() {
 
         <div className={styles.drawerLinks}>
           {navItems.map((item, idx) => {
-            const open   = mobileOpen === item.label;
+            const open = mobileOpen === item.label;
             const active = isActive(item.href);
 
             return (

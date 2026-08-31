@@ -53,15 +53,14 @@
 }
 .logo:hover { opacity: 0.82; }
 
+/* Logo always shows as white — hero is dark, scrolled state is also dark */
 .logoImage {
   height: 36px;
   width: auto;
   display: block;
-}
-
-/* On frosted background, invert logo for white version */
-.navbarSolid .logoImage {
   filter: brightness(0) invert(1);
+  opacity: 0.92;
+  transition: opacity var(--transition-fast);
 }
 
 /* ── Desktop nav ─────────────────────────────────────────────────────────── */
@@ -78,6 +77,7 @@
   position: relative;
 }
 
+/* Default: white text — hero is always dark */
 .navLink {
   display: inline-flex;
   align-items: center;
@@ -87,7 +87,7 @@
   font-size: 0.875rem;
   font-weight: 500;
   letter-spacing: 0.01em;
-  color: rgba(13, 27, 42, 0.75);
+  color: rgba(255, 255, 255, 0.65);
   background: none;
   border: none;
   cursor: pointer;
@@ -102,14 +102,14 @@
 }
 
 .navLink:hover {
-  color: var(--brand-navy);
+  color: #FFFFFF;
 }
 .navbarSolid .navLink:hover {
   color: #FFFFFF;
 }
 
 .navLinkActive {
-  color: var(--brand-blue) !important;
+  color: #5bbfff !important;
   font-weight: 600;
 }
 .navbarSolid .navLinkActive {
@@ -117,7 +117,7 @@
 }
 
 .navLinkOpen {
-  color: var(--brand-blue) !important;
+  color: #FFFFFF !important;
 }
 .navbarSolid .navLinkOpen {
   color: #FFFFFF !important;
@@ -144,17 +144,17 @@
   border-radius: 2px;
 }
 
-/* ── Desktop Dropdown ────────────────────────────────────────────────────── */
+/* Dropdown — dark surface at top of page too (hero is dark) */
 .dropdown {
   position: absolute;
   top: calc(100% + 12px);
   left: 50%;
   transform: translateX(-50%) translateY(-6px);
   min-width: 220px;
-  background: rgba(255, 255, 255, 0.98);
-  border: 1px solid rgba(13, 27, 42, 0.08);
+  background: rgba(8, 18, 34, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 12px;
-  box-shadow: 0 8px 40px rgba(13, 27, 42, 0.14), 0 2px 8px rgba(13, 27, 42, 0.06);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
   padding: 0.5rem;
   opacity: 0;
   pointer-events: none;
@@ -169,7 +169,6 @@
   transform: translateX(-50%) translateY(0);
 }
 
-/* On dark nav, darker dropdown */
 .navbarSolid .dropdown {
   background: rgba(10, 20, 35, 0.97);
   border-color: rgba(255, 255, 255, 0.09);
@@ -183,9 +182,9 @@
   transform: translateX(-50%) rotate(45deg);
   width: 10px;
   height: 10px;
-  background: rgba(255, 255, 255, 0.98);
-  border-top: 1px solid rgba(13, 27, 42, 0.08);
-  border-left: 1px solid rgba(13, 27, 42, 0.08);
+  background: rgba(8, 18, 34, 0.96);
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  border-left: 1px solid rgba(255, 255, 255, 0.09);
 }
 .navbarSolid .dropdownArrow {
   background: rgba(10, 20, 35, 0.97);
@@ -205,15 +204,15 @@
   padding: 0.6rem 0.875rem;
   font-size: 0.8125rem;
   font-weight: 500;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.65);
   text-decoration: none;
   border-radius: 8px;
   transition: background var(--transition-fast), color var(--transition-fast);
   animation: fadeUp 0.2s ease backwards;
 }
 .dropdownLink:hover {
-  background: var(--color-blue-50);
-  color: var(--brand-blue);
+  background: rgba(0, 119, 200, 0.15);
+  color: #FFFFFF;
 }
 .navbarSolid .dropdownLink {
   color: rgba(255, 255, 255, 0.7);
@@ -223,7 +222,7 @@
   color: #FFFFFF;
 }
 .dropdownLinkActive {
-  color: var(--brand-blue);
+  color: #5bbfff;
   font-weight: 600;
 }
 .navbarSolid .dropdownLinkActive {
@@ -258,15 +257,16 @@
   flex-shrink: 0;
 }
 
+/* Register link — white on dark hero */
 .actionText {
   font-size: 0.8125rem;
   font-weight: 500;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.5);
   text-decoration: none;
   transition: color var(--transition-fast);
   white-space: nowrap;
 }
-.actionText:hover { color: var(--brand-navy); }
+.actionText:hover { color: rgba(255,255,255,0.88); }
 .navbarSolid .actionText {
   color: rgba(255,255,255,0.5);
 }
@@ -319,23 +319,23 @@
   cursor: pointer;
   transition: background var(--transition-fast);
 }
-.hamburger:hover {
-  background: rgba(0,0,0,0.05);
-}
-.navbarSolid .hamburger:hover {
-  background: rgba(255,255,255,0.08);
-}
-
+/* Hamburger bars — white on dark hero */
 .bar {
   display: block;
   height: 1.5px;
-  background: var(--brand-navy);
+  background: rgba(255, 255, 255, 0.85);
   border-radius: 2px;
   transition: transform var(--transition-base), opacity var(--transition-fast);
   transform-origin: center;
 }
 .navbarSolid .bar {
   background: #FFFFFF;
+}
+.hamburger:hover {
+  background: rgba(255,255,255,0.08);
+}
+.navbarSolid .hamburger:hover {
+  background: rgba(255,255,255,0.08);
 }
 
 .hamburgerOpen .bar:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
@@ -545,4 +545,25 @@
 @media (max-width: 768px) {
   .navbarTop  { padding-block: 1rem; }
   .navbarSolid { padding-block: 0.75rem; }
+}
+
+/* Small phones: bigger touch targets */
+@media (max-width: 480px) {
+  .inner {
+    padding-inline: 1rem;
+  }
+  .drawerLink {
+    padding: 1rem 0.875rem;
+    font-size: 1.0625rem;
+  }
+  .drawerSubLink {
+    padding: 0.75rem 0.875rem;
+    font-size: 0.9375rem;
+  }
+  .drawerActions {
+    padding: 1.25rem 1rem;
+  }
+  .mobileRegister {
+    padding: 0.875rem;
+  }
 }

@@ -187,13 +187,31 @@
   color: rgba(255,255,255,0.6);
 }
 
-/* ── Responsive ──────────────────────────────────────────────────────────── */
+/* ── Responsive ────────────────────────────────────────────────────── */
 @media (max-width: 1100px) {
   .footerGrid {
     grid-template-columns: 1fr 1fr 1fr;
+    gap: 2.5rem;
   }
   .brandCol {
     grid-column: span 3;
+  }
+  .description {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .footerGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem 2.5rem;
+    padding-inline: 1.5rem;
+  }
+  .brandCol {
+    grid-column: span 2;
+  }
+  .footerBrand {
+    padding-inline: 1.5rem;
   }
 }
 
@@ -201,13 +219,45 @@
   .footerGrid {
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
+    padding: 2rem 1.25rem;
   }
   .brandCol {
     grid-column: span 2;
+    gap: 0.875rem;
+  }
+  .description {
+    font-size: 0.8125rem;
+  }
+  .contactItem {
+    font-size: 0.8125rem;
   }
   .bottom {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.75rem;
+    padding-inline: 1.25rem;
+  }
+  .legalLinks {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .copyright {
+    font-size: 0.6875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footerGrid {
+    grid-template-columns: 1fr;
+  }
+  .brandCol {
+    grid-column: span 1;
+  }
+  .footerWordmark {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+  }
+  .socialRow {
+    flex-wrap: wrap;
+    gap: 0.375rem;
   }
 }

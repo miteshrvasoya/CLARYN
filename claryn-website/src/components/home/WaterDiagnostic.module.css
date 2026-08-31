@@ -476,6 +476,26 @@
 }
 
 /* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .diagnostic {
+    padding: 2rem 1.25rem 2.5rem;
+  }
+  .stepHeader {
+    margin-bottom: 1.5rem;
+  }
+  .stepOptions {
+    gap: 0.625rem;
+    flex-direction: column;
+  }
+  .optionBtn {
+    width: 100%;
+    min-width: unset;
+    padding: 1rem 1.25rem;
+    text-align: left;
+    justify-content: flex-start;
+  }
+}
+
 @media (max-width: 640px) {
   .tdsLayout {
     grid-template-columns: 1fr;
@@ -488,12 +508,17 @@
   .resultGrid {
     grid-template-columns: 1fr;
   }
-  .stepOptions {
-    gap: 0.5rem;
+  .resultCard {
+    padding: 1.25rem;
   }
-  .optionBtn {
-    min-width: 100px;
-    padding: 0.75rem 1rem;
+  .navRow {
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .backBtn,
+  .nextBtn {
+    flex: 1 1 auto;
+    justify-content: center;
   }
 }
 

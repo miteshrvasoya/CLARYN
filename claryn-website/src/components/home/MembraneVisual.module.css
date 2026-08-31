@@ -264,7 +264,7 @@
   margin-top: 0.5rem;
 }
 
-/* ── Responsive ──────────────────────────────────────────────────────────── */
+/* ── Responsive ────────────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .membraneInner {
     grid-template-columns: 1fr;
@@ -272,6 +272,44 @@
   }
   .membraneDiagramInner {
     max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .membraneSection {
+    padding: clamp(3.5rem, 8vw, 6rem) 0;
+  }
+  .membraneHeading {
+    font-size: clamp(1.75rem, 6vw, 2.75rem);
+  }
+  .layerInfo {
+    padding: 1rem;
+    min-height: 70px;
+    gap: 0.75rem;
+  }
+  .layerInfoNum {
+    font-size: 1.25rem;
+  }
+  .layer {
+    padding: 0.875rem 1rem;
+  }
+  .membraneSpecNum {
+    font-size: 2.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .membraneInner {
+    padding-inline: 1.25rem;
+  }
+  .membraneHeading {
+    font-size: clamp(1.625rem, 7vw, 2.5rem);
+  }
+  .flowLabel {
+    font-size: 0.5625rem;
+  }
+  .layerAnnotation {
+    display: none; /* too cramped on small phones */
   }
 }
 
