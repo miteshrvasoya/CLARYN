@@ -139,7 +139,7 @@
   flex-direction: column;
   align-items: stretch;
   width: 100%;
-  max-width: 420px;
+  max-width: 480px;
   gap: 0.5rem;
 }
 
@@ -148,6 +148,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  width: 100%;
 }
 
 .flowLine {
@@ -173,24 +174,25 @@
 .layers {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
   position: relative;
+  margin: 1.5rem 0;
 }
 
 .layer {
   position: relative;
   display: flex;
   align-items: center;
-  padding: 0.75rem 1rem;
-  border-radius: 4px;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
   cursor: pointer;
   outline: none;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.04);
-  transition:
-    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 3px solid rgba(0,0,0,0.4);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  /* Transitions handled by inline TSX */
 }
 
 .layerPrimary {
@@ -223,33 +225,41 @@
 
 .layerNum {
   font-family: var(--font-mono);
-  font-size: 0.5625rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   color: rgba(255,255,255,0.25);
   position: relative;
   z-index: 1;
-  margin-right: auto;
+  transition: color 0.3s ease;
+}
+.layerHovered .layerNum {
+  color: rgba(255,255,255,0.6);
 }
 .layerPrimary .layerNum {
-  color: rgba(0, 119, 200, 0.6);
+  color: rgba(0, 119, 200, 0.7);
 }
 
 /* Hover annotation */
 .layerAnnotation {
-  position: absolute;
-  right: 1rem;
+  position: relative;
   z-index: 1;
-  animation: fadeIn 0.15s ease both;
+  text-align: right;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.layerHovered .layerAnnotation {
+  opacity: 1;
 }
 
 .layerAnnotationName {
   font-family: var(--font-mono);
-  font-size: 0.625rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.9);
 }
 
 /* ── Hint ────────────────────────────────────────────────────────────────── */

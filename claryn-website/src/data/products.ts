@@ -104,59 +104,57 @@ export const products: Product[] = [
   },
 
   {
-    id:          'claryn-100-gpd-5layer',
-    slug:        'claryn-100-gpd-5-layer-ro-membrane',
-    name:        'CLARYN 100 GPD 5-Layer RO Membrane',
-    model:       'CLR-RO-100-5L',
+    id:          'claryn-100-gpd-15layer',
+    slug:        'claryn-100-gpd-ro-membrane',
+    name:        'CLARYN 100 GPD RO Membrane',
+    model:       'UW-CLPR-25-15-100-21',
     category:    'ro-membranes',
     subcategory: 'residential-high-capacity',
     status:      'active',
 
     shortDescription:
-      'High-capacity 100 GPD 5-layer TFC RO membrane for larger households and high-demand applications. Up to 98% salt rejection. Ideal for borewell water and high-TDS conditions.',
+      'High-Flow RO Membrane for Domestic Water Purifiers. 15-layer polyamide membrane designed for dependable purification in high-TDS water conditions up to 4000 ppm.',
 
     longDescription:
-      'The CLARYN 100 GPD 5-Layer RO Membrane delivers higher daily purification output for larger families, high-consumption households, or high-TDS borewell water conditions where a standard 75 GPD membrane may not provide sufficient throughput. Built with the same 5-layer TFC Polyamide architecture as the CLARYN 75 GPD, it maintains up to 98% salt rejection while producing more purified water per day.',
+      'Upgrade your compatible domestic RO water purifier with the CLARYN 100 GPD RO Membrane. Designed for dependable purification in high-TDS water conditions, this 15-layer polyamide membrane helps reduce dissolved salts and impurities while supporting consistent purified-water flow. Replacing an ageing membrane can help restore purifier performance, improve flow, and support effective RO filtration.',
 
     images: ['/brand/product-placeholder.png'],
 
     specs: {
       gpd:                  100,
-      membraneLayers:       5,
-      maxTDS:               2000,
-      saltRejectionPercent: 98,
-      membraneMaterial:     'Thin Film Composite (TFC) Polyamide',
+      membraneLayers:       15,
+      maxTDS:               4000,
+      saltRejectionPercent: 99,
+      membraneMaterial:     'Polyamide',
       operatingPressure:    '40–80 PSI (recommended)',
       operatingTemperature: '4°C – 45°C',
-      dimensions:           null, // [SPEC TO BE CONFIRMED]
-      weight:               null, // [SPEC TO BE CONFIRMED]
+      dimensions:           '5.5 x 5.5 x 28 cm',
+      weight:               '270 g',
       flowRate:             null, // [SPEC TO BE CONFIRMED]
-      compatibility:        ['All standard 100 GPD domestic RO housings', 'Most major Indian RO brands with 100 GPD systems'],
+      compatibility:        ['Suitable as a replacement membrane for most compatible domestic RO water purifiers'],
       warrantyPeriod:       '12 months',
     },
 
     benefits: [
-      '100 GPD output — 33% more daily purified water than a 75 GPD membrane',
-      'Up to 98% salt rejection for consistent, high-quality purification',
-      '5-layer TFC construction for durability and long service life',
-      'Designed for high-TDS borewell water and large-family use',
-      '12-month manufacturer warranty included',
-      'Suitable for 6+ member households or high daily consumption',
+      '100 GPD high-flow performance for efficient purified-water output',
+      'Designed for input water conditions up to 4000 ppm TDS',
+      'Up to 99% salt rejection under suitable operating conditions',
+      '15-layer membrane construction for consistent filtration performance',
+      'Durable polyamide material for dependable membrane performance',
+      'Easy replacement in compatible membrane housings',
     ],
 
     applications: [
-      'Large family residential RO systems (6+ members)',
-      'High daily water demand households',
-      'Borewell or high-TDS water sources',
-      'Small commercial applications',
-      'Replacement for 100 GPD systems',
+      'Domestic RO water purifier membrane replacement',
+      'Areas with hard or high-TDS water',
+      'Improving purifier output flow after an old membrane has worn out',
+      'Users seeking a 100 GPD high-flow membrane for compatible systems',
     ],
 
     suitableFor: [
       'Larger families with higher daily water consumption',
-      'Borewell water with TDS above 800 ppm',
+      'High-TDS water conditions (up to 4000 ppm)',
       'Homes where 75 GPD flow is insufficient',
-      'Small offices and commercial kitchens',
     ],
 
     installationGuideSlug: 'ro-membrane-installation',
@@ -173,30 +171,19 @@ export const products: Product[] = [
     marketplaceLinks: [
       {
         id:              'ml-100-amazon',
-        productId:       'claryn-100-gpd-5layer',
+        productId:       'claryn-100-gpd-15layer',
         marketplaceName: 'Amazon India',
-        url:             'https://www.amazon.in/dp/[ASIN-TO-BE-PROVIDED]',
+        url:             'https://www.amazon.in/dp/B0H7BHHLP2',
         region:          'IN',
         availability:    'in_stock',
         displayOrder:    1,
-        ctaLabel:        'Buy on Amazon',
+        ctaLabel:        'Buy on Amazon.in',
         isActive:        true,
-      },
-      {
-        id:              'ml-100-flipkart',
-        productId:       'claryn-100-gpd-5layer',
-        marketplaceName: 'Flipkart',
-        url:             'https://www.flipkart.com/[URL-TO-BE-PROVIDED]',
-        region:          'IN',
-        availability:    'in_stock',
-        displayOrder:    2,
-        ctaLabel:        'Buy on Flipkart',
-        isActive:        true,
-      },
+      }
     ],
 
-    seoTitle:       'CLARYN 100 GPD 5-Layer RO Membrane | CLR-RO-100-5L | High Capacity',
-    seoDescription: 'Buy CLARYN 100 GPD 5-Layer TFC RO Membrane (CLR-RO-100-5L). High-capacity membrane for large families and borewell water. 98% salt rejection. 12-month warranty.',
+    seoTitle:       'CLARYN 100 GPD RO Membrane | 15-Layer | Up to 4000 ppm',
+    seoDescription: 'Upgrade your compatible domestic RO water purifier with the CLARYN 100 GPD RO Membrane. 15-layer polyamide membrane for high-TDS up to 4000 ppm. Buy on Amazon.in.',
   },
 ];
 

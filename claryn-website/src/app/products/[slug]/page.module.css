@@ -1,0 +1,355 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   PRODUCT DESCRIPTION PAGE (PDP) — UI/UX Overhaul
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Hero ────────────────────────────────────────────────────────────────── */
+.hero {
+  background: var(--brand-navy);
+  padding-top: calc(var(--navbar-height) + clamp(2rem, 4vw, 3rem));
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.breadcrumb a {
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.2s ease;
+}
+.breadcrumb a:hover {
+  color: var(--color-white);
+}
+
+.breadcrumbSeparator {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.breadcrumbCurrent {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.heroModel {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--brand-blue-light);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.heroTitle {
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+}
+
+.heroDesc {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  max-width: 540px;
+}
+
+/* Hero Key Specs Grid */
+.heroSpecsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.heroSpecItem {
+  text-align: center;
+}
+
+.heroSpecValue {
+  font-family: var(--font-secondary);
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-white);
+  line-height: 1;
+}
+
+.heroSpecLabel {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.06em;
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.heroActions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ── Content Layout ──────────────────────────────────────────────────────── */
+.contentSection {
+  padding-block: clamp(3rem, 6vw, 5rem);
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mainColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+/* ── Content Blocks ──────────────────────────────────────────────────────── */
+.blockTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--brand-navy);
+  margin-bottom: 1.5rem;
+}
+
+/* Benefits & Suitable For lists */
+.checkList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.checkListItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  color: var(--color-gray-700);
+  line-height: 1.6;
+  font-size: 1.0625rem;
+  background: var(--color-gray-50);
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-gray-200);
+}
+
+.checkListItemIcon {
+  flex-shrink: 0;
+  color: var(--brand-blue);
+  margin-top: 2px;
+}
+
+/* Applications tags */
+.tagsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.tag {
+  padding: 0.5rem 1rem;
+  background: var(--color-blue-50);
+  color: var(--brand-blue-dark);
+  border-radius: 99px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Spec Table */
+.specTableWrapper {
+  border: 1px solid var(--color-gray-200);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.specTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.specTable th {
+  background: var(--color-gray-50);
+  color: var(--color-gray-500);
+  text-align: left;
+  padding: 1rem 1.5rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.specTable td {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--color-gray-200);
+  font-size: 0.9375rem;
+}
+
+.specTable tr:last-child td {
+  border-bottom: none;
+}
+
+.specTableLabel {
+  color: var(--color-gray-500);
+  font-weight: 600;
+  width: 35%;
+}
+
+.specTableValue {
+  color: var(--brand-navy);
+  font-weight: 500;
+}
+
+/* FAQs */
+.faqList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faqCard {
+  border: 1px solid var(--color-gray-200);
+  border-radius: 16px;
+  padding: 1.5rem;
+  background: var(--color-white);
+}
+
+.faqQuestion {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--brand-navy);
+  margin-bottom: 0.75rem;
+}
+
+.faqAnswer {
+  font-size: 0.9375rem;
+  color: var(--color-gray-600);
+  line-height: 1.7;
+}
+
+/* Downloads */
+.downloadList {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ── Sticky Sidebar ──────────────────────────────────────────────────────── */
+.sidebar {
+  position: sticky;
+  top: calc(var(--navbar-height) + 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.purchaseCard {
+  background: var(--brand-navy);
+  border-radius: 20px;
+  padding: 2rem;
+  color: var(--color-white);
+  box-shadow: 0 20px 40px rgba(13, 27, 42, 0.15);
+}
+
+.purchaseCardTitle {
+  color: var(--color-white);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.purchaseOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.amazonBtn {
+  background: #FF9900; /* Amazon Yellow/Orange for visual pop */
+  color: #111111;
+  border-color: #FF9900;
+  font-weight: 700;
+  justify-content: center;
+}
+.amazonBtn:hover {
+  background: #E38800;
+  border-color: #E38800;
+  color: #111111;
+}
+
+.warrantyNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.warrantyNoteIcon {
+  color: var(--color-teal);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.warrantyNoteText {
+  font-size: 0.8125rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+}
+
+.sidebarWidget {
+  border: 1px solid var(--color-gray-200);
+  border-radius: 20px;
+  padding: 1.5rem;
+  background: var(--color-white);
+}
+
+.sidebarWidgetTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--brand-navy);
+  margin-bottom: 0.5rem;
+}
+
+.sidebarWidgetDesc {
+  font-size: 0.875rem;
+  color: var(--color-gray-600);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
