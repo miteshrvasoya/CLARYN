@@ -36,21 +36,21 @@ const STEPS: Steps = {
   'size-municipal-low': {
     q: 'How many people in your household?',
     answers: [
-      { label: 'Up to 5 people', next: null, productId: 'claryn-75-gpd-5layer' },
+      { label: 'Up to 5 people', next: null, productId: 'claryn-100-gpd-2500tds' },
       { label: '6 or more people', next: null, productId: 'claryn-100-gpd-5layer' },
     ],
   },
   'size-municipal-mid': {
     q: 'How many people in your household?',
     answers: [
-      { label: 'Up to 5 people', next: null, productId: 'claryn-75-gpd-5layer' },
+      { label: 'Up to 5 people', next: null, productId: 'claryn-100-gpd-2500tds' },
       { label: '6 or more people', next: null, productId: 'claryn-100-gpd-5layer' },
     ],
   },
   'size-borewell-low': {
     q: 'How many people in your household?',
     answers: [
-      { label: 'Up to 5 people', next: null, productId: 'claryn-75-gpd-5layer' },
+      { label: 'Up to 5 people', next: null, productId: 'claryn-100-gpd-2500tds' },
       { label: '6 or more people', next: null, productId: 'claryn-100-gpd-5layer' },
     ],
   },
@@ -63,8 +63,8 @@ const STEPS: Steps = {
   goal: {
     q: 'What is your main goal?',
     answers: [
-      { label: 'Replace an existing membrane', next: null, productId: 'claryn-75-gpd-5layer' },
-      { label: 'Upgrade to a better membrane', next: null, productId: 'claryn-75-gpd-5layer' },
+      { label: 'Replace an existing membrane', next: null, productId: 'claryn-100-gpd-2500tds' },
+      { label: 'Upgrade to a better membrane', next: null, productId: 'claryn-100-gpd-2500tds' },
       { label: 'Learn more about water quality', next: 'learn' },
     ],
   },

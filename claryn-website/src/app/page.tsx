@@ -179,24 +179,33 @@ export default function HomePage() {
                 <article key={product.id} className={styles.productItem}>
                   {/* Visual panel */}
                   <div className={styles.productVisual}>
-                    <div className={styles.productVisualInner}>
-                      <span className={styles.productCategory}>RO Membrane</span>
-                      <div className={styles.productGPD}>
-                        <span className={styles.productGPDNum}>{product.specs.gpd}</span>
-                        <span className={styles.productGPDUnit}>GPD</span>
+                    {product.images?.[0] && product.images[0] !== '/brand/product-placeholder.png' ? (
+                      <div className={styles.productImageWrapper}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={product.images[0]} alt={product.name} className={styles.productImage} />
                       </div>
-                      <span className={styles.productLayers}>{product.specs.membraneLayers}-Layer TFC Polyamide</span>
-                    </div>
-                    {/* Animated flow lines */}
-                    <div className={styles.productLines} aria-hidden>
-                      {[...Array(6)].map((_, i) => (
-                        <div
-                          key={i}
-                          className={styles.productLine}
-                          style={{ top: `${16 + i * 13}%`, animationDelay: `${i * 0.22}s` }}
-                        />
-                      ))}
-                    </div>
+                    ) : (
+                      <>
+                        <div className={styles.productVisualInner}>
+                          <span className={styles.productCategory}>RO Membrane</span>
+                          <div className={styles.productGPD}>
+                            <span className={styles.productGPDNum}>{product.specs.gpd}</span>
+                            <span className={styles.productGPDUnit}>GPD</span>
+                          </div>
+                          <span className={styles.productLayers}>{product.specs.membraneLayers}-Layer TFC Polyamide</span>
+                        </div>
+                        {/* Animated flow lines */}
+                        <div className={styles.productLines} aria-hidden>
+                          {[...Array(6)].map((_, i) => (
+                            <div
+                              key={i}
+                              className={styles.productLine}
+                              style={{ top: `${16 + i * 13}%`, animationDelay: `${i * 0.22}s` }}
+                            />
+                          ))}
+                        </div>
+                      </>
+                    )}
                   </div>
 
                   {/* Content panel */}

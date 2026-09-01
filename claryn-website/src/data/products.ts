@@ -6,111 +6,101 @@ import type { Product } from '@/types';
 
 export const products: Product[] = [
   {
-    id:          'claryn-75-gpd-5layer',
-    slug:        'claryn-75-gpd-5-layer-ro-membrane',
-    name:        'CLARYN 75 GPD 5-Layer RO Membrane',
-    model:       'CLR-RO-75-5L',
-    category:    'ro-membranes',
+    id: 'claryn-100-gpd-2500tds',
+    slug: 'claryn-100-gpd-2500tds-ro-membrane',
+    name: 'CLARYN 100 GPD RO Membrane (2500 TDS)',
+    model: 'CLR-RO-100-15L-2500',
+    category: 'ro-membranes',
     subcategory: 'residential',
-    status:      'active',
+    status: 'active',
 
     shortDescription:
-      'High-performance 75 GPD Thin Film Composite RO membrane with 5-layer construction. Up to 98% salt rejection. Compatible with all standard domestic RO systems.',
+      '15-Layer High-Performance Membrane for Domestic RO Water Purifiers. Helps reduce dissolved salts and impurities from input water up to 2500 TDS.',
 
     longDescription:
-      'The CLARYN 75 GPD 5-Layer RO Membrane is engineered for India\'s diverse water conditions — from municipal supply to borewell water. Its Thin Film Composite (TFC) Polyamide construction delivers consistent purification performance with a rated salt rejection of up to 98%, making it suitable for feed water TDS up to 2000 ppm. The 5-layer membrane architecture provides enhanced structural integrity and longer service life compared to 3-layer alternatives.',
+      'Bring consistent RO purification performance to your compatible water purifier with the CLARYN 100 GPD RO Membrane. Designed for domestic RO systems, it helps reduce dissolved salts and impurities from input water while supporting steady purified-water flow. Suitable for input water up to 2500 TDS, this 15-layer polyamide membrane is an effective replacement option for compatible residential RO purifiers.',
 
-    images: ['/brand/product-placeholder.png'],
+    images: [
+      'https://m.media-amazon.com/images/I/51RjdlRnyPL._SL1500_.jpg',
+      'https://m.media-amazon.com/images/I/61LWxPC6bGL._SL1500_.jpg',
+      'https://m.media-amazon.com/images/I/71lQzbUbb7L._SL1500_.jpg',
+      'https://m.media-amazon.com/images/I/61hj+gAx+6L._SL1500_.jpg',
+      'https://m.media-amazon.com/images/I/71teKNi6uGL._SL1254_.jpg',
+      'https://m.media-amazon.com/images/I/71dCrCv+NWL._SL1500_.jpg',
+      'https://m.media-amazon.com/images/I/71rfLYGgkVL._SL1254_.jpg',
+    ],
 
     specs: {
-      gpd:                  75,
-      membraneLayers:       5,
-      maxTDS:               2000,
-      saltRejectionPercent: 98,
-      membraneMaterial:     'Thin Film Composite (TFC) Polyamide',
-      operatingPressure:    '40–80 PSI (recommended)',
+      gpd: 100,
+      membraneLayers: 15,
+      maxTDS: 2500,
+      saltRejectionPercent: 99,
+      membraneMaterial: 'Polyamide',
+      operatingPressure: '40–80 PSI (recommended)',
       operatingTemperature: '4°C – 45°C',
-      dimensions:           null, // [SPEC TO BE CONFIRMED]
-      weight:               null, // [SPEC TO BE CONFIRMED]
-      flowRate:             null, // [SPEC TO BE CONFIRMED]
-      compatibility:        ['All standard 75 GPD domestic RO housings', 'Aquaguard compatible', 'Kent compatible', 'Pureit compatible', 'Most Indian domestic RO brands'],
-      warrantyPeriod:       '12 months',
+      dimensions: '5.5 × 5.5 × 28 cm',
+      weight: '270 g',
+      flowRate: null, // [SPEC TO BE CONFIRMED]
+      compatibility: ['Compatible domestic and residential RO water purifiers', 'Requires 100 GPD support', 'Requires compatible membrane housing and fittings'],
+      warrantyPeriod: '12 months',
     },
 
     benefits: [
-      'Up to 98% salt rejection — consistent purification across varying TDS levels',
-      '5-layer TFC construction for greater durability and longer membrane life',
-      'Compatible with virtually all standard Indian domestic RO systems',
-      'Designed for India\'s water conditions — municipal, borewell, and tanker water',
-      'Reduces dissolved solids, heavy metals, fluorides, nitrates, and other contaminants',
-      '12-month manufacturer warranty included',
-      'Direct replacement — no tools or plumber typically needed',
+      '100 GPD capacity: Designed to support efficient purified-water output in compatible domestic RO systems',
+      'Suitable up to 2500 TDS: Built for input-water conditions up to 2500 TDS',
+      '15-layer membrane design: Multi-layer construction supports effective reverse-osmosis filtration',
+      'Up to 99% salt rejection: Designed to reduce dissolved salts and impurities',
+      'High active membrane area: Optimised membrane surface supports steady purified-water flow',
+      'Made in India: Manufactured in India with quality construction standards',
     ],
 
     applications: [
-      'Residential RO water purifiers',
-      'Under-sink RO systems',
-      'Counter-top RO units',
-      'Small office / home office water purifiers',
-      'Membrane replacement in existing RO systems',
+      'Domestic RO replacement filter for residential RO water purifiers',
     ],
 
     suitableFor: [
-      'Homes with municipal (corporation) water supply',
-      'Homes with borewell or tubewell water',
-      'Areas with TDS up to 2000 ppm',
-      'Users replacing an expired or underperforming membrane',
-      'Anyone wanting to upgrade to a higher-quality membrane',
+      'Input water up to 2500 TDS',
+      'Regular domestic water-purifier replacement requirements',
     ],
 
     installationGuideSlug: 'ro-membrane-installation',
 
     downloads: [
-      { id: 'dl-75-ds', label: 'Product Datasheet', fileUrl: '/downloads/claryn-75-gpd-datasheet.pdf', type: 'datasheet' },
-      { id: 'dl-75-mn', label: 'Installation Manual', fileUrl: '/downloads/claryn-membrane-installation.pdf', type: 'manual' },
+      { id: 'dl-100-2500-ds', label: 'Product Datasheet', fileUrl: '/downloads/claryn-100-gpd-2500tds-datasheet.pdf', type: 'datasheet' },
+      { id: 'dl-100-2500-mn', label: 'Installation Manual', fileUrl: '/downloads/claryn-membrane-installation.pdf', type: 'manual' },
     ],
 
     warrantyPolicyId: 'wp-standard-12m',
-    faqIds:           ['faq-membrane-life', 'faq-tds-after', 'faq-compatibility', 'faq-installation', 'faq-replacement-freq'],
-    relatedProductIds: ['claryn-100-gpd-5layer'],
+    faqIds: ['faq-membrane-life', 'faq-tds-after', 'faq-compatibility', 'faq-installation', 'faq-replacement-freq'],
+    relatedProductIds: ['claryn-100-gpd-15layer'],
 
     marketplaceLinks: [
       {
-        id:              'ml-75-amazon',
-        productId:       'claryn-75-gpd-5layer',
+        id: 'ml-100-2500-amazon',
+        productId: 'claryn-100-gpd-2500tds',
         marketplaceName: 'Amazon India',
-        url:             'https://www.amazon.in/dp/[ASIN-TO-BE-PROVIDED]',
-        region:          'IN',
-        availability:    'in_stock',
-        displayOrder:    1,
-        ctaLabel:        'Buy on Amazon',
-        isActive:        true,
-      },
-      {
-        id:              'ml-75-flipkart',
-        productId:       'claryn-75-gpd-5layer',
-        marketplaceName: 'Flipkart',
-        url:             'https://www.flipkart.com/[URL-TO-BE-PROVIDED]',
-        region:          'IN',
-        availability:    'in_stock',
-        displayOrder:    2,
-        ctaLabel:        'Buy on Flipkart',
-        isActive:        true,
-      },
+        url: 'https://www.amazon.in/dp/B0H764PFM9',
+        region: 'IN',
+        availability: 'in_stock',
+        displayOrder: 1,
+        ctaLabel: 'Buy on Amazon.in',
+        isActive: true,
+        badge: 'Available on Amazon',
+      }
     ],
 
-    seoTitle:       'CLARYN 75 GPD 5-Layer RO Membrane | CLR-RO-75-5L | Buy Online India',
-    seoDescription: 'Buy CLARYN 75 GPD 5-Layer TFC RO Membrane (CLR-RO-75-5L). Up to 98% salt rejection, compatible with all standard Indian RO systems. 12-month warranty. Available on Amazon & Flipkart.',
+    seoTitle: 'CLARYN 100 GPD RO Membrane - Up to 2500 TDS | Buy Online India',
+    seoDescription: 'Buy CLARYN 100 GPD RO Membrane for domestic purifiers. Suitable up to 2500 TDS, 15-layer polyamide construction, up to 99% salt rejection. Available on Amazon India.',
   },
 
   {
-    id:          'claryn-100-gpd-15layer',
-    slug:        'claryn-100-gpd-ro-membrane',
-    name:        'CLARYN 100 GPD RO Membrane',
-    model:       'UW-CLPR-25-15-100-21',
-    category:    'ro-membranes',
+    id: 'claryn-100-gpd-15layer',
+    slug: 'claryn-100-gpd-ro-membrane',
+    name: 'CLARYN 100 GPD RO Membrane',
+    model: 'UW-CLPR-25-15-100-21',
+    category: 'ro-membranes',
     subcategory: 'residential-high-capacity',
-    status:      'active',
+    status: 'active',
 
     shortDescription:
       'High-Flow RO Membrane for Domestic Water Purifiers. 15-layer polyamide membrane designed for dependable purification in high-TDS water conditions up to 4000 ppm.',
@@ -128,18 +118,18 @@ export const products: Product[] = [
     ],
 
     specs: {
-      gpd:                  100,
-      membraneLayers:       15,
-      maxTDS:               4000,
+      gpd: 100,
+      membraneLayers: 15,
+      maxTDS: 4000,
       saltRejectionPercent: 99,
-      membraneMaterial:     'Polyamide',
-      operatingPressure:    '40–80 PSI (recommended)',
+      membraneMaterial: 'Polyamide',
+      operatingPressure: '40–80 PSI (recommended)',
       operatingTemperature: '4°C – 45°C',
-      dimensions:           '5.5 x 5.5 x 28 cm',
-      weight:               '270 g',
-      flowRate:             null, // [SPEC TO BE CONFIRMED]
-      compatibility:        ['Suitable as a replacement membrane for most compatible domestic RO water purifiers'],
-      warrantyPeriod:       '12 months',
+      dimensions: '5.5 x 5.5 x 28 cm',
+      weight: '270 g',
+      flowRate: null, // [SPEC TO BE CONFIRMED]
+      compatibility: ['Suitable as a replacement membrane for most compatible domestic RO water purifiers'],
+      warrantyPeriod: '12 months',
     },
 
     benefits: [
@@ -172,25 +162,25 @@ export const products: Product[] = [
     ],
 
     warrantyPolicyId: 'wp-standard-12m',
-    faqIds:           ['faq-membrane-life', 'faq-tds-after', 'faq-compatibility', 'faq-installation', 'faq-replacement-freq'],
-    relatedProductIds: ['claryn-75-gpd-5layer'],
+    faqIds: ['faq-membrane-life', 'faq-tds-after', 'faq-compatibility', 'faq-installation', 'faq-replacement-freq'],
+    relatedProductIds: ['claryn-100-gpd-2500tds'],
 
     marketplaceLinks: [
       {
-        id:              'ml-100-amazon',
-        productId:       'claryn-100-gpd-15layer',
+        id: 'ml-100-amazon',
+        productId: 'claryn-100-gpd-15layer',
         marketplaceName: 'Amazon India',
-        url:             'https://www.amazon.in/dp/B0H7BHHLP2',
-        region:          'IN',
-        availability:    'in_stock',
-        displayOrder:    1,
-        ctaLabel:        'Buy on Amazon.in',
-        isActive:        true,
-        badge:           'Available on Amazon',
+        url: 'https://www.amazon.in/dp/B0H7BHHLP2',
+        region: 'IN',
+        availability: 'in_stock',
+        displayOrder: 1,
+        ctaLabel: 'Buy on Amazon.in',
+        isActive: true,
+        badge: 'Available on Amazon',
       }
     ],
 
-    seoTitle:       'CLARYN 100 GPD RO Membrane | 15-Layer | Up to 4000 ppm',
+    seoTitle: 'CLARYN 100 GPD RO Membrane | 15-Layer | Up to 4000 ppm',
     seoDescription: 'Upgrade your compatible domestic RO water purifier with the CLARYN 100 GPD RO Membrane. 15-layer polyamide membrane for high-TDS up to 4000 ppm. Buy on Amazon.in.',
   },
 ];

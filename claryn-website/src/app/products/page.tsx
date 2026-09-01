@@ -47,10 +47,17 @@ export default function ProductsPage() {
                 <article key={product.id} className={styles.productCard}>
                   {/* Visual */}
                   <Link href={`/products/${product.slug}`} className={styles.productVisual} tabIndex={-1} aria-hidden>
-                    <div className={styles.productVisualCenter}>
-                      <p className={styles.productVisualNum}>{product.specs.gpd}</p>
-                      <p className={styles.productVisualUnit}>GPD</p>
-                    </div>
+                    {product.images?.[0] && product.images[0] !== '/brand/product-placeholder.png' ? (
+                      <div className={styles.productImageWrapper}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={product.images[0]} alt={product.name} className={styles.productImage} />
+                      </div>
+                    ) : (
+                      <div className={styles.productVisualCenter}>
+                        <p className={styles.productVisualNum}>{product.specs.gpd}</p>
+                        <p className={styles.productVisualUnit}>GPD</p>
+                      </div>
+                    )}
                   </Link>
 
                   {/* Info */}
