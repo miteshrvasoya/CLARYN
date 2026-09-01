@@ -62,10 +62,17 @@ export function Navbar() {
   const isActive = (href: string) =>
     pathname === href || (href !== '/' && pathname.startsWith(href));
 
+  // On the homepage the hero is dark, so we use the dark transparent navbar.
+  // On all other pages the hero is white/light, so we use the white solid navbar.
+  const isHomePage = pathname === '/';
+
+  const topClass    = isHomePage ? styles.navbarTop    : styles.navbarLightTop;
+  const solidClass  = isHomePage ? styles.navbarSolid  : styles.navbarLightSolid;
+
   return (
     <>
       <header
-        className={`${styles.navbar} ${scrolled ? styles.navbarSolid : styles.navbarTop}`}
+        className={`${styles.navbar} ${scrolled ? solidClass : topClass}`}
         role="banner"
       >
         <div className={styles.inner} ref={innerRef}>

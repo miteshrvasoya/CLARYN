@@ -20,7 +20,9 @@ export const products: Product[] = [
     longDescription:
       'The CLARYN 75 GPD 5-Layer RO Membrane is engineered for India\'s diverse water conditions — from municipal supply to borewell water. Its Thin Film Composite (TFC) Polyamide construction delivers consistent purification performance with a rated salt rejection of up to 98%, making it suitable for feed water TDS up to 2000 ppm. The 5-layer membrane architecture provides enhanced structural integrity and longer service life compared to 3-layer alternatives.',
 
-    images: ['/brand/product-placeholder.png'],
+    images: [
+      '/brand/product-placeholder.png',
+    ],
 
     specs: {
       gpd:                  75,
@@ -179,6 +181,7 @@ export const products: Product[] = [
         displayOrder:    1,
         ctaLabel:        'Buy on Amazon.in',
         isActive:        true,
+        badge:           'Available on Amazon',
       }
     ],
 

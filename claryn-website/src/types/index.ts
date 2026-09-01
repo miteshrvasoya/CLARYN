@@ -23,6 +23,9 @@ export interface MarketplaceLink {
   displayOrder:    number;
   ctaLabel:        string;
   isActive:        boolean;
+  mrp?:            number;       // Maximum Retail Price in INR
+  offerPrice?:     number;       // Current selling price in INR
+  badge?:          string;       // e.g. 'Bestseller', 'Prime' etc.
 }
 
 export interface ProductDownload {

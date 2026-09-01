@@ -1,43 +1,41 @@
 'use client';
 import { useState } from 'react';
-import Image from 'next/image';
 import styles from './ProductGallery.module.css';
 
 interface ProductGalleryProps {
   images: string[];
   productName: string;
+  badge?: string;
 }
 
-export function ProductGallery({ images, productName }: ProductGalleryProps) {
+export function ProductGallery({ images, productName, badge }: ProductGalleryProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-
-  // If no images, use a placeholder logic
   const displayImages = images && images.length > 0 ? images : ['/brand/product-placeholder.png'];
 
   return (
-    <div className={styles.galleryContainer}>
-      {/* Main Image Viewer */}
-      <div className={styles.mainImageWrapper}>
-        {/* We can use standard <img> or Next.js <Image> if domains are configured. Using standard img for placeholder flexibility. */}
-        <img 
-          src={displayImages[activeIndex]} 
-          alt={`${productName} - View ${activeIndex + 1}`} 
+    <div className={styles.galleryWrapper}>
+      {/* Main Image */}
+      <div className={styles.mainImageFrame}>
+        {badge && <span className={styles.imageBadge}>{badge}</span>}
+        <img
+          src={displayImages[activeIndex]}
+          alt={`${productName} - View ${activeIndex + 1}`}
           className={styles.mainImage}
         />
       </div>
 
-      {/* Thumbnails */}
+      {/* Thumbnails — only show if more than 1 image */}
       {displayImages.length > 1 && (
-        <div className={styles.thumbnailList}>
+        <div className={styles.thumbRow}>
           {displayImages.map((src, idx) => (
             <button
               key={idx}
-              className={`${styles.thumbnailBtn} ${idx === activeIndex ? styles.thumbnailActive : ''}`}
+              className={`${styles.thumbBtn} ${idx === activeIndex ? styles.thumbBtnActive : ''}`}
               onClick={() => setActiveIndex(idx)}
               aria-label={`View image ${idx + 1}`}
               aria-pressed={idx === activeIndex}
             >
-              <img src={src} alt="" className={styles.thumbnailImg} />
+              <img src={src} alt="" className={styles.thumbImg} />
             </button>
           ))}
         </div>

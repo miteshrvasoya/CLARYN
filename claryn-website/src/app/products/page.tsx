@@ -1,104 +1,116 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { products } from '@/data/products';
-import { ArrowRight, ExternalLink } from 'lucide-react';
+import { ArrowRight, ExternalLink, ChevronRight } from 'lucide-react';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'Products — RO Membranes & Water Solutions | CLARYN',
-  description: 'Browse CLARYN\'s range of premium water purification products including high-capacity RO membranes, filters, and systems. Engineered for Indian water conditions.',
+  description: 'Browse CLARYN\'s premium RO membranes engineered for Indian water conditions. High-TDS performance, up to 99% salt rejection, available on Amazon.in.',
 };
 
-const CATEGORIES = ['All', 'ro-membranes', 'ro-systems', 'filters', 'pumps', 'testing', 'smart-water', 'commercial'];
+const COMING_SOON_CATEGORIES = ['RO Systems', 'Water Filters', 'Booster Pumps', 'Water Testing', 'Smart Water'];
 
 export default function ProductsPage() {
   const activeProducts = products.filter(p => p.status === 'active');
 
   return (
     <>
+      {/* Hero */}
       <section className={styles.hero}>
         <div className="container">
-          <span className={styles.heroLabel}>Product Catalog</span>
-          <h1 className={styles.heroTitle}>Water Solutions for Every Need</h1>
-          <p className={styles.heroDesc}>
-            Precision-engineered water purification products for Indian homes and businesses. Explore our industry-leading RO membranes.
-          </p>
+          <div className={styles.heroInner}>
+            <div className={styles.heroEyebrow}>
+              <span className={styles.heroEyebrowDot} aria-hidden />
+              Product Catalog
+            </div>
+            <h1 className={styles.heroTitle}>
+              Water Solutions<br />
+              for Every Home.
+            </h1>
+            <p className={styles.heroDesc}>
+              Precision-engineered water purification products for Indian homes. Designed to handle India's diverse water conditions.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="section">
+      {/* Product Grid */}
+      <section className={styles.catalogSection}>
         <div className="container">
-          {/* Filters */}
-          <div className={styles.filters}>
-            {CATEGORIES.map(cat => (
-              <button 
-                key={cat} 
-                className={`${styles.filterBtn} ${cat === 'All' ? styles.filterBtnActive : ''}`}
-                aria-current={cat === 'All' ? 'page' : undefined}
-              >
-                {cat === 'All' ? 'All Products' : cat.replace(/-/g, ' ')}
-              </button>
-            ))}
-          </div>
-
-          {/* Live Products Grid */}
           <div className={styles.productsGrid}>
             {activeProducts.map(product => {
-              const amazonLink = product.marketplaceLinks.find(m => m.marketplaceName === 'Amazon India' && m.isActive);
+              const amazonLink = product.marketplaceLinks
+                .find(m => m.marketplaceName === 'Amazon India' && m.isActive && m.availability === 'in_stock');
 
               return (
-                <div key={product.id} className={styles.productCard}>
-                  <Link href={`/products/${product.slug}`} className={styles.productVisual}>
-                    <div className={styles.productVisualBig}>
+                <article key={product.id} className={styles.productCard}>
+                  {/* Visual */}
+                  <Link href={`/products/${product.slug}`} className={styles.productVisual} tabIndex={-1} aria-hidden>
+                    <div className={styles.productVisualCenter}>
                       <p className={styles.productVisualNum}>{product.specs.gpd}</p>
                       <p className={styles.productVisualUnit}>GPD</p>
                     </div>
                   </Link>
 
+                  {/* Info */}
                   <div className={styles.productInfo}>
-                    <p className={styles.productModel}>{product.model}</p>
-                    <Link href={`/products/${product.slug}`}>
-                      <h2 className={styles.productName}>{product.name}</h2>
-                    </Link>
-                    <p className={styles.productDesc}>{product.shortDescription}</p>
-
-                    <div className={styles.productSpecs}>
-                      <span className={styles.productSpec}>{product.specs.gpd} GPD</span>
-                      <span className={styles.productSpec}>{product.specs.membraneLayers} Layer</span>
-                      <span className={styles.productSpec}>{product.specs.saltRejectionPercent}% Rejection</span>
-                      {product.specs.maxTDS && <span className={styles.productSpec}>{product.specs.maxTDS} ppm TDS</span>}
+                    <div className={styles.productHeader}>
+                      <span className={styles.productModel}>{product.model}</span>
                     </div>
 
+                    <Link href={`/products/${product.slug}`} className={styles.productName}>
+                      {product.name}
+                    </Link>
+
+                    <p className={styles.productDesc}>{product.shortDescription}</p>
+
+                    {/* Spec Chips */}
+                    <div className={styles.specChips}>
+                      <span className={`${styles.specChip} ${styles.specChipHighlight}`}>{product.specs.gpd} GPD</span>
+                      <span className={styles.specChip}>{product.specs.membraneLayers} Layer</span>
+                      <span className={styles.specChip}>{product.specs.saltRejectionPercent}% Rejection</span>
+                      {product.specs.maxTDS && (
+                        <span className={styles.specChip}>{product.specs.maxTDS} ppm Max TDS</span>
+                      )}
+                    </div>
+
+                    {/* Actions */}
                     <div className={styles.productActions}>
-                      <Link href={`/products/${product.slug}`} className={`btn btn--primary ${styles.productCtaPrimary}`}>
-                        View Details
+                      <Link href={`/products/${product.slug}`} className={styles.btnDetails}>
+                        View Details <ChevronRight size={16} aria-hidden />
                       </Link>
                       {amazonLink && (
-                        <a 
-                          href={amazonLink.url} 
-                          className={`btn btn--outline ${styles.productCtaSecondary}`} 
-                          target="_blank" 
+                        <a
+                          href={amazonLink.url}
+                          className={styles.btnBuy}
+                          target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`Buy ${product.name} on Amazon`}
                         >
-                          Buy <ExternalLink size={14} aria-hidden style={{ marginLeft: '4px' }} />
+                          Buy <ExternalLink size={13} aria-hidden />
                         </a>
                       )}
                     </div>
                   </div>
-                </div>
+                </article>
               );
             })}
           </div>
 
           {/* Coming Soon */}
           <div className={styles.comingSoon}>
-            <h3 className={styles.comingSoonTitle}>More Products Coming Soon</h3>
+            <h2 className={styles.comingSoonTitle}>More Products Coming Soon</h2>
             <p className={styles.comingSoonDesc}>
-              RO Systems, Water Filters, Pumps, Water Testing, Smart Water, and Commercial Solutions are in active development.
+              We're expanding our product range. More high-quality water solutions are in development.
             </p>
+            <div className={styles.comingSoonCategories}>
+              {COMING_SOON_CATEGORIES.map(cat => (
+                <span key={cat} className={styles.comingSoonTag}>{cat}</span>
+              ))}
+            </div>
             <Link href="/register-product" className="btn btn--primary">
-              Register to Get Notified <ArrowRight size={16} aria-hidden style={{ marginLeft: '8px' }} />
+              Get Notified <ArrowRight size={16} aria-hidden style={{ marginLeft: '6px' }} />
             </Link>
           </div>
         </div>

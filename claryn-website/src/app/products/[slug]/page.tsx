@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { products, getProductBySlug, getRelatedProducts } from '@/data/products';
 import { faqs } from '@/data/faqs';
-import { ChevronRight, ShieldCheck, Download, ExternalLink, CheckCircle } from 'lucide-react';
+import { ChevronRight, ShieldCheck, ExternalLink, Download, CheckCircle } from 'lucide-react';
 import { ProductGallery } from '@/components/products/ProductGallery';
 import styles from './page.module.css';
 
@@ -30,10 +30,12 @@ export default async function ProductDetailPage({ params }: Props) {
   if (!product) notFound();
 
   const related = getRelatedProducts(product.id);
-  const productFAQs = faqs.filter(f => product.faqIds.includes(f.id));
+  const productFAQs = faqs.filter(f => product.faqIds.includes(f.id)).slice(0, 4);
   const activeMarketplaces = product.marketplaceLinks
     .filter(m => m.isActive && m.availability === 'in_stock')
     .sort((a, b) => a.displayOrder - b.displayOrder);
+
+  const amazonLink = activeMarketplaces.find(m => m.marketplaceName === 'Amazon India');
 
   const productSchema = {
     '@context': 'https://schema.org',
@@ -52,223 +54,227 @@ export default async function ProductDetailPage({ params }: Props) {
     })),
   };
 
+  // Condense key specs (only non-null, most important)
+  const keySpecs = [
+    { label: 'GPD', value: `${product.specs.gpd ?? '—'}` },
+    { label: 'Layers', value: `${product.specs.membraneLayers ?? '—'}` },
+    { label: 'Rejection', value: `${product.specs.saltRejectionPercent ?? '—'}%` },
+    { label: 'Max TDS', value: `${product.specs.maxTDS ?? '—'} ppm` },
+  ];
+
+  // Feature highlights — short, chip-style
+  const highlights = product.benefits.slice(0, 6).map(b => {
+    // Just use the first clause before the dash
+    return b.split('—')[0].split(' — ')[0].trim();
+  });
+
+  // Care / usage tips from applications
+  const careTips = [
+    'Install membrane in the correct direction inside a compatible housing.',
+    'Flush the membrane as recommended before regular use.',
+    'Use sediment and carbon pre-filters to protect the membrane.',
+    'Check inlet water pressure and pre-filter condition regularly.',
+  ];
+
+  // Full spec table rows
+  const allSpecs = [
+    ['Brand', 'CLARYN'],
+    ['Model Number', product.model],
+    ['Capacity', product.specs.gpd ? `${product.specs.gpd} GPD` : null],
+    ['Membrane Layers', product.specs.membraneLayers ? `${product.specs.membraneLayers} Layer` : null],
+    ['Salt Rejection', product.specs.saltRejectionPercent ? `Up to ${product.specs.saltRejectionPercent}%` : null],
+    ['Material', product.specs.membraneMaterial ?? null],
+    ['Max Feed Water TDS', product.specs.maxTDS ? `Up to ${product.specs.maxTDS} ppm` : null],
+    ['Dimensions', product.specs.dimensions ?? null],
+    ['Weight', product.specs.weight ?? null],
+    ['Warranty', product.specs.warrantyPeriod ?? '12 months'],
+  ].filter(([, v]) => v !== null) as [string, string][];
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />
 
-      {/* Hero Section */}
-      <div className={styles.hero}>
+      <div className={styles.page}>
+
+        {/* ── Hero: Gallery + Info ──────────────────────────────────────── */}
         <div className="container">
+          {/* Breadcrumb */}
           <nav className={styles.breadcrumb} aria-label="Breadcrumb">
             <Link href="/">Home</Link>
-            <ChevronRight size={14} className={styles.breadcrumbSeparator} aria-hidden />
+            <ChevronRight size={13} className={styles.breadcrumbSep} aria-hidden />
             <Link href="/products">Products</Link>
-            <ChevronRight size={14} className={styles.breadcrumbSeparator} aria-hidden />
+            <ChevronRight size={13} className={styles.breadcrumbSep} aria-hidden />
             <span className={styles.breadcrumbCurrent}>{product.name}</span>
           </nav>
 
-          <div className={styles.heroGrid}>
-            {/* Left: Interactive Image Gallery */}
-            <div>
-              <ProductGallery images={product.images} productName={product.name} />
+          <div className={styles.pdpGrid}>
+            {/* Gallery */}
+            <div className={styles.galleryWrapper}>
+              <ProductGallery
+                images={product.images}
+                productName={product.name}
+                badge={amazonLink?.badge}
+              />
             </div>
 
-            {/* Right: Product Summary */}
-            <div>
-              <span className={styles.heroModel}>{product.model}</span>
-              <h1 className={styles.heroTitle}>{product.name}</h1>
-              <p className={styles.heroDesc}>{product.shortDescription}</p>
+            {/* Product Info */}
+            <div className={styles.infoCol}>
+              {/* Eyebrow */}
+              <div className={styles.productEyebrow}>
+                <span className={styles.productBrand}>CLARYN</span>
+                <span className={styles.productModel}>{product.model}</span>
+              </div>
 
-              <div className={styles.heroSpecsGrid}>
-                {[
-                  [`${product.specs.gpd}`, 'GPD'],
-                  [`${product.specs.membraneLayers}`, 'Layers'],
-                  [`${product.specs.saltRejectionPercent}%`, 'Rejection'],
-                  [`${product.specs.maxTDS}`, 'Max TDS ppm'],
-                ].map(([val, label]) => (
-                  <div key={label} className={styles.heroSpecItem}>
-                    <p className={styles.heroSpecValue}>{val}</p>
-                    <p className={styles.heroSpecLabel}>{label}</p>
+              {/* Title */}
+              <h1 className={styles.productTitle}>{product.name}</h1>
+              <p className={styles.productBlurb}>{product.shortDescription}</p>
+
+              {/* Key Metrics */}
+              <div className={styles.metricsRow}>
+                {keySpecs.map(({ label, value }) => (
+                  <div key={label} className={styles.metricItem}>
+                    <span className={styles.metricValue}>{value}</span>
+                    <span className={styles.metricLabel}>{label}</span>
                   </div>
                 ))}
               </div>
 
-              <div className={styles.heroActions}>
-                {activeMarketplaces.map(m => (
-                  <a key={m.id} href={m.url} className={`btn btn--primary ${m.marketplaceName === 'Amazon India' ? styles.amazonBtn : ''}`} target="_blank" rel="noopener noreferrer">
-                    {m.ctaLabel} <ExternalLink size={14} aria-hidden style={{ marginLeft: '4px' }} />
-                  </a>
-                ))}
-                <Link href="/register-product" className="btn btn--outline-white">
-                  Register Product
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Content Layout */}
-      <div className={styles.contentSection}>
-        <div className="container">
-          <div className={styles.contentGrid}>
-            {/* Main Column */}
-            <div className={styles.mainColumn}>
-              {/* Product Description */}
-              <section>
-                <h2 className={styles.blockTitle}>Product Overview</h2>
-                <p style={{ color: 'var(--color-gray-700)', fontSize: '1.125rem', lineHeight: 1.8 }}>
-                  {product.longDescription}
-                </p>
-              </section>
-
-              {/* Key Benefits */}
-              <section>
-                <h2 className={styles.blockTitle}>Key Benefits</h2>
-                <ul className={styles.checkList}>
-                  {product.benefits.map(b => (
-                    <li key={b} className={styles.checkListItem}>
-                      <CheckCircle size={20} className={styles.checkListItemIcon} aria-hidden />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-
-              {/* Applications & Suitable For */}
-              <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-                <div>
-                  <h3 className={styles.blockTitle} style={{ fontSize: '1.25rem' }}>Applications</h3>
-                  <div className={styles.tagsList}>
-                    {product.applications.map(a => (
-                      <span key={a} className={styles.tag}>{a}</span>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <h3 className={styles.blockTitle} style={{ fontSize: '1.25rem' }}>Ideal For</h3>
-                  <ul className={styles.checkList} style={{ gap: '0.75rem' }}>
-                    {product.suitableFor.map(s => (
-                      <li key={s} className={styles.checkListItem} style={{ padding: '0.75rem', fontSize: '0.9375rem', background: 'transparent' }}>
-                        <CheckCircle size={18} className={styles.checkListItemIcon} aria-hidden />
-                        <span>{s}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </section>
-
-              {/* Tech Specs Table */}
-              <section>
-                <h2 className={styles.blockTitle}>Technical Specifications</h2>
-                <div className={styles.specTableWrapper}>
-                  <table className={styles.specTable}>
-                    <thead>
-                      <tr>
-                        <th>Specification</th>
-                        <th>Value</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {[
-                        ['Model', product.model],
-                        ['Flow Rate (GPD)', product.specs.gpd ? `${product.specs.gpd} GPD` : 'TBC'],
-                        ['Membrane Layers', product.specs.membraneLayers ? String(product.specs.membraneLayers) : 'TBC'],
-                        ['Salt Rejection', product.specs.saltRejectionPercent ? `Up to ${product.specs.saltRejectionPercent}%` : 'TBC'],
-                        ['Membrane Material', product.specs.membraneMaterial ?? 'TBC'],
-                        ['Maximum Feed TDS', product.specs.maxTDS ? `${product.specs.maxTDS} ppm` : 'TBC'],
-                        ['Operating Pressure', product.specs.operatingPressure ?? 'TBC'],
-                        ['Operating Temperature', product.specs.operatingTemperature ?? 'TBC'],
-                        ['Dimensions', product.specs.dimensions ?? 'TBC'],
-                        ['Weight', product.specs.weight ?? 'TBC'],
-                        ['Warranty', product.specs.warrantyPeriod ?? '12 months'],
-                      ].map(([label, value]) => (
-                        <tr key={label}>
-                          <td className={styles.specTableLabel}>{label}</td>
-                          <td className={styles.specTableValue}>{value}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </section>
-
-              {/* FAQs */}
-              {productFAQs.length > 0 && (
-                <section>
-                  <h2 className={styles.blockTitle}>Frequently Asked Questions</h2>
-                  <div className={styles.faqList}>
-                    {productFAQs.map(faq => (
-                      <div key={faq.id} className={styles.faqCard}>
-                        <h3 className={styles.faqQuestion}>{faq.question}</h3>
-                        <p className={styles.faqAnswer}>{faq.answer}</p>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {/* Downloads */}
-              {product.downloads.length > 0 && (
-                <section>
-                  <h2 className={styles.blockTitle}>Downloads</h2>
-                  <div className={styles.downloadList}>
-                    {product.downloads.map(d => (
-                      <a key={d.id} href={d.fileUrl} className="btn btn--outline" download>
-                        <Download size={16} aria-hidden style={{ marginRight: '6px' }} /> {d.label}
-                      </a>
-                    ))}
-                  </div>
-                </section>
-              )}
-            </div>
-
-            {/* Sticky Sidebar */}
-            <aside className={styles.sidebar}>
-              {/* Buy CTA Card */}
-              <div className={styles.purchaseCard}>
-                <h3 className={styles.purchaseCardTitle}>Purchase Options</h3>
-                <div className={styles.purchaseOptions}>
+              {/* Buy Section */}
+              <div className={styles.buySection}>
+                <p className={styles.buySectionTitle}>Where to Buy</p>
+                <div className={styles.platformList}>
                   {activeMarketplaces.map(m => (
-                    <a key={m.id} href={m.url} className={`btn btn--primary ${m.marketplaceName === 'Amazon India' ? styles.amazonBtn : ''}`} target="_blank" rel="noopener noreferrer">
-                      {m.ctaLabel} <ExternalLink size={14} aria-hidden style={{ marginLeft: '4px' }} />
+                    <a
+                      key={m.id}
+                      href={m.url}
+                      className={`${styles.platformCard} ${m.marketplaceName === 'Amazon India' ? styles.platformCardAmazon : ''}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${m.ctaLabel} — opens in new tab`}
+                    >
+                      <div className={styles.platformInfo}>
+                        <p className={styles.platformName}>{m.marketplaceName}</p>
+                        <p className={styles.platformCta}>
+                          {m.ctaLabel}
+                          <ExternalLink size={14} aria-hidden />
+                        </p>
+                      </div>
+                      <ChevronRight size={18} style={{ color: '#CBD5E1', flexShrink: 0 }} />
                     </a>
                   ))}
                 </div>
-                <div className={styles.warrantyNote}>
-                  <ShieldCheck size={18} className={styles.warrantyNoteIcon} aria-hidden />
-                  <p className={styles.warrantyNoteText}>
-                    12-month manufacturer warranty. Register your product after purchase to activate.
-                  </p>
+
+                {/* Warranty Strip */}
+                <div className={styles.warrantyStrip}>
+                  <ShieldCheck size={16} className={styles.warrantyIcon} aria-hidden />
+                  <span>12-month manufacturer warranty · Register product after purchase to activate</span>
                 </div>
               </div>
 
-              {/* Register */}
-              <div className={styles.sidebarWidget}>
-                <h3 className={styles.sidebarWidgetTitle}>Register Your Product</h3>
-                <p className={styles.sidebarWidgetDesc}>
-                  Activate your warranty and get maintenance reminders.
-                </p>
-                <Link href="/register-product" className="btn btn--outline" style={{ width: '100%', justifyContent: 'center' }}>
-                  Register Now
-                </Link>
+              {/* Feature Highlights */}
+              <div className={styles.features}>
+                {highlights.map((h, i) => (
+                  <div key={i} className={styles.featureChip}>
+                    <span className={styles.featureChipDot} aria-hidden />
+                    {h}
+                  </div>
+                ))}
               </div>
 
-              {/* Installation */}
-              {product.installationGuideSlug && (
-                <div className={styles.sidebarWidget}>
-                  <h3 className={styles.sidebarWidgetTitle}>Installation Guide</h3>
-                  <p className={styles.sidebarWidgetDesc}>
-                    Step-by-step guide with photos. Most installations take under 30 minutes.
-                  </p>
-                  <Link href={`/installation/${product.installationGuideSlug}`} className="btn btn--outline" style={{ width: '100%', justifyContent: 'center' }}>
-                    View Guide
-                  </Link>
+              {/* Compatibility */}
+              {(product.specs.compatibility ?? []).length > 0 && (
+                <div className={styles.compatSection}>
+                  <p className={styles.compatTitle}>Compatible With</p>
+                  <div className={styles.compatTags}>
+                    {(product.specs.compatibility ?? []).map(c => (
+                      <span key={c} className={styles.compatTag}>{c}</span>
+                    ))}
+                  </div>
                 </div>
               )}
-            </aside>
+            </div>
           </div>
         </div>
+
+        {/* ── Full Specs ────────────────────────────────────────────────── */}
+        <div className={styles.specsSection}>
+          <div className="container">
+            <p className={styles.sectionEyebrow}>Technical Data</p>
+            <h2 className={styles.sectionTitle}>Specifications</h2>
+            <div className={styles.specsGrid}>
+              {allSpecs.map(([label, value]) => (
+                <div key={label} className={styles.specRow}>
+                  <span className={styles.specLabel}>{label}</span>
+                  <span className={styles.specValue}>{value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ── Care & Usage ──────────────────────────────────────────────── */}
+        <div className={styles.careSection}>
+          <div className="container">
+            <p className={styles.sectionEyebrow}>Usage Guide</p>
+            <h2 className={styles.sectionTitle}>Installation & Care</h2>
+            <div className={styles.careGrid}>
+              {careTips.map((tip, i) => (
+                <div key={i} className={styles.careCard}>
+                  <p className={styles.careCardNum}>0{i + 1}</p>
+                  <p className={styles.careCardText}>{tip}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ── FAQs ─────────────────────────────────────────────────────── */}
+        {productFAQs.length > 0 && (
+          <div className={styles.faqSection}>
+            <div className="container">
+              <p className={styles.sectionEyebrow}>Common Questions</p>
+              <h2 className={styles.sectionTitle}>FAQs</h2>
+              <div className={styles.faqList}>
+                {productFAQs.map(faq => (
+                  <div key={faq.id} className={styles.faqItem}>
+                    <h3 className={styles.faqQ}>{faq.question}</h3>
+                    <p className={styles.faqA}>{faq.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── Footer CTA ───────────────────────────────────────────────── */}
+        <div className={styles.footerCta}>
+          <div className="container">
+            <h2 className={styles.footerCtaTitle}>Improve Your RO Performance</h2>
+            <p className={styles.footerCtaDesc}>
+              {product.name} — engineered for India&apos;s water. Replace your membrane today.
+            </p>
+            <div className={styles.footerCtaActions}>
+              {amazonLink && (
+                <a
+                  href={amazonLink.url}
+                  className={styles.amazonCta}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ExternalLink size={16} aria-hidden />
+                  Buy on Amazon.in
+                </a>
+              )}
+              <Link href="/register-product" className={styles.registerCta}>
+                Register Your Product
+              </Link>
+            </div>
+            <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8125rem', marginTop: '2rem', maxWidth: '600px', marginLeft: 'auto', marginRight: 'auto', lineHeight: 1.6 }}>
+              Performance claims such as TDS handling and salt rejection are subject to suitable operating conditions and regular purifier maintenance.
+            </p>
+          </div>
+        </div>
+
       </div>
     </>
   );
