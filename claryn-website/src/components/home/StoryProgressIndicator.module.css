@@ -1,0 +1,107 @@
+.progressIndicator {
+  position: fixed;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: var(--z-nav);
+  /* Desktop only for this exact layout */
+  display: flex;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  position: relative;
+}
+
+.button {
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  opacity: 0.5;
+  transition: all var(--motion-fast);
+}
+
+.button:hover {
+  opacity: 1;
+}
+
+.active {
+  opacity: 1;
+  color: var(--brand-blue);
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  transition: transform var(--motion-fast);
+}
+
+.active .dot {
+  transform: scale(1.5);
+  box-shadow: 0 0 10px currentColor;
+}
+
+/* On hover, slide the label slightly */
+.button:hover .label {
+  transform: translateX(-5px);
+}
+
+.label {
+  transition: transform var(--motion-fast);
+}
+
+/* Mobile: Convert to minimal contextual label at bottom */
+@media (max-width: 992px) {
+  .progressIndicator {
+    top: auto;
+    bottom: 1rem;
+    right: 50%;
+    transform: translateX(50%);
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(8px);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+  }
+  
+  .list {
+    flex-direction: row;
+    gap: 0;
+  }
+  
+  .item {
+    display: none;
+  }
+  
+  /* Only show active item on mobile */
+  .item:has(.active) {
+    display: block;
+  }
+  
+  .active {
+    color: #fff;
+    opacity: 1;
+  }
+  
+  .active .dot {
+    display: none;
+  }
+}

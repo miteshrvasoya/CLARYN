@@ -1,0 +1,131 @@
+.knowledge {
+  padding: 8rem 2rem;
+  background: var(--brand-navy);
+  color: #fff;
+  overflow: hidden;
+}
+
+.inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 4rem;
+}
+
+.headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.headerCTA {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--brand-blue);
+  text-decoration: none;
+  transition: opacity var(--motion-fast);
+}
+
+.headerCTA:hover {
+  opacity: 0.8;
+}
+
+.cardContainer {
+  display: flex;
+  gap: 2rem;
+  /* Extra padding to right to allow horizontal scrolling/movement to look natural */
+  padding-right: 10vw;
+}
+
+.card {
+  flex: 0 0 auto;
+  width: 350px;
+  text-decoration: none;
+  color: #fff;
+  transition: opacity var(--motion-fast);
+  will-change: transform;
+}
+
+.card:hover {
+  opacity: 0.9;
+}
+
+.featured {
+  width: 500px;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.featured .imageContainer {
+  aspect-ratio: 16/9;
+}
+
+.image {
+  object-fit: cover;
+  transition: transform var(--motion-medium);
+}
+
+.card:hover .image {
+  transform: scale(1.05);
+}
+
+.articleNum {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--brand-blue);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.articleTitle {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.featured .articleTitle {
+  font-size: 2rem;
+}
+
+.articleSub {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 992px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+  
+  .cardContainer {
+    flex-direction: column;
+    padding-right: 0;
+  }
+  
+  .card, .featured {
+    width: 100%;
+  }
+  
+  .imageContainer {
+    aspect-ratio: 16/9 !important;
+  }
+}
