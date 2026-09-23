@@ -174,6 +174,93 @@ export const products: Product[] = [
     seoTitle: 'CLARYN 100 GPD RO Membrane | 15-Layer | Up to 4000 ppm',
     seoDescription: 'Upgrade your compatible domestic RO water purifier with the CLARYN 100 GPD RO Membrane. 15-layer polyamide membrane for high-TDS up to 4000 ppm. Buy on Amazon.in.',
   },
+
+  {
+    id: 'claryn-100-gpd-5000tds',
+    slug: 'claryn-100-gpd-5000tds-ro-membrane',
+    name: 'CLARYN 100 GPD RO Membrane (5000 TDS)',
+    model: 'UW-CLPR-25-15-100-21-5000',
+    category: 'ro-membranes',
+    subcategory: 'residential-high-capacity',
+    status: 'active',
+
+    shortDescription:
+      'High-Flow RO Membrane for Domestic Water Purifiers. 15-layer polyamide membrane designed for dependable purification in high-TDS water conditions up to 5000 ppm.',
+
+    longDescription:
+      'Upgrade your compatible domestic RO water purifier with the CLARYN 100 GPD RO Membrane. Designed for dependable purification in high-TDS water conditions, this 15-layer polyamide membrane helps reduce dissolved salts and impurities while supporting consistent purified-water flow. Replacing an ageing membrane can help restore purifier performance, improve flow, and support effective RO filtration.',
+
+    images: [
+      '/brand/water_filter.jpg',
+      '/brand/product-placeholder.png',
+    ],
+
+    specs: {
+      gpd: 100,
+      membraneLayers: 15,
+      maxTDS: 5000,
+      saltRejectionPercent: 99,
+      membraneMaterial: 'Polyamide',
+      operatingPressure: '40–80 PSI (recommended)',
+      operatingTemperature: '4°C – 45°C',
+      dimensions: '5.5 x 5.5 x 28 cm',
+      weight: '270 g',
+      flowRate: null, // [SPEC TO BE CONFIRMED]
+      compatibility: ['Suitable as a replacement membrane for most compatible domestic RO water purifiers'],
+      warrantyPeriod: '12 months',
+    },
+
+    benefits: [
+      '100 GPD high-flow performance for efficient purified-water output',
+      'Designed for input water conditions up to 5000 ppm TDS',
+      'Up to 99% salt rejection under suitable operating conditions',
+      '15-layer membrane construction for consistent filtration performance',
+      'Durable polyamide material for dependable membrane performance',
+      'Easy replacement in compatible membrane housings',
+    ],
+
+    applications: [
+      'Domestic RO water purifier membrane replacement',
+      'Areas with hard or high-TDS water',
+      'Improving purifier output flow after an old membrane has worn out',
+      'Users seeking a 100 GPD high-flow membrane for compatible systems',
+    ],
+
+    suitableFor: [
+      'Larger families with higher daily water consumption',
+      'High-TDS water conditions (up to 5000 ppm)',
+      'Homes where 75 GPD flow is insufficient',
+    ],
+
+    installationGuideSlug: 'ro-membrane-installation',
+
+    downloads: [
+      { id: 'dl-100-5000-ds', label: 'Product Datasheet', fileUrl: '/downloads/claryn-100-gpd-datasheet.pdf', type: 'datasheet' },
+      { id: 'dl-100-5000-mn', label: 'Installation Manual', fileUrl: '/downloads/claryn-membrane-installation.pdf', type: 'manual' },
+    ],
+
+    warrantyPolicyId: 'wp-standard-12m',
+    faqIds: ['faq-membrane-life', 'faq-tds-after', 'faq-compatibility', 'faq-installation', 'faq-replacement-freq'],
+    relatedProductIds: ['claryn-100-gpd-15layer', 'claryn-100-gpd-2500tds'],
+
+    marketplaceLinks: [
+      {
+        id: 'ml-100-5000-amazon',
+        productId: 'claryn-100-gpd-5000tds',
+        marketplaceName: 'Amazon India',
+        url: '#',
+        region: 'IN',
+        availability: 'in_stock',
+        displayOrder: 1,
+        ctaLabel: 'Buy on Amazon.in',
+        isActive: true,
+        badge: 'Available on Amazon',
+      }
+    ],
+
+    seoTitle: 'CLARYN 100 GPD RO Membrane | 15-Layer | Up to 5000 ppm',
+    seoDescription: 'Upgrade your compatible domestic RO water purifier with the CLARYN 100 GPD RO Membrane. 15-layer polyamide membrane for high-TDS up to 5000 ppm. Buy on Amazon.in.',
+  },
 ];
 
 export function getProductBySlug(slug: string): Product | undefined {
