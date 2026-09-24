@@ -1,7 +1,9 @@
 .support {
-  padding: 8rem 0;
   background: var(--brand-navy);
   color: var(--color-white);
+  height: 100vh;
+  display: flex;
+  align-items: center;
 }
 
 .inner {
@@ -10,7 +12,7 @@
   padding: 0 var(--container-pad);
   display: flex;
   flex-direction: column;
-  gap: var(--space-12);
+  gap: var(--space-8);
 }
 
 .visualContent {
@@ -23,7 +25,7 @@
 .imageWrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 4/3;
+  height: 35vh;
   border-radius: var(--radius-2xl);
   overflow: hidden;
 }
@@ -40,22 +42,23 @@
 .headline {
   font-family: var(--font-display);
   font-size: clamp(3rem, 5vw, 4.5rem);
-  font-weight: var(--fw-bold);
-  line-height: 1.1;
+  font-weight: 800;
+  line-height: 1.05;
   margin-bottom: var(--space-4);
   color: var(--color-white);
+  letter-spacing: -0.03em;
 }
 
 .subhead {
-  font-size: var(--text-lg);
+  font-size: clamp(1.125rem, 1.25vw, 1.25rem);
   color: var(--color-gray-200);
-  line-height: var(--lh-relaxed);
+  line-height: 1.6;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-6);
+  gap: var(--space-4);
 }
 
 .card {

@@ -1,7 +1,9 @@
 .knowledge {
-  padding: 8rem 0;
   background: var(--color-gray-50);
   color: var(--brand-navy);
+  height: 100vh;
+  display: flex;
+  align-items: center;
 }
 
 .inner {
@@ -12,6 +14,7 @@
   grid-template-columns: 1fr 1fr;
   gap: var(--space-12);
   align-items: center;
+  height: 100%;
 }
 
 .topicsColumn {
@@ -19,25 +22,27 @@
   flex-direction: column;
   gap: var(--space-8);
   padding-right: var(--space-8);
+  max-height: 90vh;
 }
 
 .header {
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-2);
 }
 
 .headline {
   font-family: var(--font-display);
   font-size: clamp(3rem, 4vw, 4rem);
-  font-weight: var(--fw-bold);
+  font-weight: 800;
   line-height: 1.1;
   color: var(--brand-navy);
   margin-bottom: var(--space-4);
+  letter-spacing: -0.03em;
 }
 
 .subhead {
-  font-size: var(--text-lg);
+  font-size: clamp(1.125rem, 1.25vw, 1.25rem);
   color: var(--color-gray-600);
-  line-height: var(--lh-relaxed);
+  line-height: 1.6;
 }
 
 .cardContainer {
@@ -50,7 +55,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-6);
-  padding: var(--space-6);
+  padding: 1.25rem var(--space-6);
   background: #fff;
   border-radius: var(--radius-xl);
   text-decoration: none;
@@ -68,7 +73,7 @@
 .articleNum {
   font-family: var(--font-mono);
   font-size: var(--text-xl);
-  font-weight: var(--fw-bold);
+  font-weight: 700;
   color: var(--color-gray-300);
   transition: color var(--transition-base);
 }
@@ -83,15 +88,15 @@
 
 .articleTitle {
   font-family: var(--font-display);
-  font-size: var(--text-xl);
-  font-weight: var(--fw-bold);
-  margin-bottom: var(--space-2);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
 }
 
 .articleSub {
-  font-size: var(--text-sm);
+  font-size: 0.875rem;
   color: var(--color-gray-500);
-  line-height: var(--lh-relaxed);
+  line-height: 1.4;
 }
 
 .cardArrow {
@@ -107,7 +112,7 @@
 }
 
 .footerCTA {
-  margin-top: var(--space-4);
+  margin-top: var(--space-2);
 }
 
 .btnSecondary {
@@ -118,7 +123,7 @@
   border: 2px solid var(--brand-navy);
   color: var(--brand-navy);
   border-radius: var(--radius-full);
-  font-weight: var(--fw-semibold);
+  font-weight: 600;
   text-decoration: none;
   transition: all var(--transition-base);
 }
@@ -130,7 +135,7 @@
 
 .visualColumn {
   position: relative;
-  height: 800px;
+  height: 80vh;
   width: 100%;
 }
 

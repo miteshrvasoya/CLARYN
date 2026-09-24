@@ -2,6 +2,22 @@
    CLARYN HOMEPAGE — Layout Overrides
    ═══════════════════════════════════════════════════════════════════════════ */
 
+/* Enable scroll snapping on the homepage. 
+   We apply it to html via global CSS below, but keep wrappers here. */
+
+/* Enable scroll snapping on the homepage. 
+   We apply it to html via global CSS below. */
+
+.snapPoint {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
 /* Final CTA Section */
 .finalCTA {
   position: relative;

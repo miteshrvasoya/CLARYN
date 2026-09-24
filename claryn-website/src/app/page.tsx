@@ -28,39 +28,49 @@ export default function HomePage() {
       <StoryProgressIndicator />
       
       {/* 01 WATER */}
-      <div id="hero">
+      <div id="hero" className={styles.snapPoint}>
         <HeroSection />
       </div>
 
       {/* 02 SOURCE */}
-      <div id="source">
+      <div id="source" className={styles.snapPoint}>
         <WaterSourceStory />
       </div>
 
       {/* 03 QUALITY */}
-      <div id="quality">
+      <div id="quality" className={styles.snapPoint}>
         <WaterQualityStory />
       </div>
 
       {/* 03 RO */}
-      <div id="ro">
+      <div id="ro" className={styles.snapPoint}>
         <ROScrollStory />
       </div>
 
-      {/* 04 SOLUTIONS */}
-      <div id="solutions">
+      {/* 04 SOLUTIONS - Wrapped individually to snap to each component if they are full-screen, or keep together if they form one section */}
+      <div id="product-showcase">
         <ProductShowcase />
+      </div>
+      
+      <div id="solution-finder" className={styles.snapPoint}>
         <SolutionFinder />
       </div>
 
-      {/* 06 KNOWLEDGE */}
-      <div id="knowledge">
+      {/* 06 KNOWLEDGE - Snapping each block so they fit in viewport */}
+      <div id="knowledge" className={styles.snapPoint}>
         <KnowledgeSection />
+      </div>
+      
+      <div id="installation" className={styles.snapPoint}>
         <InstallationSupport />
+      </div>
+      
+      <div id="future" className={styles.snapPoint}>
         <FutureTechnology />
+      </div>
         
-        {/* FINAL CTA SECTION */}
-        <section className={styles.finalCTA} aria-labelledby="cta-heading">
+      {/* FINAL CTA SECTION */}
+      <section className={`${styles.finalCTA} ${styles.snapPoint}`} aria-labelledby="cta-heading">
           <div className={styles.finalCTAInner}>
             <h2 id="cta-heading" className={styles.finalCTAHeading}>
               Start with your water.
@@ -76,7 +86,6 @@ export default function HomePage() {
             </div>
           </div>
         </section>
-      </div>
     </div>
   );
 }

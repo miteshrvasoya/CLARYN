@@ -1,6 +1,6 @@
 .future {
   position: relative;
-  min-height: 80svh;
+  height: 100vh;
   display: flex;
   align-items: center;
   color: #fff;
