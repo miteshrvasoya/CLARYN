@@ -1,7 +1,9 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
+import { homepageAssets } from '@/config/homepageAssets';
 import styles from './SolutionFinder.module.css';
 
 const STEPS = [
@@ -62,64 +64,86 @@ export function SolutionFinder() {
     );
   };
 
+  // Determine dynamic highlight based on current step and answer
+  let overlayHighlight = styles.overlayDefault;
+  if (currentStep === 1 && answers[1] === 'Borewell') overlayHighlight = styles.overlayBorewell;
+  if (currentStep === 1 && answers[1] === 'Municipal') overlayHighlight = styles.overlayMunicipal;
+
   return (
     <section className={styles.solutionFinder}>
       <div className={styles.inner}>
-        <div className={styles.header}>
-          <h2 className={styles.headline}>Not sure what your water needs?</h2>
-          <p className={styles.subtext}>Answer a few simple questions and explore where to start.</p>
+        
+        {/* Left: Interactive Image */}
+        <div className={styles.visualColumn}>
+          <Image 
+            src={homepageAssets.solutionFinder}
+            alt="Every home starts with different water"
+            fill
+            className={styles.bgImage}
+          />
+          {/* Dynamic highlight overlay */}
+          <div className={`${styles.imageOverlay} ${overlayHighlight}`} />
+          
+          <div className={styles.visualContent}>
+            <h2 className={styles.headline}>START WITH<br/>YOUR WATER.</h2>
+            <p className={styles.subtext}>A better starting point is understanding where your water comes from and what you know about it.</p>
+          </div>
         </div>
 
-        <div className={styles.wizard}>
-          {/* Progress Indicator */}
-          <div className={styles.progressTracker}>
-            {STEPS.map((step, idx) => (
-              <div key={step.id} className={styles.progressItem}>
-                <div className={`${styles.stepIndicator} ${currentStep >= step.id ? styles.stepActive : ''}`}>
-                  {step.label}
+        {/* Right: Wizard */}
+        <div className={styles.wizardColumn}>
+          <div className={styles.wizard}>
+            {/* Progress Indicator */}
+            <div className={styles.progressTracker}>
+              {STEPS.map((step, idx) => (
+                <div key={step.id} className={styles.progressItem}>
+                  <div className={`${styles.stepIndicator} ${currentStep >= step.id ? styles.stepActive : ''}`}>
+                    {step.label}
+                  </div>
+                  {idx < STEPS.length - 1 && (
+                    <div className={`${styles.stepLine} ${currentStep > step.id ? styles.lineActive : ''}`} />
+                  )}
                 </div>
-                {idx < STEPS.length - 1 && (
-                  <div className={`${styles.stepLine} ${currentStep > step.id ? styles.lineActive : ''}`} />
-                )}
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          {/* Current Step Content */}
-          <div className={styles.stepContent}>
-            <h3 className={styles.stepTitle}>{STEPS[currentStep - 1].title}</h3>
-            {renderOptions()}
-          </div>
+            {/* Current Step Content */}
+            <div className={styles.stepContent}>
+              <h3 className={styles.stepTitle}>{STEPS[currentStep - 1].title}</h3>
+              {renderOptions()}
+            </div>
 
-          {/* Navigation */}
-          <div className={styles.navigation}>
-            {currentStep > 1 ? (
-              <button className={styles.btnSecondary} onClick={handleBack}>
-                Back
-              </button>
-            ) : (
-              <div /> /* Spacer */
-            )}
+            {/* Navigation */}
+            <div className={styles.navigation}>
+              {currentStep > 1 ? (
+                <button className={styles.btnSecondary} onClick={handleBack}>
+                  Back
+                </button>
+              ) : (
+                <div />
+              )}
 
-            {currentStep < 4 ? (
-              <button 
-                className={styles.btnPrimary} 
-                onClick={handleNext}
-                disabled={!answers[currentStep]}
-              >
-                Continue <ArrowRight size={16} />
-              </button>
-            ) : (
-              <Link 
-                href="/find-your-solution" 
-                className={`${styles.btnPrimary} ${!answers[currentStep] ? styles.disabled : ''}`}
-                style={{ pointerEvents: !answers[currentStep] ? 'none' : 'auto' }}
-              >
-                Explore My Options <ArrowRight size={16} />
-              </Link>
-            )}
+              {currentStep < 4 ? (
+                <button 
+                  className={styles.btnPrimary} 
+                  onClick={handleNext}
+                  disabled={!answers[currentStep]}
+                >
+                  Continue <ArrowRight size={16} />
+                </button>
+              ) : (
+                <Link 
+                  href="/find-your-solution" 
+                  className={`${styles.btnPrimary} ${!answers[currentStep] ? styles.disabled : ''}`}
+                  style={{ pointerEvents: !answers[currentStep] ? 'none' : 'auto' }}
+                >
+                  Explore My Options <ArrowRight size={16} />
+                </Link>
+              )}
+            </div>
           </div>
         </div>
+
       </div>
     </section>
   );

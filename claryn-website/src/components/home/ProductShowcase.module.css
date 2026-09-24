@@ -1,45 +1,85 @@
 .products {
-  padding: 8rem 2rem;
   background: var(--hero-bg);
   color: var(--brand-navy);
+  padding-bottom: 8rem;
 }
 
-.inner {
-  max-width: 1200px;
+.ecosystemVisual {
+  position: relative;
+  width: 100%;
+  height: 90vh;
+  margin-bottom: 6rem;
+}
+
+.ecosystemImage {
+  object-fit: cover;
+  object-position: center;
+}
+
+.ecosystemOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--hero-bg) 0%, rgba(239, 245, 251, 0.2) 60%);
+  display: flex;
+  align-items: flex-end;
+  padding: var(--container-pad);
+  padding-bottom: 6rem;
+}
+
+.ecosystemContent {
+  max-width: var(--container-max);
+  width: 100%;
   margin: 0 auto;
 }
 
-.header {
-  text-align: center;
-  margin-bottom: 5rem;
+.ecosystemHeading {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--brand-navy);
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-4);
+  max-width: 800px;
 }
 
-.headline {
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem, 4vw, 3.5rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
+.ecosystemSubhead {
+  font-size: clamp(1.25rem, 1.5vw, 1.5rem);
+  color: var(--color-gray-600);
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
 }
 
 .list {
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  gap: 6rem;
 }
 
 .productItem {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
-  background: #fff;
-  border-radius: 24px;
+  background: var(--color-white);
+  border-radius: var(--radius-2xl);
   padding: 3rem;
   box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+  border: 1px solid rgba(0,0,0,0.03);
   
   /* Initial State for Reveal Animation */
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity var(--motion-slow), transform var(--motion-slow);
+  transition: opacity var(--transition-slow), transform var(--transition-slow), box-shadow var(--transition-base);
+}
+
+.productItem:hover {
+  box-shadow: 0 20px 50px rgba(0,0,0,0.06);
 }
 
 .revealed {
@@ -59,12 +99,17 @@
   transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.productItem:hover .visualPanel {
+  transform: scale(1.02);
+}
+
 .revealed .visualPanel {
   transform: scale(1);
 }
 
 .image {
   object-fit: cover;
+  mix-blend-mode: multiply;
 }
 
 .placeholderVisual {
@@ -105,7 +150,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 3rem;
+  gap: 2.5rem;
 }
 
 .meta {
@@ -118,20 +163,23 @@
   font-family: var(--font-mono);
   font-size: 0.875rem;
   color: var(--brand-blue);
+  font-weight: 600;
   letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .name {
   font-family: var(--font-display);
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 800;
   line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .desc {
   font-size: 1.125rem;
-  color: var(--text-secondary);
-  line-height: 1.5;
+  color: var(--color-gray-600);
+  line-height: 1.6;
   margin-top: 0.5rem;
 }
 
@@ -146,7 +194,7 @@
   /* Sequential stagger reveal */
   opacity: 0;
   transform: translateY(10px);
-  transition: all var(--motion-medium);
+  transition: all var(--transition-base);
   transition-delay: 0.3s;
 }
 
@@ -169,7 +217,7 @@
 
 .specLbl {
   font-size: 0.875rem;
-  color: var(--text-muted);
+  color: var(--color-gray-500);
 }
 
 .actions {
@@ -185,21 +233,21 @@
   background: var(--brand-blue);
   color: #fff;
   padding: 0.875rem 1.5rem;
-  border-radius: 8px;
+  border-radius: var(--radius-full);
   font-weight: 600;
   text-decoration: none;
-  transition: opacity var(--motion-fast);
+  transition: all var(--transition-base);
 }
 
 .ctaPrimary:hover {
-  opacity: 0.9;
+  background: var(--brand-blue-dark);
 }
 
 .ctaSecondary {
   font-weight: 600;
   color: var(--brand-navy);
   text-decoration: none;
-  transition: color var(--motion-fast);
+  transition: color var(--transition-base);
 }
 
 .ctaSecondary:hover {

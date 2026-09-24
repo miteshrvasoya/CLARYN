@@ -1,13 +1,13 @@
 'use client';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, PlayCircle } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { homepageAssets } from '@/config/homepageAssets';
 import styles from './HeroSection.module.css';
 
 export function HeroSection() {
   const scrollToNext = () => {
-    const nextSection = document.getElementById('quality');
+    const nextSection = document.getElementById('source'); // Will point to source next
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: 'smooth' });
     }
@@ -15,64 +15,46 @@ export function HeroSection() {
 
   return (
     <section className={styles.hero}>
-      {/* Immersive Background Glows */}
-      <div className={styles.backgroundEffects}>
-        <div className={styles.glowPrimary} />
-        <div className={styles.glowSecondary} />
+      {/* Background Image */}
+      <div className={styles.heroBackground}>
+        <Image 
+          src={homepageAssets.hero} 
+          alt="Water, Understood." 
+          fill
+          priority
+          className={styles.heroImage}
+        />
+        {/* Subtle overlay for text legibility */}
+        <div className={styles.overlay} />
       </div>
 
       <div className={styles.heroInner}>
-        
         {/* Left: Typography & CTA */}
         <div className={styles.heroContent}>
-          <div className={styles.badge}>
-            <div className={styles.badgePulse} />
-            Next-Gen Water Intelligence
+          <div className={styles.eyebrow}>
+            CLARYN WATER TECHNOLOGY
           </div>
           
           <h1 className={styles.heroTitle}>
-            Better Water Starts With <span className={styles.textGradient}>Understanding It.</span>
+            WATER,<br/>
+            UNDERSTOOD.
           </h1>
           
           <p className={styles.heroSubtitle}>
-            Water quality is different everywhere. Explore the science behind purification, understand your water profile, and discover solutions engineered for absolute purity.
+            Understand your water.<br/>
+            Understand your system.<br/>
+            Choose with clarity.
           </p>
 
           <div className={styles.ctaGroup}>
-            <Link href="/find-your-solution" className={styles.btnPrimary}>
-              Find Your Solution <ArrowRight size={18} />
+            <Link href="#source" onClick={(e) => { e.preventDefault(); scrollToNext(); }} className={styles.btnPrimary}>
+              EXPLORE YOUR WATER
             </Link>
-            <Link href="/learn" className={styles.btnSecondary}>
-              <PlayCircle size={18} /> How it Works
+            <Link href="/products" className={styles.btnSecondary}>
+              EXPLORE PRODUCTS
             </Link>
           </div>
         </div>
-
-        {/* Right: Stunning Visual */}
-        <div className={styles.heroVisual}>
-          <div className={styles.glassPanel}>
-            <Image 
-              src={homepageAssets.heroWater} 
-              alt="Water Intelligence Visualization" 
-              fill
-              className={styles.visualImage}
-              priority
-            />
-          </div>
-          
-          {/* Subtle floating metrics card to add a technical/premium feel */}
-          <div className={styles.metricsCard}>
-            <div className={styles.metric}>
-              <span className={styles.metricValue}>0.0001µ</span>
-              <span className={styles.metricLabel}>Filtration</span>
-            </div>
-            <div className={styles.metric}>
-              <span className={styles.metricValue}>99.9%</span>
-              <span className={styles.metricLabel}>Purity</span>
-            </div>
-          </div>
-        </div>
-
       </div>
 
       {/* Scroll Prompt */}
@@ -80,7 +62,6 @@ export function HeroSection() {
         <div className={styles.mouse}>
           <div className={styles.wheel} />
         </div>
-        <span>Explore Quality</span>
       </button>
     </section>
   );

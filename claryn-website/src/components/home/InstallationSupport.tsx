@@ -1,6 +1,8 @@
 'use client';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, Wrench, ShieldCheck, HelpCircle } from 'lucide-react';
+import { homepageAssets } from '@/config/homepageAssets';
 import styles from './InstallationSupport.module.css';
 
 const SUPPORT_PATHS = [
@@ -31,8 +33,20 @@ export function InstallationSupport() {
   return (
     <section className={styles.support}>
       <div className={styles.inner}>
-        <div className={styles.header}>
-          <h2 className={styles.headline}>We&apos;re here after the purchase, too.</h2>
+        
+        <div className={styles.visualContent}>
+          <div className={styles.imageWrapper}>
+            <Image 
+              src={homepageAssets.support}
+              alt="Your RO Is a System."
+              fill
+              className={styles.image}
+            />
+          </div>
+          <div className={styles.textContent}>
+            <h2 className={styles.headline}>YOUR RO<br/>IS A SYSTEM.</h2>
+            <p className={styles.subhead}>A system requires care over time. We're here after the purchase to ensure your water quality never drops.</p>
+          </div>
         </div>
 
         <div className={styles.grid}>
@@ -52,6 +66,7 @@ export function InstallationSupport() {
             );
           })}
         </div>
+
       </div>
     </section>
   );

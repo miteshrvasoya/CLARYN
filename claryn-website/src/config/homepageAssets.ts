@@ -1,38 +1,40 @@
 /**
  * CLARYN Homepage Visual Assets Configuration
  * 
- * TEMPORARY PLACEHOLDER
- * Replace these values with final CLARYN asset pack when available.
- * 
- * The architecture uses these variables throughout the homepage components.
- * To update the homepage visuals, simply update these paths. Do NOT hardcode
- * image paths in the components.
+ * Centralized map for all narrative images.
  */
 
 export const homepageAssets = {
-  // Hero section
-  heroWater: "/brand/hero_water.jpg", 
+  // 01
+  hero: "/imgs/01 — Water, Understood.png",
   
-  // Water Source Section
-  sourceBorewell: "/brand/hero_water.jpg",
-  sourceMunicipal: "/brand/hero_water.jpg",
-  sourceOther: "/brand/hero_water.jpg",
+  // 02
+  waterSource: "/imgs/02 — Your Water Has a Story.png",
   
-  // Water Quality Story
-  qualityWater: "/brand/hero_water.jpg",
+  // 03
+  waterQuality: "/imgs/03 — What’s Actually in Your Water.png",
   
-  // RO Scroll Story & Exploded View components
-  roSystemComplete: "/brand/ro_system.jpg",
-  roSedimentFilter: "/brand/water_filter.jpg",
-  roCarbonFilter: "/brand/water_filter.jpg",
-  roBoosterPump: "/brand/water_filter.jpg",
-  roMembrane: "/brand/water_filter.jpg",
-  roPostFilter: "/brand/water_filter.jpg",
-  roStorageTank: "/brand/water_filter.jpg",
+  // Follow the Water Sequence (04-08)
+  followWater: {
+    system: "/imgs/04 — Domestic RO Cutaway.png",
+    exploded: "/imgs/05 — Exploded RO System.png",
+    membrane: "/imgs/06 — Inside the RO Membrane.png",
+    separation: "/imgs/07 — Separation Moment.png",
+    glass: "/imgs/08 — From Technology to Your Glass.png",
+  },
   
-  // Engineering Section
-  engineeringVisual: "/brand/ro_system.jpg",
+  // 09
+  products: "/imgs/09 — CLARYN Product Ecosystem.png",
   
-  // Future Technology
-  futureTechVisual: "/brand/ro_system.jpg",
+  // 10
+  solutionFinder: "/imgs/10 — Every Home Starts With Different Water.png",
+  
+  // 11
+  knowledge: "/imgs/11 — Water, Look Closer.png",
+  
+  // 12
+  support: "/imgs/12 — Your RO Is a System.png",
+  
+  // 13
+  future: "/imgs/13 — Future of Water at Home.png",
 };

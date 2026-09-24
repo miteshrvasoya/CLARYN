@@ -1,0 +1,168 @@
+.section {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  background: var(--brand-navy);
+  color: var(--color-white);
+  overflow: hidden;
+}
+
+.imageContainer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.bgImage {
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.7;
+}
+
+/* Base gradient to ensure text readability over the background image */
+.baseOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(13,27,42,0.9) 0%, rgba(13,27,42,0.4) 50%, rgba(13,27,42,0.1) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Localized gradient overlays to highlight regions */
+.overlay, .overlayMunicipal {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: screen;
+}
+
+/* Assuming borewell is deep/ground focused - highlight bottom/left */
+.overlay {
+  background: radial-gradient(circle at 30% 80%, rgba(0, 119, 200, 0.3) 0%, transparent 60%);
+}
+
+/* Assuming municipal is surface/pipe focused - highlight top/right */
+.overlayMunicipal {
+  background: radial-gradient(circle at 70% 30%, rgba(0, 180, 166, 0.3) 0%, transparent 60%);
+}
+
+.overlay.active, .overlayMunicipal.active {
+  opacity: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--container-pad);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+.textBlock {
+  max-width: 600px;
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-5);
+  /* Fix the color override from globals.css h2 */
+  color: var(--color-white);
+  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.subtext {
+  font-size: clamp(1.25rem, 1.5vw, 1.5rem);
+  color: var(--color-gray-100);
+  line-height: 1.6;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 380px;
+  justify-self: end;
+  width: 100%;
+}
+
+.sourceBtn {
+  background: rgba(13, 27, 42, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--color-gray-200);
+  padding: 1.5rem 2rem;
+  font-size: 1.25rem;
+  font-family: var(--font-primary);
+  font-weight: 600;
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sourceBtn::after {
+  content: '→';
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sourceBtn:hover {
+  background: rgba(13, 27, 42, 0.7);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: var(--color-white);
+  transform: translateX(-10px);
+}
+
+.sourceBtn:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.sourceBtn.activeBtn {
+  background: rgba(0, 119, 200, 0.7);
+  border-color: rgba(0, 119, 200, 0.9);
+  color: var(--color-white);
+  transform: translateX(-15px);
+  box-shadow: 0 10px 30px rgba(0, 119, 200, 0.4);
+}
+
+.sourceBtn.activeBtn::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (max-width: 992px) {
+  .content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .controls {
+    justify-self: center;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .sourceBtn:hover, .sourceBtn.activeBtn {
+    transform: translateY(-5px);
+  }
+}

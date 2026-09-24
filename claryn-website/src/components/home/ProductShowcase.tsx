@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { products } from '@/data/products';
+import { homepageAssets } from '@/config/homepageAssets';
 import styles from './ProductShowcase.module.css';
 
 export function ProductShowcase() {
@@ -11,7 +12,6 @@ export function ProductShowcase() {
   const sectionRef = useRef<HTMLElement>(null);
   
   useEffect(() => {
-    // Implementing scroll-linked reveal animation via Intersection Observer
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -28,11 +28,24 @@ export function ProductShowcase() {
 
   return (
     <section className={styles.products} ref={sectionRef}>
-      <div className={styles.inner}>
-        <div className={styles.header}>
-          <h2 className={styles.headline}>Technology you can put to work today.</h2>
+      
+      {/* Editorial Ecosystem Visual */}
+      <div className={styles.ecosystemVisual}>
+        <Image 
+          src={homepageAssets.products}
+          alt="CLARYN Product Ecosystem"
+          fill
+          className={styles.ecosystemImage}
+        />
+        <div className={styles.ecosystemOverlay}>
+          <div className={styles.ecosystemContent}>
+            <h2 className={styles.ecosystemHeading}>BUILT AROUND<br/>THE SYSTEM.</h2>
+            <p className={styles.ecosystemSubhead}>Explore authentic CLARYN replacement components and systems engineered for exact specifications.</p>
+          </div>
         </div>
+      </div>
 
+      <div className={styles.inner}>
         <div className={styles.list}>
           {activeProducts.map((product, index) => {
             const primaryLink = product.marketplaceLinks.find(

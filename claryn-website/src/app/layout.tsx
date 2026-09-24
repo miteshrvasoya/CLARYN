@@ -1,35 +1,29 @@
 import type { Metadata } from 'next';
-import { Public_Sans, Fraunces, IBM_Plex_Mono, Poppins, Raleway } from 'next/font/google';
+import { Inter, Outfit, IBM_Plex_Mono } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-/* ScrollClarityIndicator removed — new design uses section-level scroll storytelling */
 import { siteConfig } from '@/lib/site-config';
 
-// ─── CLARYN Official Brand Fonts (from Pack.png spec: Poppins / Raleway) ─────
+// ─── CLARYN Modern Tech Fonts ─────
 
-// Primary body: Poppins — matches CLARYN wordmark style, highly legible
-const poppins = Poppins({
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800'],
   variable: '--font-body',
   display: 'swap',
   fallback: ['system-ui', 'sans-serif'],
   preload: true,
 });
 
-// Display / headings: Raleway — matches brand tagline "CLEAR WATER. CLEARER LIFE."
-const raleway = Raleway({
+const outfit = Outfit({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800', '900'],
   variable: '--font-display',
   display: 'swap',
-  fallback: ['Poppins', 'system-ui', 'sans-serif'],
+  fallback: ['system-ui', 'sans-serif'],
   preload: true,
 });
 
-// Mono: IBM Plex Mono — kept for TDS readouts, spec labels, eyebrows
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
@@ -39,22 +33,17 @@ const ibmPlexMono = IBM_Plex_Mono({
   preload: false,
 });
 
-// ─── Legacy aliases kept for remaining pages that reference --font-primary ───
-const publicSans = Poppins({   // re-export Poppins as --font-primary alias
+// Legacy aliases
+const publicSans = Inter({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
   variable: '--font-primary',
   display: 'swap',
-  fallback: ['system-ui', 'sans-serif'],
-  preload: false,
 });
-const fraunces = Raleway({     // re-export Raleway as --font-secondary alias
+
+const fraunces = Outfit({
   subsets: ['latin'],
-  weight: ['400', '600', '700', '800'],
   variable: '--font-secondary',
   display: 'swap',
-  fallback: ['system-ui', 'sans-serif'],
-  preload: false,
 });
 
 
@@ -113,7 +102,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en-IN"
       data-scroll-behavior="smooth"
-      className={`${publicSans.variable} ${fraunces.variable} ${ibmPlexMono.variable} ${poppins.variable} ${raleway.variable}`}
+      className={`${publicSans.variable} ${fraunces.variable} ${ibmPlexMono.variable} ${inter.variable} ${outfit.variable}`}
     >
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }} />

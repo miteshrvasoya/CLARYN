@@ -4,9 +4,9 @@ import { ArrowRight } from 'lucide-react';
 
 // New Homepage Components
 import { HeroSection } from '@/components/home/HeroSection';
+import { WaterSourceStory } from '@/components/home/WaterSourceStory';
 import { WaterQualityStory } from '@/components/home/WaterQualityStory';
 import { ROScrollStory } from '@/components/home/ROScrollStory';
-import { EngineeringSection } from '@/components/home/EngineeringSection';
 import { ProductShowcase } from '@/components/home/ProductShowcase';
 import { SolutionFinder } from '@/components/home/SolutionFinder';
 import { KnowledgeSection } from '@/components/home/KnowledgeSection';
@@ -32,7 +32,12 @@ export default function HomePage() {
         <HeroSection />
       </div>
 
-      {/* 02 QUALITY */}
+      {/* 02 SOURCE */}
+      <div id="source">
+        <WaterSourceStory />
+      </div>
+
+      {/* 03 QUALITY */}
       <div id="quality">
         <WaterQualityStory />
       </div>
@@ -42,12 +47,7 @@ export default function HomePage() {
         <ROScrollStory />
       </div>
 
-      {/* 04 TECHNOLOGY */}
-      <div id="technology">
-        <EngineeringSection />
-      </div>
-
-      {/* 05 SOLUTIONS */}
+      {/* 04 SOLUTIONS */}
       <div id="solutions">
         <ProductShowcase />
         <SolutionFinder />

@@ -1,44 +1,89 @@
 .solutionFinder {
-  padding: 8rem 2rem;
-  background: #fff;
-  color: var(--brand-navy);
+  background: var(--brand-navy);
+  color: var(--color-white);
 }
 
 .inner {
-  max-width: 900px;
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
 }
 
-.header {
-  text-align: center;
-  margin-bottom: 4rem;
+.visualColumn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-8) var(--container-pad);
+  overflow: hidden;
+}
+
+.bgImage {
+  object-fit: cover;
+  object-position: center left;
+  z-index: 0;
+}
+
+.imageOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transition: background 0.5s ease;
+}
+
+.overlayDefault {
+  background: linear-gradient(to top, rgba(13, 27, 42, 0.9) 0%, rgba(13, 27, 42, 0.2) 100%);
+}
+
+.overlayBorewell {
+  background: linear-gradient(to top, rgba(13, 27, 42, 0.9) 0%, rgba(13, 27, 42, 0) 50%),
+              radial-gradient(circle at 20% 80%, rgba(0, 119, 200, 0.2) 0%, transparent 50%);
+}
+
+.overlayMunicipal {
+  background: linear-gradient(to top, rgba(13, 27, 42, 0.9) 0%, rgba(13, 27, 42, 0) 50%),
+              radial-gradient(circle at 80% 20%, rgba(0, 180, 166, 0.2) 0%, transparent 50%);
+}
+
+.visualContent {
+  position: relative;
+  z-index: 2;
+  max-width: 500px;
 }
 
 .headline {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 4vw, 3.5rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  margin-bottom: 1rem;
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  font-weight: var(--fw-bold);
+  line-height: 1.1;
+  margin-bottom: var(--space-4);
+  color: var(--color-white);
 }
 
 .subtext {
-  font-size: 1.125rem;
-  color: var(--text-muted);
+  font-size: var(--text-lg);
+  color: var(--color-gray-200);
+  line-height: var(--lh-relaxed);
+}
+
+.wizardColumn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+  background: #fff;
 }
 
 .wizard {
-  background: var(--hero-bg);
-  border-radius: 24px;
-  padding: 4rem;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.03);
+  width: 100%;
+  max-width: 500px;
 }
 
 .progressTracker {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
 }
 
 .progressItem {
@@ -55,21 +100,22 @@
   font-family: var(--font-mono);
   font-size: 0.875rem;
   font-weight: 700;
-  color: var(--text-muted);
-  width: 40px;
-  height: 40px;
+  color: var(--color-gray-400);
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  border: 2px solid rgba(0, 119, 200, 0.2);
+  border: 2px solid rgba(0, 119, 200, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--motion-medium);
+  transition: all var(--transition-base);
 }
 
 .stepActive {
   background: var(--brand-blue);
   color: #fff;
   border-color: var(--brand-blue);
+  box-shadow: 0 4px 15px rgba(0, 119, 200, 0.3);
 }
 
 .stepLine {
@@ -77,7 +123,7 @@
   height: 2px;
   background: rgba(0, 119, 200, 0.1);
   margin: 0 1rem;
-  transition: background var(--motion-medium);
+  transition: background var(--transition-base);
 }
 
 .lineActive {
@@ -85,53 +131,59 @@
 }
 
 .stepContent {
-  min-height: 200px;
+  min-height: 250px;
 }
 
 .stepTitle {
   font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  text-align: center;
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin-bottom: 2.5rem;
+  color: var(--brand-navy);
+  line-height: 1.1;
 }
 
 .optionsGrid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.25rem;
 }
 
 .optionBtn {
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.1);
+  background: var(--color-white);
+  border: 2px solid var(--color-gray-200);
   color: var(--brand-navy);
-  padding: 1rem 1.5rem;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 500;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-xl);
+  font-size: 1.125rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all var(--motion-fast);
+  transition: all var(--transition-fast);
+  text-align: center;
 }
 
 .optionBtn:hover {
-  border-color: var(--brand-blue);
+  border-color: var(--color-gray-400);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
 }
 
 .selected {
-  background: var(--brand-blue);
-  color: #fff;
+  background: var(--color-blue-50);
+  color: var(--brand-blue);
   border-color: var(--brand-blue);
+}
+.selected:hover {
+  border-color: var(--brand-blue-dark);
 }
 
 .navigation {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 4rem;
+  margin-top: 3rem;
   padding-top: 2rem;
-  border-top: 1px solid rgba(0,0,0,0.1);
+  border-top: 1px solid var(--color-gray-200);
 }
 
 .btnPrimary {
@@ -142,12 +194,12 @@
   color: #fff;
   border: none;
   padding: 1rem 2rem;
-  border-radius: 8px;
+  border-radius: var(--radius-full);
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
   text-decoration: none;
-  transition: background var(--motion-fast);
+  transition: background var(--transition-fast);
 }
 
 .btnPrimary:hover:not(:disabled) {
@@ -162,7 +214,7 @@
 .btnSecondary {
   background: transparent;
   border: none;
-  color: var(--text-muted);
+  color: var(--color-gray-500);
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
@@ -173,18 +225,13 @@
   color: var(--brand-navy);
 }
 
-@media (max-width: 768px) {
-  .wizard {
-    padding: 2rem;
+@media (max-width: 992px) {
+  .inner {
+    grid-template-columns: 1fr;
   }
   
-  .stepIndicator {
-    width: 32px;
-    height: 32px;
-    font-size: 0.75rem;
-  }
-  
-  .stepLine {
-    margin: 0 0.5rem;
+  .visualColumn {
+    height: 60vh;
+    padding-top: var(--space-12);
   }
 }
