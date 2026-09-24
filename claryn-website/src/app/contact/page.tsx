@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import { Mail, Phone, MapPin, CheckCircle, AlertTriangle, ArrowRight } from 'lucide-react';
+import { Mail, Phone, MapPin, CheckCircle, AlertTriangle, ArrowRight, Instagram, Facebook, Youtube, Linkedin, Twitter } from 'lucide-react';
 import { siteConfig } from '@/lib/site-config';
 
 export default function ContactPage() {
@@ -72,6 +72,18 @@ export default function ContactPage() {
                   {siteConfig.contact.phone && <a href={`tel:${siteConfig.contact.phone}`} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: 'var(--text-sm)' }}><Phone size={16} aria-hidden />{siteConfig.contact.phone}</a>}
                   {siteConfig.contact.address && <span style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--space-3)', fontSize: 'var(--text-sm)', lineHeight: 1.7 }}><MapPin size={16} aria-hidden style={{ flexShrink: 0, marginTop: 2 }} />{siteConfig.contact.address}</span>}
                   {!siteConfig.contact.email && !siteConfig.contact.phone && <p style={{ fontSize: 'var(--text-sm)', color: 'rgba(255,255,255,0.4)', fontStyle: 'italic' }}>Contact details will be published here soon. In the meantime, please use the form.</p>}
+                </div>
+                
+                <div style={{ marginTop: 'var(--space-6)', paddingTop: 'var(--space-5)', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+                  <h4 style={{ color: 'var(--color-white)', fontSize: 'var(--text-sm)', marginBottom: 'var(--space-4)', textTransform: 'uppercase', letterSpacing: 'var(--ls-wide)' }}>Follow Us</h4>
+                  <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
+                    {siteConfig.social.instagram && <a href={siteConfig.social.instagram} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,255,255,0.8)', padding: '10px', background: 'rgba(255,255,255,0.05)', borderRadius: '50%', display: 'flex', transition: 'all 0.2s' }} onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')} onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.05)')} aria-label="Instagram"><Instagram size={20} /></a>}
+                    {siteConfig.social.facebook && <a href={siteConfig.social.facebook} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,255,255,0.8)', padding: '10px', background: 'rgba(255,255,255,0.05)', borderRadius: '50%', display: 'flex', transition: 'all 0.2s' }} onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')} onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.05)')} aria-label="Facebook"><Facebook size={20} /></a>}
+                    {siteConfig.social.youtube && <a href={siteConfig.social.youtube} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,255,255,0.8)', padding: '10px', background: 'rgba(255,255,255,0.05)', borderRadius: '50%', display: 'flex', transition: 'all 0.2s' }} onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')} onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.05)')} aria-label="YouTube"><Youtube size={20} /></a>}
+                    {siteConfig.social.linkedin && <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,255,255,0.8)', padding: '10px', background: 'rgba(255,255,255,0.05)', borderRadius: '50%', display: 'flex', transition: 'all 0.2s' }} onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')} onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.05)')} aria-label="LinkedIn"><Linkedin size={20} /></a>}
+                    {siteConfig.social.x && <a href={siteConfig.social.x} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,255,255,0.8)', padding: '10px', background: 'rgba(255,255,255,0.05)', borderRadius: '50%', display: 'flex', transition: 'all 0.2s' }} onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')} onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.05)')} aria-label="X (Twitter)"><Twitter size={20} /></a>}
+                    {!siteConfig.social.instagram && !siteConfig.social.facebook && !siteConfig.social.youtube && !siteConfig.social.linkedin && !siteConfig.social.x && <span style={{ fontSize: 'var(--text-sm)', color: 'rgba(255,255,255,0.4)', fontStyle: 'italic' }}>Social profiles coming soon.</span>}
+                  </div>
                 </div>
               </div>
               <div style={{ border: '1px solid var(--color-gray-200)', borderRadius: 'var(--radius-xl)', padding: 'var(--space-6)' }}>
