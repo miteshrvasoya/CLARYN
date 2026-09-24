@@ -17,13 +17,15 @@ export function HeroSection() {
     <section className={styles.hero}>
       {/* Background Image */}
       <div className={styles.heroBackground}>
-        <Image 
-          src={homepageAssets.hero} 
-          alt="Water, Understood." 
-          fill
-          priority
-          className={styles.heroImage}
-        />
+        <div className={styles.heroImageWrapper}>
+          <Image 
+            src={homepageAssets.hero} 
+            alt="Water, Understood." 
+            fill
+            priority
+            className={styles.heroImage}
+          />
+        </div>
         {/* Subtle overlay for text legibility */}
         <div className={styles.overlay} />
       </div>
