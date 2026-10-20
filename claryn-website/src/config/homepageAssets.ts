@@ -37,4 +37,7 @@ export const homepageAssets = {
   
   // 13
   future: "/imgs/13 — Future of Water at Home.png",
+
+  // Engineering section asset fallback
+  engineeringVisual: "/imgs/06 — Inside the RO Membrane.png",
 };

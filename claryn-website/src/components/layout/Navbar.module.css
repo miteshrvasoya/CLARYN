@@ -1,341 +1,312 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   CLARYN NAVBAR — Floating Minimal
-   Floating above the page, translucent with rounded corners.
+   CLARYN NAVBAR — Premium Brand Navigation
+   Clean, compact, horizontal desktop bar aligned with hero grid.
    ═══════════════════════════════════════════════════════════════════════════ */
 
 .navbar {
   position: fixed;
-  inset-inline: 0;
-  top: 1.5rem;
-  z-index: var(--z-nav);
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 72px;
+  z-index: var(--z-nav, 100);
   transition:
-    transform var(--transition-smooth),
-    background var(--transition-smooth),
-    backdrop-filter var(--transition-smooth),
-    border-color var(--transition-smooth),
-    box-shadow var(--transition-smooth),
-    padding var(--transition-smooth),
-    max-width var(--transition-smooth);
-  width: 90%;
-  max-width: 1100px;
-  margin: 0 auto;
-  border-radius: 99px;
-  padding: 0.25rem 0.5rem;
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
-/* ── Transparent state (top of page - homepage) ────────────────────────── */
-.navbarTop {
-  background: rgba(13, 27, 42, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-}
-
-/* ── Frosted state (scrolled - homepage) ───────────────────────────────── */
-.navbarSolid {
-  background: rgba(10, 20, 35, 0.85);
-  backdrop-filter: blur(20px) saturate(1.4);
-  -webkit-backdrop-filter: blur(20px) saturate(1.4);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
-  top: 1rem;
-  transform: scale(0.98);
-}
-
-/* ── Light variant — inner pages (white/light hero) ──────────────────────── */
-/* Top state: clean white solid */
-.navbarLightTop {
-  background: rgba(255, 255, 255, 0.9);
+/* ── Dark Navbar (Homepage with dark hero) ───────────────────────────────── */
+.navbarDarkTop {
+  background: rgba(13, 27, 42, 0.72);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Scrolled state: frosted white */
-.navbarLightSolid {
-  background: rgba(255, 255, 255, 0.95);
+.navbarDarkSolid {
+  background: rgba(10, 20, 35, 0.94);
   backdrop-filter: blur(20px) saturate(1.2);
   -webkit-backdrop-filter: blur(20px) saturate(1.2);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 10px 40px rgba(10, 37, 64, 0.08);
-  top: 1rem;
-  transform: scale(0.98);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
-/* ── Inner layout ────────────────────────────────────────────────────────── */
+/* ── Light Navbar (Inner pages with light hero) ─────────────────────────── */
+.navbarLightTop {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(13, 27, 42, 0.08);
+}
+
+.navbarLightSolid {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px) saturate(1.1);
+  -webkit-backdrop-filter: blur(20px) saturate(1.1);
+  border-bottom: 1px solid rgba(13, 27, 42, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+/* ── Inner Grid Container ────────────────────────────────────────────────── */
 .inner {
   display: flex;
   align-items: center;
-  gap: 0;
-  max-width: 1360px;
-  margin-inline: auto;
-  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+  justify-content: space-between;
+  max-width: 1280px;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 3vw, 2.5rem);
 }
 
-/* ── Logo ────────────────────────────────────────────────────────────────── */
+/* ── 1. Logo (Far Left) ──────────────────────────────────────────────────── */
 .logo {
   display: flex;
   align-items: center;
   flex-shrink: 0;
   text-decoration: none;
-  transition: opacity var(--transition-fast);
+  transition: opacity 0.2s ease;
 }
-.logo:hover { opacity: 0.82; }
 
-/* Logo always shows as white — hero is dark, scrolled state is also dark */
+.logo:hover {
+  opacity: 0.85;
+}
+
 .logoImage {
-  height: 36px;
+  height: 30px;
   width: auto;
   display: block;
+  transition: opacity 0.2s ease, filter 0.2s ease;
+}
+
+/* Dark theme: crisp white wordmark on dark hero */
+.navbarDarkTop .logoImage,
+.navbarDarkSolid .logoImage {
   filter: brightness(0) invert(1);
-  opacity: 0.92;
-  transition: opacity var(--transition-fast);
+  opacity: 0.95;
 }
 
-/* ── Desktop nav ─────────────────────────────────────────────────────────── */
-.desktopNav {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  margin-left: auto;
-  margin-right: 2rem;
-}
-
-/* ── Light mode logo (dark text pages) ───────────────────────────────────── */
+/* Light theme: original navy logo */
 .navbarLightTop .logoImage,
 .navbarLightSolid .logoImage {
-  filter: none;  /* keep original brand colors */
+  filter: none;
   opacity: 1;
 }
 
-/* ── Nav group & link ────────────────────────────────────────────────────── */
-/* ── Nav group & link ────────────────────────────────────────────────────── */
+/* ── 2. Desktop Navigation (Middle) ──────────────────────────────────────── */
+.desktopNav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 1.75rem);
+}
+
 .navGroup {
   position: relative;
 }
 
-/* Default: white text — hero is always dark */
 .navLink {
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
-  padding: 0.5rem 1rem;
+  gap: 0.35rem;
+  padding: 0.5rem 0.65rem;
   font-family: var(--font-body);
   font-size: 0.875rem;
   font-weight: 500;
   letter-spacing: 0.01em;
-  color: rgba(255, 255, 255, 0.7);
   background: transparent;
   border: none;
   cursor: pointer;
   text-decoration: none;
-  transition: color var(--transition-fast), background var(--transition-fast);
+  border-radius: 6px;
+  transition: color 0.2s ease, background 0.2s ease;
   white-space: nowrap;
-  border-radius: 99px;
 }
 
-.navbarSolid .navLink {
-  color: rgba(255, 255, 255, 0.8);
+/* Dark Navbar Links */
+.navbarDarkTop .navLink,
+.navbarDarkSolid .navLink {
+  color: rgba(255, 255, 255, 0.78);
 }
 
-.navLink:hover {
+.navbarDarkTop .navLink:hover,
+.navbarDarkSolid .navLink:hover {
   color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.navbarDarkTop .navLinkActive,
+.navbarDarkSolid .navLinkActive {
+  color: #FFFFFF !important;
+  font-weight: 600;
+}
+
+.navbarDarkTop .navLinkOpen,
+.navbarDarkSolid .navLinkOpen {
+  color: #FFFFFF !important;
   background: rgba(255, 255, 255, 0.08);
 }
-.navbarSolid .navLink:hover {
-  color: #FFFFFF;
-  background: rgba(255, 255, 255, 0.1);
-}
 
-.navLinkActive {
-  color: #FFFFFF !important;
-  font-weight: 600;
-  background: rgba(255, 255, 255, 0.12) !important;
-}
-.navbarSolid .navLinkActive {
-  color: #FFFFFF !important;
-  background: rgba(255, 255, 255, 0.15) !important;
-}
-
-.navLinkOpen {
-  color: #FFFFFF !important;
-  background: rgba(255, 255, 255, 0.1) !important;
-}
-.navbarSolid .navLinkOpen {
-  color: #FFFFFF !important;
-  background: rgba(255, 255, 255, 0.15) !important;
-}
-
-/* Light mode nav links */
+/* Light Navbar Links */
 .navbarLightTop .navLink,
 .navbarLightSolid .navLink {
-  color: #475569;
-}
-.navbarLightTop .navLink:hover,
-.navbarLightSolid .navLink:hover {
-  color: #0A2540;
-  background: rgba(0, 0, 0, 0.05);
-}
-.navbarLightTop .navLinkActive,
-.navbarLightSolid .navLinkActive {
-  color: #0A2540 !important;
-  font-weight: 600;
-  background: rgba(0, 0, 0, 0.08) !important;
-}
-.navbarLightTop .navLinkOpen,
-.navbarLightSolid .navLinkOpen {
-  color: #0A2540 !important;
-  background: rgba(0, 0, 0, 0.06) !important;
+  color: #334155;
 }
 
-/* ── Chevron ─────────────────────────────────────────────────────────────── */
+.navbarLightTop .navLink:hover,
+.navbarLightSolid .navLink:hover {
+  color: #0D1B2A;
+  background: rgba(13, 27, 42, 0.04);
+}
+
+.navbarLightTop .navLinkActive,
+.navbarLightSolid .navLinkActive {
+  color: #0077C8 !important;
+  font-weight: 600;
+}
+
+.navbarLightTop .navLinkOpen,
+.navbarLightSolid .navLinkOpen {
+  color: #0D1B2A !important;
+  background: rgba(13, 27, 42, 0.05);
+}
+
+/* Dropdown Chevron */
 .navChevron {
-  transition: transform var(--transition-base);
+  transition: transform 0.2s ease;
   flex-shrink: 0;
   opacity: 0.6;
 }
+
 .navChevronOpen {
   transform: rotate(180deg);
   opacity: 1;
 }
 
-/* ── Active indicator ────────────────────────────────────────────────────── */
-.activeBar {
-  display: none; /* Removed in favor of pill background */
-}
-
-/* Dropdown — dark surface at top of page too (hero is dark) */
+/* Dropdown Popover */
 .dropdown {
   position: absolute;
   top: calc(100% + 12px);
   left: 50%;
-  transform: translateX(-50%) translateY(-6px);
-  min-width: 220px;
-  background: rgba(10, 20, 35, 0.7);
-  backdrop-filter: blur(24px) saturate(1.2);
-  -webkit-backdrop-filter: blur(24px) saturate(1.2);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 20px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
-  padding: 0.75rem;
+  transform: translateX(-50%) translateY(4px);
+  min-width: 230px;
+  padding: 0.5rem;
+  border-radius: 12px;
   opacity: 0;
   pointer-events: none;
   transition:
     opacity 0.2s ease,
     transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 10;
+  z-index: 100;
 }
+
 .dropdownOpen {
   opacity: 1;
   pointer-events: auto;
   transform: translateX(-50%) translateY(0);
 }
 
-.navbarSolid .dropdown {
-  background: rgba(10, 20, 35, 0.97);
-  border-color: rgba(255, 255, 255, 0.09);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+/* Dark Dropdown */
+.navbarDarkTop .dropdown,
+.navbarDarkSolid .dropdown {
+  background: #0F2338;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
 }
 
-/* Light mode: white dropdown */
+/* Light Dropdown */
 .navbarLightTop .dropdown,
 .navbarLightSolid .dropdown {
   background: #FFFFFF;
   border: 1px solid #E2E8F0;
-  box-shadow: 0 8px 32px rgba(10, 37, 64, 0.1);
-}
-
-.dropdownArrow {
-  display: none;
-}
-.navbarSolid .dropdownArrow {
-  background: rgba(10, 20, 35, 0.97);
-  border-color: rgba(255, 255, 255, 0.09);
-}
-
-/* Light mode arrow */
-.navbarLightTop .dropdownArrow,
-.navbarLightSolid .dropdownArrow {
-  background: #FFFFFF;
-  border-color: #E2E8F0;
+  box-shadow: 0 16px 36px rgba(13, 27, 42, 0.09);
 }
 
 .dropdownLinks {
   display: flex;
   flex-direction: column;
+  gap: 2px;
 }
 
 .dropdownLink {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
-  padding: 0.6rem 0.875rem;
-  font-size: 0.8125rem;
+  gap: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.84rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.65);
   text-decoration: none;
   border-radius: 8px;
-  transition: background var(--transition-fast), color var(--transition-fast);
-  animation: fadeUp 0.2s ease backwards;
-}
-.dropdownLink:hover {
-  background: rgba(0, 119, 200, 0.15);
-  color: #FFFFFF;
-}
-.navbarSolid .dropdownLink {
-  color: rgba(255, 255, 255, 0.7);
-}
-.navbarSolid .dropdownLink:hover {
-  background: rgba(0, 119, 200, 0.15);
-  color: #FFFFFF;
-}
-.dropdownLinkActive {
-  color: #5bbfff;
-  font-weight: 600;
-}
-.navbarSolid .dropdownLinkActive {
-  color: #5bbfff;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
-/* Light mode dropdown links */
+.dropdownLabel {
+  white-space: nowrap;
+}
+
+/* Dark dropdown links */
+.navbarDarkTop .dropdownLink,
+.navbarDarkSolid .dropdownLink {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.navbarDarkTop .dropdownLink:hover,
+.navbarDarkSolid .dropdownLink:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+}
+
+.navbarDarkTop .dropdownLinkActive,
+.navbarDarkSolid .dropdownLinkActive {
+  color: #5BBFFF;
+  font-weight: 600;
+  background: rgba(0, 119, 200, 0.15);
+}
+
+/* Light dropdown links */
 .navbarLightTop .dropdownLink,
 .navbarLightSolid .dropdownLink {
-  color: #475569;
+  color: #334155;
 }
+
 .navbarLightTop .dropdownLink:hover,
 .navbarLightSolid .dropdownLink:hover {
   background: #F1F5F9;
-  color: #0A2540;
+  color: #0D1B2A;
 }
+
 .navbarLightTop .dropdownLinkActive,
 .navbarLightSolid .dropdownLinkActive {
   color: #0077C8;
+  font-weight: 600;
+  background: #E5F2FB;
 }
 
-/* ── Tags ────────────────────────────────────────────────────────────────── */
+/* Tags in Dropdowns */
 .tag {
   display: inline-flex;
   align-items: center;
-  padding: 2px 7px;
+  padding: 2px 6px;
   border-radius: 4px;
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   flex-shrink: 0;
 }
+
 .tagLive {
-  background: rgba(22, 163, 74, 0.12);
-  color: #16a34a;
-}
-.tagSoon {
-  background: rgba(255, 138, 0, 0.1);
-  color: #e07b00;
+  background: rgba(22, 163, 74, 0.15);
+  color: #22c55e;
 }
 
-/* ── Actions ─────────────────────────────────────────────────────────────── */
+.tagSoon {
+  background: rgba(255, 138, 0, 0.15);
+  color: #f97316;
+}
+
+/* ── 3. Primary Actions (Far Right) ───────────────────────────────────────── */
 .actions {
   display: flex;
   align-items: center;
@@ -343,120 +314,159 @@
   flex-shrink: 0;
 }
 
-/* Register link — white on dark hero */
-.actionText {
-  font-size: 0.8125rem;
+/* Register Product (Secondary outline action) */
+.actionRegister {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.525rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.84rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.01em;
   text-decoration: none;
-  transition: color var(--transition-fast);
+  border-radius: 99px;
   white-space: nowrap;
-}
-.actionText:hover { color: rgba(255,255,255,0.88); }
-.navbarSolid .actionText {
-  color: rgba(255,255,255,0.5);
-}
-.navbarSolid .actionText:hover {
-  color: rgba(255,255,255,0.85);
-}
-/* Light mode register link */
-.navbarLightTop .actionText,
-.navbarLightSolid .actionText {
-  color: #64748B;
-}
-.navbarLightTop .actionText:hover,
-.navbarLightSolid .actionText:hover {
-  color: #0A2540;
+  transition: all 0.2s ease;
 }
 
-/* Single dominant CTA */
+.registerIcon {
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+/* Dark navbar: refined outline */
+.navbarDarkTop .actionRegister,
+.navbarDarkSolid .actionRegister {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(8px);
+}
+
+.navbarDarkTop .actionRegister:hover,
+.navbarDarkSolid .actionRegister:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.42);
+  transform: translateY(-1px);
+}
+
+/* Light navbar: subtle dark outline */
+.navbarLightTop .actionRegister,
+.navbarLightSolid .actionRegister {
+  color: #0D1B2A;
+  background: transparent;
+  border: 1px solid rgba(13, 27, 42, 0.18);
+}
+
+.navbarLightTop .actionRegister:hover,
+.navbarLightSolid .actionRegister:hover {
+  background: rgba(13, 27, 42, 0.05);
+  border-color: #0D1B2A;
+  transform: translateY(-1px);
+}
+
+/* Find My Water Solution (Strongest primary CTA) */
 .actionCTA {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1.25rem;
-  background: var(--brand-blue);
+  justify-content: center;
+  padding: 0.55rem 1.25rem;
+  background: var(--brand-blue, #0077C8);
   color: #FFFFFF;
   font-family: var(--font-body);
-  font-size: 0.875rem;
+  font-size: 0.84rem;
   font-weight: 600;
   letter-spacing: 0.01em;
   text-decoration: none;
   border-radius: 99px;
   white-space: nowrap;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 119, 200, 0.28);
   transition:
-    background var(--transition-fast),
-    transform var(--transition-fast),
-    box-shadow var(--transition-fast);
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
+
 .actionCTA:hover {
-  background: var(--brand-blue-dark);
+  background: var(--brand-blue-dark, #005EA3);
   transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(0, 119, 200, 0.35);
+  box-shadow: 0 4px 18px rgba(0, 119, 200, 0.45);
 }
+
 .actionCTA:active {
   transform: translateY(0);
 }
 
-/* ── Hamburger ───────────────────────────────────────────────────────────── */
+/* ── Mobile Hamburger Toggle ─────────────────────────────────────────────── */
 .hamburger {
   display: none;
   flex-direction: column;
   justify-content: center;
   gap: 5px;
-  width: 36px;
-  height: 36px;
-  padding: 6px;
-  margin-left: auto;
-  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
   background: transparent;
   border: none;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background var(--transition-fast);
+  transition: background 0.2s ease;
 }
-/* Hamburger bars — white on dark hero */
+
 .bar {
   display: block;
   height: 1.5px;
-  background: rgba(255, 255, 255, 0.85);
   border-radius: 2px;
-  transition: transform var(--transition-base), opacity var(--transition-fast);
+  transition: transform 0.2s ease, opacity 0.2s ease;
   transform-origin: center;
 }
-.navbarSolid .bar {
+
+.navbarDarkTop .bar,
+.navbarDarkSolid .bar {
   background: #FFFFFF;
 }
-/* Light mode hamburger bars */
+
 .navbarLightTop .bar,
 .navbarLightSolid .bar {
-  background: #0A2540;
+  background: #0D1B2A;
 }
-.hamburger:hover {
-  background: rgba(255,255,255,0.08);
+
+.navbarDarkTop .hamburger:hover,
+.navbarDarkSolid .hamburger:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
-.navbarSolid .hamburger:hover {
-  background: rgba(255,255,255,0.08);
-}
-/* Light mode hamburger hover */
+
 .navbarLightTop .hamburger:hover,
 .navbarLightSolid .hamburger:hover {
-  background: #F1F5F9;
+  background: rgba(13, 27, 42, 0.05);
 }
 
-.hamburgerOpen .bar:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-.hamburgerOpen .bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.hamburgerOpen .bar:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.hamburgerOpen .bar:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.hamburgerOpen .bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.hamburgerOpen .bar:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
 
-/* ── Backdrop ────────────────────────────────────────────────────────────── */
+/* ── Mobile Backdrop ─────────────────────────────────────────────────────── */
 .backdrop {
   position: fixed;
   inset: 0;
-  z-index: calc(var(--z-nav) - 1);
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--transition-smooth);
+  transition: opacity 0.3s ease;
+  z-index: calc(var(--z-nav, 100) + 1);
 }
+
 .backdropVisible {
   opacity: 1;
   pointer-events: auto;
@@ -468,18 +478,19 @@
   top: 0;
   right: 0;
   bottom: 0;
-  z-index: var(--z-nav);
-  width: min(85vw, 360px);
-  background: rgba(6, 14, 26, 0.97);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-left: 1px solid rgba(255, 255, 255, 0.07);
+  width: 86%;
+  max-width: 380px;
+  background: #0A1624;
+  color: #FFFFFF;
+  z-index: calc(var(--z-nav, 100) + 2);
   display: flex;
   flex-direction: column;
   transform: translateX(100%);
-  transition: transform var(--transition-cinematic);
-  overflow-y: auto;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.5);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
+
 .drawerOpen {
   transform: translateX(0);
 }
@@ -489,61 +500,58 @@
   align-items: center;
   justify-content: space-between;
   padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.logoWordmark {
-  font-family: var(--font-display);
-  font-size: 1.125rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  color: #FFFFFF;
-  text-transform: uppercase;
+.drawerLogo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
 }
-.logoIcon {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
+
+.drawerLogoImage {
+  height: 26px;
+  width: auto;
+  filter: brightness(0) invert(1);
 }
 
 .drawerClose {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  width: 32px;
-  height: 32px;
-  padding: 5px;
-  background: rgba(255,255,255,0.06);
+  background: transparent;
   border: none;
-  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
-  transition: background var(--transition-fast);
+  padding: 0.5rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, background 0.2s ease;
 }
-.drawerClose:hover { background: rgba(255,255,255,0.12); }
 
-.closeBar {
-  display: block;
-  height: 1.5px;
-  background: rgba(255,255,255,0.8);
-  border-radius: 2px;
-  transform-origin: center;
+.drawerClose:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.08);
 }
-.closeBar:nth-child(1) { transform: translateY(3.5px) rotate(45deg); }
-.closeBar:nth-child(2) { transform: translateY(-3.5px) rotate(-45deg); }
 
-/* ── Drawer links ────────────────────────────────────────────────────────── */
-.drawerLinks {
+.drawerContent {
   flex: 1;
-  padding: 1rem 1.25rem;
+  overflow-y: auto;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.125rem;
+  justify-content: space-between;
+  gap: 2rem;
 }
 
-.drawerItem {
-  animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+.drawerLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.drawerGroup {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 0.5rem;
 }
 
 .drawerLink {
@@ -551,124 +559,131 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 0.875rem 0.75rem;
-  font-family: var(--font-body);
+  padding: 0.75rem 0.5rem;
   font-size: 1rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.75);
-  background: none;
+  color: rgba(255, 255, 255, 0.88);
+  background: transparent;
   border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  text-decoration: none;
   text-align: left;
-  transition: background var(--transition-fast), color var(--transition-fast);
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: color 0.15s ease, background 0.15s ease;
 }
+
 .drawerLink:hover {
-  background: rgba(255, 255, 255, 0.06);
   color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.05);
 }
+
 .drawerLinkActive {
-  color: #5bbfff;
+  color: #5BBFFF;
   font-weight: 600;
 }
 
 .drawerChevron {
-  transition: transform var(--transition-base);
-  opacity: 0.5;
+  transition: transform 0.2s ease;
+  opacity: 0.6;
 }
+
 .drawerChevronOpen {
   transform: rotate(180deg);
   opacity: 1;
 }
 
 .drawerSub {
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height var(--transition-smooth);
-}
-.drawerSubOpen {
-  max-height: 400px;
-}
-.drawerSub > div {
-  display: flex;
+  display: none;
   flex-direction: column;
-  gap: 0.125rem;
-  padding: 0.25rem 0 0.5rem 1.25rem;
+  gap: 2px;
+  padding-left: 0.75rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.5rem;
+}
+
+.drawerSubOpen {
+  display: flex;
 }
 
 .drawerSubLink {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.625rem 0.75rem;
+  padding: 0.55rem 0.75rem;
   font-size: 0.875rem;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
-  border-radius: 8px;
-  transition: background var(--transition-fast), color var(--transition-fast);
-}
-.drawerSubLink:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: rgba(255, 255, 255, 0.85);
+  border-radius: 6px;
+  transition: color 0.15s ease, background 0.15s ease;
 }
 
-/* ── Drawer actions ──────────────────────────────────────────────────────── */
+.drawerSubLink:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.drawerSubLinkActive {
+  color: #5BBFFF;
+  font-weight: 600;
+}
+
 .drawerActions {
-  padding: 1.25rem 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  flex-shrink: 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mobileCTA {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 1.25rem;
+  background: var(--brand-blue, #0077C8);
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  border-radius: 99px;
+  text-decoration: none;
+  text-align: center;
+  transition: background 0.2s ease;
+}
+
+.mobileCTA:hover {
+  background: var(--brand-blue-dark, #005EA3);
 }
 
 .mobileRegister {
-  display: block;
-  text-align: center;
-  padding: 0.75rem;
-  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8125rem 1.25rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.9375rem;
+  border-radius: 99px;
   text-decoration: none;
-  border-radius: 10px;
-  transition: background var(--transition-fast), color var(--transition-fast);
+  text-align: center;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
+
 .mobileRegister:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
-/* ── Responsive ──────────────────────────────────────────────────────────── */
+/* ── Responsive Media Queries ─────────────────────────────────────────────── */
 @media (max-width: 1024px) {
-  .desktopNav { display: none; }
-  .actions    { display: none; }
-  .hamburger  { display: flex; }
-}
+  .desktopNav,
+  .actions {
+    display: none;
+  }
 
-@media (max-width: 768px) {
-  .navbarTop  { padding-block: 1rem; }
-  .navbarSolid { padding-block: 0.75rem; }
-}
-
-/* Small phones: bigger touch targets */
-@media (max-width: 480px) {
-  .inner {
-    padding-inline: 1rem;
-  }
-  .drawerLink {
-    padding: 1rem 0.875rem;
-    font-size: 1.0625rem;
-  }
-  .drawerSubLink {
-    padding: 0.75rem 0.875rem;
-    font-size: 0.9375rem;
-  }
-  .drawerActions {
-    padding: 1.25rem 1rem;
-  }
-  .mobileRegister {
-    padding: 0.875rem;
+  .hamburger {
+    display: flex;
   }
 }

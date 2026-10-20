@@ -12,7 +12,6 @@ import { SolutionFinder } from '@/components/home/SolutionFinder';
 import { KnowledgeSection } from '@/components/home/KnowledgeSection';
 import { InstallationSupport } from '@/components/home/InstallationSupport';
 import { FutureTechnology } from '@/components/home/FutureTechnology';
-import { StoryProgressIndicator } from '@/components/home/StoryProgressIndicator';
 
 import styles from './page.module.css';
 
@@ -25,7 +24,6 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <div className="homepage-wrapper">
-      <StoryProgressIndicator />
       
       {/* 01 WATER */}
       <div id="hero" className={styles.snapPoint}>

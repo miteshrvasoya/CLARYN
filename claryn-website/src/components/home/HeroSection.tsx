@@ -1,70 +1,60 @@
 'use client';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight } from 'lucide-react';
 import { homepageAssets } from '@/config/homepageAssets';
 import styles from './HeroSection.module.css';
 
 export function HeroSection() {
-  const scrollToNext = () => {
-    const nextSection = document.getElementById('source'); // Will point to source next
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
-    <section className={styles.hero}>
-      {/* Background Image */}
-      <div className={styles.heroBackground}>
-        <div className={styles.heroImageWrapper}>
-          <Image 
-            src={homepageAssets.hero} 
-            alt="Water, Understood." 
-            fill
-            priority
-            className={styles.heroImage}
-          />
-        </div>
-        {/* Subtle overlay for text legibility */}
-        <div className={styles.overlay} />
+    <section className={styles.hero} aria-labelledby="hero-headline">
+      {/* ── Full Background Image ─────────────────────────────────── */}
+      <div className={styles.heroBg} aria-hidden="true">
+        <Image
+          src={homepageAssets.hero}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className={styles.heroBgImage}
+        />
+        {/* Layered cinematic gradients for flawless text contrast and seamless section blending */}
+        <div className={styles.heroOverlay} />
       </div>
 
-      <div className={styles.heroInner}>
-        {/* Left: Typography & CTA */}
+      {/* ── Foreground Content Grid ───────────────────────────────── */}
+      <div className={styles.heroContainer}>
         <div className={styles.heroContent}>
-          <div className={styles.eyebrow}>
-            CLARYN WATER TECHNOLOGY
-          </div>
-          
-          <h1 className={styles.heroTitle}>
-            WATER,<br/>
-            UNDERSTOOD.
+          <p className={styles.eyebrow}>
+            WATER, UNDERSTOOD.
+          </p>
+
+          <h1 id="hero-headline" className={styles.headline}>
+            Better Water<br />
+            <span className={styles.headlineAccent}>Starts With Understanding.</span>
           </h1>
-          
-          <p className={styles.heroSubtitle}>
-            Understand your water.<br/>
-            Understand your system.<br/>
-            Choose with clarity.
+
+          <p className={styles.supportingText}>
+            Understand your water. Explore solutions designed around your needs.
           </p>
 
           <div className={styles.ctaGroup}>
-            <Link href="#source" onClick={(e) => { e.preventDefault(); scrollToNext(); }} className={styles.btnPrimary}>
-              EXPLORE YOUR WATER
+            <Link
+              href="/find-your-solution"
+              className={styles.btnPrimary}
+              id="hero-cta-find-solution"
+            >
+              Find My Water Solution
             </Link>
-            <Link href="/products" className={styles.btnSecondary}>
-              EXPLORE PRODUCTS
+            <Link
+              href="/register-product"
+              className={styles.btnSecondary}
+              id="hero-cta-register"
+            >
+              Register Product
             </Link>
           </div>
         </div>
       </div>
-
-      {/* Scroll Prompt */}
-      <button className={styles.scrollIndicator} onClick={scrollToNext} aria-label="Scroll down">
-        <div className={styles.mouse}>
-          <div className={styles.wheel} />
-        </div>
-      </button>
     </section>
   );
 }

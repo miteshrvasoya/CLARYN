@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { ChevronDown, ArrowRight } from 'lucide-react';
+import { ChevronDown, ShieldCheck, X } from 'lucide-react';
 import { siteConfig } from '@/lib/site-config';
 import styles from './Navbar.module.css';
 
@@ -20,16 +20,20 @@ export function Navbar() {
 
   /* Scroll detection */
   useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 40);
-    h();
-    window.addEventListener('scroll', h, { passive: true });
-    return () => window.removeEventListener('scroll', h);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 24);
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   /* Body lock when mobile menu open */
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [menuOpen]);
 
   /* Close on route change */
@@ -41,57 +45,65 @@ export function Navbar() {
 
   /* Click outside closes desktop dropdown */
   const handleOutside = useCallback((e: MouseEvent) => {
-    if (innerRef.current && !innerRef.current.contains(e.target as Node))
+    if (innerRef.current && !innerRef.current.contains(e.target as Node)) {
       setActiveMenu(null);
+    }
   }, []);
+
   useEffect(() => {
     document.addEventListener('mousedown', handleOutside);
     return () => document.removeEventListener('mousedown', handleOutside);
   }, [handleOutside]);
 
-  /* Escape key */
+  /* Escape key closes menus */
   useEffect(() => {
-    const fn = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') { setActiveMenu(null); setMenuOpen(false); }
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActiveMenu(null);
+        setMenuOpen(false);
+      }
     };
-    document.addEventListener('keydown', fn);
-    return () => document.removeEventListener('keydown', fn);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   const navItems = siteConfig.nav.main as unknown as NavItem[];
   const isActive = (href: string) =>
     pathname === href || (href !== '/' && pathname.startsWith(href));
 
-  // On the homepage the hero is dark, so we use the dark transparent navbar.
-  // On all other pages the hero is white/light, so we use the white solid navbar.
+  // Homepage has dark hero, inner pages have light background
   const isHomePage = pathname === '/';
 
-  const topClass    = isHomePage ? styles.navbarTop    : styles.navbarLightTop;
-  const solidClass  = isHomePage ? styles.navbarSolid  : styles.navbarLightSolid;
+  const navbarThemeClass = isHomePage
+    ? scrolled
+      ? styles.navbarDarkSolid
+      : styles.navbarDarkTop
+    : scrolled
+      ? styles.navbarLightSolid
+      : styles.navbarLightTop;
 
   return (
     <>
       <header
-        className={`${styles.navbar} ${scrolled ? solidClass : topClass}`}
+        className={`${styles.navbar} ${navbarThemeClass}`}
         role="banner"
       >
         <div className={styles.inner} ref={innerRef}>
-
-          {/* ── LOGO ───────────────────────────────────────────────────── */}
-          <Link href="/" className={styles.logo} aria-label="CLARYN — Home">
+          {/* ── 1. LOGO (Far Left) ────────────────────────────────────── */}
+          <Link href="/" className={styles.logo} aria-label="CLARYN — Clear Water. Clearer Life.">
             <Image
               src="/brand/logo/PRIMARY_BRAND_LOGO_TEXT_PNG.png"
               alt="CLARYN"
-              width={140}
-              height={46}
+              width={132}
+              height={42}
               priority
               className={styles.logoImage}
             />
           </Link>
 
-          {/* ── DESKTOP NAV ────────────────────────────────────────────── */}
+          {/* ── 2. MAIN NAVIGATION (Middle) ───────────────────────────── */}
           <nav className={styles.desktopNav} aria-label="Primary navigation">
-            {navItems.map(item => {
+            {navItems.map((item) => {
               const hasMenu = !!item.children?.length;
               const open = activeMenu === item.label;
               const active = isActive(item.href);
@@ -100,16 +112,17 @@ export function Navbar() {
                 <div key={item.label} className={styles.navGroup}>
                   {hasMenu ? (
                     <button
+                      type="button"
                       className={`${styles.navLink} ${active ? styles.navLinkActive : ''} ${open ? styles.navLinkOpen : ''}`}
                       onClick={() => setActiveMenu(open ? null : item.label)}
                       aria-expanded={open}
                       aria-haspopup="true"
                     >
-                      {item.label}
+                      <span>{item.label}</span>
                       <ChevronDown
                         size={12}
                         className={`${styles.navChevron} ${open ? styles.navChevronOpen : ''}`}
-                        aria-hidden
+                        aria-hidden="true"
                       />
                     </button>
                   ) : (
@@ -117,32 +130,32 @@ export function Navbar() {
                       href={item.href}
                       className={`${styles.navLink} ${active ? styles.navLinkActive : ''}`}
                     >
-                      {item.label}
+                      <span>{item.label}</span>
                     </Link>
                   )}
-
-                  {active && <span className={styles.activeBar} aria-hidden />}
 
                   {hasMenu && (
                     <div
                       className={`${styles.dropdown} ${open ? styles.dropdownOpen : ''}`}
                       role="menu"
                     >
-                      <div className={styles.dropdownArrow} aria-hidden />
                       <div className={styles.dropdownLinks}>
-                        {item.children!.map((child, i) => (
+                        {item.children!.map((child) => (
                           <Link
                             key={child.href}
                             href={child.href}
                             className={`${styles.dropdownLink} ${isActive(child.href) ? styles.dropdownLinkActive : ''}`}
                             role="menuitem"
                             tabIndex={open ? 0 : -1}
-                            style={{ animationDelay: `${i * 30}ms` }}
                             onClick={() => setActiveMenu(null)}
                           >
-                            <span>{child.label}</span>
+                            <span className={styles.dropdownLabel}>{child.label}</span>
                             {child.tag && (
-                              <span className={`${styles.tag} ${child.tag === 'Live' ? styles.tagLive : styles.tagSoon}`}>
+                              <span
+                                className={`${styles.tag} ${
+                                  child.tag === 'Live' ? styles.tagLive : styles.tagSoon
+                                }`}
+                              >
                                 {child.tag}
                               </span>
                             )}
@@ -156,22 +169,32 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* ── ACTIONS ────────────────────────────────────────────────── */}
+          {/* ── 3. PRIMARY ACTIONS (Far Right) ────────────────────────── */}
           <div className={styles.actions}>
-            <Link href="/register-product" className={styles.actionText}>
-              Register
+            <Link
+              href="/register-product"
+              className={styles.actionRegister}
+              aria-label="Register Product"
+            >
+              <ShieldCheck size={14} className={styles.registerIcon} aria-hidden="true" />
+              <span>Register Product</span>
             </Link>
-            <Link href="/find-your-solution" className={styles.actionCTA} id="nav-cta">
-              Find Your Water Solution
-              <ArrowRight size={13} aria-hidden />
+
+            <Link
+              href="/find-your-solution"
+              className={styles.actionCTA}
+              id="nav-cta-find-solution"
+            >
+              <span>Find My Water Solution</span>
             </Link>
           </div>
 
-          {/* ── HAMBURGER ──────────────────────────────────────────────── */}
+          {/* ── HAMBURGER (Mobile Toggle) ──────────────────────────────── */}
           <button
+            type="button"
             className={`${styles.hamburger} ${menuOpen ? styles.hamburgerOpen : ''}`}
-            onClick={() => setMenuOpen(v => !v)}
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label={menuOpen ? 'Close menu' : 'Open navigation menu'}
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
           >
@@ -182,110 +205,120 @@ export function Navbar() {
         </div>
       </header>
 
-      {/* ── BACKDROP ─────────────────────────────────────────────────────── */}
+      {/* ── BACKDROP OVERLAY ────────────────────────────────────────────── */}
       <div
         className={`${styles.backdrop} ${menuOpen ? styles.backdropVisible : ''}`}
         onClick={() => setMenuOpen(false)}
-        aria-hidden
+        aria-hidden="true"
       />
 
       {/* ── MOBILE DRAWER ────────────────────────────────────────────────── */}
-      <nav
+      <aside
         id="mobile-nav"
         className={`${styles.drawer} ${menuOpen ? styles.drawerOpen : ''}`}
-        aria-label="Mobile navigation"
+        aria-label="Mobile navigation menu"
         aria-hidden={!menuOpen}
       >
         <div className={styles.drawerHeader}>
-          <Link href="/" className={styles.logo} onClick={() => setMenuOpen(false)} aria-label="CLARYN Home">
+          <Link href="/" className={styles.drawerLogo} onClick={() => setMenuOpen(false)} aria-label="CLARYN Home">
             <Image
-              src="/brand/logo/brand-logo-icon.png"
+              src="/brand/logo/PRIMARY_BRAND_LOGO_TEXT_PNG.png"
               alt="CLARYN"
-              width={28}
-              height={28}
-              className={styles.logoIcon}
+              width={118}
+              height={38}
+              className={styles.drawerLogoImage}
             />
-            <span className={styles.logoWordmark}>CLARYN</span>
           </Link>
-          <button className={styles.drawerClose} onClick={() => setMenuOpen(false)} aria-label="Close menu">
-            <span className={styles.closeBar} />
-            <span className={styles.closeBar} />
+          <button
+            type="button"
+            className={styles.drawerClose}
+            onClick={() => setMenuOpen(false)}
+            aria-label="Close menu"
+          >
+            <X size={20} aria-hidden="true" />
           </button>
         </div>
 
-        <div className={styles.drawerLinks}>
-          {navItems.map((item, idx) => {
-            const open = mobileOpen === item.label;
-            const active = isActive(item.href);
+        <div className={styles.drawerContent}>
+          <div className={styles.drawerLinks}>
+            {navItems.map((item) => {
+              const open = mobileOpen === item.label;
+              const active = isActive(item.href);
 
-            return (
-              <div
-                key={item.label}
-                className={styles.drawerItem}
-                style={{ animationDelay: menuOpen ? `${60 + idx * 50}ms` : '0ms' }}
-              >
-                {item.children?.length ? (
-                  <>
-                    <button
-                      className={`${styles.drawerLink} ${active ? styles.drawerLinkActive : ''}`}
-                      onClick={() => setMobileOpen(open ? null : item.label)}
-                      aria-expanded={open}
-                    >
-                      {item.label}
-                      <ChevronDown
-                        size={15}
-                        className={`${styles.drawerChevron} ${open ? styles.drawerChevronOpen : ''}`}
-                        aria-hidden
-                      />
-                    </button>
-                    <div className={`${styles.drawerSub} ${open ? styles.drawerSubOpen : ''}`}>
-                      <div>
-                        {item.children.map(child => (
+              return (
+                <div key={item.label} className={styles.drawerGroup}>
+                  {item.children?.length ? (
+                    <>
+                      <button
+                        type="button"
+                        className={`${styles.drawerLink} ${active ? styles.drawerLinkActive : ''}`}
+                        onClick={() => setMobileOpen(open ? null : item.label)}
+                        aria-expanded={open}
+                      >
+                        <span>{item.label}</span>
+                        <ChevronDown
+                          size={15}
+                          className={`${styles.drawerChevron} ${open ? styles.drawerChevronOpen : ''}`}
+                          aria-hidden="true"
+                        />
+                      </button>
+                      <div className={`${styles.drawerSub} ${open ? styles.drawerSubOpen : ''}`}>
+                        {item.children.map((child) => (
                           <Link
                             key={child.href}
                             href={child.href}
-                            className={styles.drawerSubLink}
+                            className={`${styles.drawerSubLink} ${
+                              isActive(child.href) ? styles.drawerSubLinkActive : ''
+                            }`}
                             onClick={() => setMenuOpen(false)}
                           >
-                            {child.label}
+                            <span>{child.label}</span>
                             {child.tag && (
-                              <span className={`${styles.tag} ${child.tag === 'Live' ? styles.tagLive : styles.tagSoon}`}>
+                              <span
+                                className={`${styles.tag} ${
+                                  child.tag === 'Live' ? styles.tagLive : styles.tagSoon
+                                }`}
+                              >
                                 {child.tag}
                               </span>
                             )}
                           </Link>
                         ))}
                       </div>
-                    </div>
-                  </>
-                ) : (
-                  <Link
-                    href={item.href}
-                    className={`${styles.drawerLink} ${active ? styles.drawerLinkActive : ''}`}
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                )}
-              </div>
-            );
-          })}
-        </div>
+                    </>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className={`${styles.drawerLink} ${active ? styles.drawerLinkActive : ''}`}
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      <span>{item.label}</span>
+                    </Link>
+                  )}
+                </div>
+              );
+            })}
+          </div>
 
-        <div className={styles.drawerActions}>
-          <Link href="/register-product" className={styles.mobileRegister} onClick={() => setMenuOpen(false)}>
-            Register Product
-          </Link>
-          <Link
-            href="/find-your-solution"
-            className="btn btn--primary"
-            onClick={() => setMenuOpen(false)}
-            style={{ justifyContent: 'center', borderRadius: '10px', padding: '0.875rem' }}
-          >
-            Find Your Water Solution <ArrowRight size={14} aria-hidden />
-          </Link>
+          <div className={styles.drawerActions}>
+            <Link
+              href="/find-your-solution"
+              className={styles.mobileCTA}
+              onClick={() => setMenuOpen(false)}
+            >
+              Find My Water Solution
+            </Link>
+            <Link
+              href="/register-product"
+              className={styles.mobileRegister}
+              onClick={() => setMenuOpen(false)}
+            >
+              <ShieldCheck size={15} aria-hidden="true" />
+              <span>Register Product</span>
+            </Link>
+          </div>
         </div>
-      </nav>
+      </aside>
     </>
   );
 }
