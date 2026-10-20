@@ -56,6 +56,10 @@ export async function POST(req: NextRequest) {
     });
 
     // 4. Send Confirmation Email to Customer and Internal Alert to Support
+    const warrantyMonths = matchedProduct?.specs?.warrantyPeriod
+      ? parseInt(matchedProduct.specs.warrantyPeriod, 10) || 12
+      : 12;
+
     const emailResult = await sendWarrantyRegistrationEmails({
       registrationId,
       customerName: data.name,
@@ -68,6 +72,7 @@ export async function POST(req: NextRequest) {
       orderId: data.orderId,
       invoiceUrl: data.invoiceUrl,
       invoiceFileName: data.invoiceFileName,
+      warrantyPeriodMonths: warrantyMonths,
     });
 
     // 5. Safe audit log (mask sensitive mobile digits)
