@@ -9,14 +9,21 @@ datasource db {
 
 model ProductRegistration {
   id               String   @id @default(cuid())
+  referenceId      String?  @unique
   name             String
   mobile           String
   email            String
   productId        String
+  productName      String?
+  productModel     String?
   serialNumber     String?
   purchaseDate     DateTime
   purchasePlatform String
   orderId          String?
+  invoiceUrl       String?
+  invoiceFileName  String?
+  invoiceFileSize  Int?
+  invoiceFileType  String?
   pincode          String?
   waterSource      String?
   notes            String?
