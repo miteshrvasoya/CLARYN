@@ -87,7 +87,7 @@ export default async function ProductDetailPage({ params }: Props) {
     ['Max Feed Water TDS', product.specs.maxTDS ? `Up to ${product.specs.maxTDS} ppm` : null],
     ['Dimensions', product.specs.dimensions ?? null],
     ['Weight', product.specs.weight ?? null],
-    ['Warranty', product.specs.warrantyPeriod ?? 'Up to 6 months'],
+    ['Warranty', product.specs.warrantyPeriod ?? (product.category === 'pumps' ? 'Up to 6 months' : null)],
   ].filter(([, v]) => v !== null) as [string, string][];
 
   return (
@@ -165,10 +165,17 @@ export default async function ProductDetailPage({ params }: Props) {
                 </div>
 
                 {/* Warranty Strip */}
-                <div className={styles.warrantyStrip}>
-                  <ShieldCheck size={16} className={styles.warrantyIcon} aria-hidden />
-                  <span>{product.specs.warrantyPeriod ? `${product.specs.warrantyPeriod} standard warranty` : 'Up to 6 months standard warranty'} on eligible products · Register product after purchase to activate</span>
-                </div>
+                {product.category === 'pumps' || product.specs.warrantyPeriod ? (
+                  <div className={styles.warrantyStrip}>
+                    <ShieldCheck size={16} className={styles.warrantyIcon} aria-hidden />
+                    <span>Up to 6 months standard warranty on eligible RO pumps · Register after purchase to activate</span>
+                  </div>
+                ) : (
+                  <div className={styles.warrantyStrip} style={{ background: '#F8FAFC', borderColor: '#E2E8F0', color: '#64748B' }}>
+                    <ShieldCheck size={16} style={{ color: '#0284C7', flexShrink: 0 }} aria-hidden />
+                    <span>Consumable filtration component · Register product after purchase for maintenance reminders</span>
+                  </div>
+                )}
               </div>
 
               {/* Feature Highlights */}

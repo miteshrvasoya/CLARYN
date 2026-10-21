@@ -22,7 +22,7 @@ import styles from './page.module.css';
 export const metadata: Metadata = {
   title: 'Warranty Policy & Claim Portal | CLARYN Products',
   description:
-    'Understand CLARYN\'s standard manufacturer warranty on eligible products for up to 6 months from the date of purchase, coverage specifications, exclusions, and claim process.',
+    'Understand CLARYN\'s standard manufacturer warranty on RO Booster Pumps for up to 6 months from the date of purchase, coverage specifications, exclusions, and claim process.',
 };
 
 export default function WarrantyPage() {
@@ -54,8 +54,8 @@ export default function WarrantyPage() {
               </h1>
 
               <p className={styles.subtitle}>
-                We stand firmly behind the precision engineering of every CLARYN reverse
-                osmosis membrane. Experience hassle-free protection with fast-track online
+                We stand firmly behind the precision engineering of every CLARYN RO Booster
+                Pump with up to 6 months warranty coverage. Experience hassle-free protection with fast-track online
                 claim settlement.
               </p>
 
@@ -201,8 +201,8 @@ export default function WarrantyPage() {
             <span className={styles.sectionCategory}>Warranty Terms</span>
             <h2 className={styles.sectionTitle}>What Is Covered vs. What Is Not</h2>
             <p className={styles.sectionDesc}>
-              Clear, transparent terms with no hidden conditions. We guarantee consistent
-              filtration quality when our membranes are operated within design specifications.
+              Clear, transparent terms with no hidden conditions. We guarantee dependable mechanical
+              and electrical performance when our booster pumps are operated with compatible power adapters.
             </p>
           </div>
 
@@ -223,9 +223,9 @@ export default function WarrantyPage() {
                 <div className={styles.coverageItem}>
                   <Check size={18} className={styles.checkIcon} />
                   <div>
-                    <div className={styles.itemHeading}>Manufacturing Defects</div>
+                    <div className={styles.itemHeading}>Motor &amp; Electrical Defects</div>
                     <div className={styles.itemDesc}>
-                      Flaws in membrane sheet bonding, rolling, end caps, or internal seals.
+                      Motor coil open circuit, failure to rotate under rated DC voltage, or internal wiring flaws.
                     </div>
                   </div>
                 </div>
@@ -233,9 +233,9 @@ export default function WarrantyPage() {
                 <div className={styles.coverageItem}>
                   <Check size={18} className={styles.checkIcon} />
                   <div>
-                    <div className={styles.itemHeading}>Premature Salt Rejection Drop</div>
+                    <div className={styles.itemHeading}>Pressure Output Loss</div>
                     <div className={styles.itemDesc}>
-                      Sudden failure to meet advertised TDS rejection (e.g. &gt;90–95%) under normal feed water.
+                      Failure of pump diaphragm to generate specified working boost pressure (&gt;60–80 PSI) under normal feed.
                     </div>
                   </div>
                 </div>
@@ -243,9 +243,9 @@ export default function WarrantyPage() {
                 <div className={styles.coverageItem}>
                   <Check size={18} className={styles.checkIcon} />
                   <div>
-                    <div className={styles.itemHeading}>Structural &amp; Housing Failures</div>
+                    <div className={styles.itemHeading}>Pump Head &amp; Diaphragm Leakage</div>
                     <div className={styles.itemDesc}>
-                      Cracking, delamination, or leakage from the membrane body under rated booster pump pressure.
+                      External water leakage from pump head casing, diaphragm seal, or valve assembly under normal operating pressure.
                     </div>
                   </div>
                 </div>
@@ -253,9 +253,9 @@ export default function WarrantyPage() {
                 <div className={styles.coverageItem}>
                   <Check size={18} className={styles.checkIcon} />
                   <div>
-                    <div className={styles.itemHeading}>Sub-Standard Purified Flow</div>
+                    <div className={styles.itemHeading}>Bearing &amp; Mechanical Noise</div>
                     <div className={styles.itemDesc}>
-                      Failure to generate rated pure flow (GPD) at standard operating pressure upon initial installation.
+                      Abnormal grinding noise, internal bearing seizure, or excessive mechanical vibration upon installation.
                     </div>
                   </div>
                 </div>
@@ -285,9 +285,9 @@ export default function WarrantyPage() {
                 <div className={styles.coverageItem}>
                   <AlertTriangle size={18} className={styles.warningIcon} />
                   <div>
-                    <div className={styles.itemHeading}>Normal Wear &amp; Membrane Exhaustion</div>
+                    <div className={styles.itemHeading}>Consumable Filtration Media (Membranes &amp; Filters)</div>
                     <div className={styles.itemDesc}>
-                      Natural mineral saturation and bio-fouling after extensive usage cycle.
+                      RO membranes, sediment cartridges, and carbon blocks are consumable filtration media and are not eligible for warranty claims.
                     </div>
                   </div>
                 </div>
@@ -295,9 +295,9 @@ export default function WarrantyPage() {
                 <div className={styles.coverageItem}>
                   <AlertTriangle size={18} className={styles.warningIcon} />
                   <div>
-                    <div className={styles.itemHeading}>Neglected Pre-Filter Maintenance</div>
+                    <div className={styles.itemHeading}>Dry Running Without Water Supply</div>
                     <div className={styles.itemDesc}>
-                      Damage caused by choked sediment or expired carbon filters passing chlorine and silt.
+                      Pump operated without inlet water feed, causing diaphragm friction burn or thermal seizure.
                     </div>
                   </div>
                 </div>
@@ -305,9 +305,9 @@ export default function WarrantyPage() {
                 <div className={styles.coverageItem}>
                   <AlertTriangle size={18} className={styles.warningIcon} />
                   <div>
-                    <div className={styles.itemHeading}>Operating Beyond Rated Limits</div>
+                    <div className={styles.itemHeading}>Overvoltage &amp; Electrical Surges</div>
                     <div className={styles.itemDesc}>
-                      Input water exceeding rated model TDS (e.g., &gt;2000–3000 PPM), hot water, or dry running.
+                      Damage caused by faulty third-party power adapters (SMPS), incorrect voltage supply, or external lightning surges.
                     </div>
                   </div>
                 </div>
@@ -315,9 +315,9 @@ export default function WarrantyPage() {
                 <div className={styles.coverageItem}>
                   <AlertTriangle size={18} className={styles.warningIcon} />
                   <div>
-                    <div className={styles.itemHeading}>Unauthorized Channels &amp; Misuse</div>
+                    <div className={styles.itemHeading}>Tampering, Physical Impact &amp; Unofficial Sellers</div>
                     <div className={styles.itemDesc}>
-                      Units purchased through unverified sellers, or structural damage from rough handling.
+                      Pump opened/repaired by third-party technicians, fractured casing, or units bought from unauthorized sellers.
                     </div>
                   </div>
                 </div>
@@ -563,9 +563,10 @@ export default function WarrantyPage() {
           <AlertTriangle size={20} className={styles.legalIcon} />
           <div>
             <strong>Legal Warranty Policy:</strong> The above terms represent standard manufacturer
-            warranty terms for CLARYN domestic and commercial reverse osmosis membranes manufactured
-            and distributed by Udarta Watertech Private Limited. Proof of purchase and verification
-            of operational parameters are mandatory for all warranty settlements.
+            warranty terms for CLARYN RO Booster Pumps manufactured and distributed by Udarta Watertech
+            Private Limited. Consumable filtration items (RO membranes, sediment cartridges, carbon filters)
+            are consumable wear items and do not carry warranty claim coverage. Proof of purchase and
+            verification of operational parameters are mandatory for all warranty settlements.
           </div>
         </div>
       </div>

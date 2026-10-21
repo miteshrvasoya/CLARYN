@@ -112,9 +112,9 @@ export const faqs: FAQ[] = [
     id: 'faq-warranty-coverage',
     category: 'Warranty',
     displayOrder: 1,
-    relatedProductIds: ['claryn-100-gpd-2500tds', 'claryn-100-gpd-15layer', 'claryn-100-gpd-5000tds'],
+    relatedProductIds: ['claryn-100-gpd-booster-pump', 'claryn-150-gpd-booster-pump'],
     question: 'What is the standard warranty coverage on CLARYN products?',
-    answer: 'CLARYN offers up to 6 months standard warranty on eligible products from the date of purchase against manufacturing defects and premature performance drop. To ensure complete coverage, activate your warranty by registering your product at claryn.in/register-product with your purchase invoice.',
+    answer: 'CLARYN provides up to 6 months standard manufacturer warranty exclusively on CLARYN RO Booster Pumps from the date of purchase against motor and diaphragm defects. RO Membranes and filter cartridges are consumable filtration items subject to water quality and do not carry warranty claim coverage, but can be registered at claryn.in/register-product for maintenance reminders.',
   },
   {
     id: 'faq-warranty-claim',

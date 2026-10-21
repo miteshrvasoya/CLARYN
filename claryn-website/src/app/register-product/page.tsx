@@ -511,7 +511,7 @@ export default function RegisterProductPage() {
                       </option>
                       {products.map((p) => (
                         <option key={p.id} value={p.id}>
-                          {p.name} {p.model ? `(${p.model})` : ''}
+                          {p.name}{p.model ? ` (${p.model})` : ''}
                         </option>
                       ))}
                     </select>

@@ -40,12 +40,16 @@ const PURCHASE_PLATFORMS = [
 ];
 
 const ISSUE_CATEGORIES = [
-  'High TDS / Low Salt Rejection',
-  'Low Purified Flow / No Flow',
-  'Membrane Leakage / Structural Concern',
-  'Odor or Taste Issue',
-  'Premature Clogging / Rapid Flow Drop',
-  'Other Technical Concern',
+  'Pump Not Powering On / Dead Motor (No Electrical Response)',
+  'Low Output Water Pressure (< 60–80 PSI / Weak Boost)',
+  'Water Leakage from Pump Head / Diaphragm Seal',
+  'Excessive Noise / Loud Vibrations / Knocking Sound',
+  'Motor Overheating / Intermittent Auto Cut-Off',
+  'Continuous Running / Pressure Switch Not Tripping',
+  'Burnt Coil Smell / Sparking / Electrical Concern',
+  'Pulsating Water Flow / Irregular Pressure Cycles',
+  'Fitting / Thread Damage or Casing Crack',
+  'Other Mechanical or Electrical Pump Concern',
 ];
 
 export default function WarrantyClaimPage() {
@@ -60,8 +64,6 @@ export default function WarrantyClaimPage() {
   const [registrationId, setRegistrationId] = useState('');
   const [issueCategory, setIssueCategory] = useState('');
   const [issueDescription, setIssueDescription] = useState('');
-  const [sourceTDS, setSourceTDS] = useState('');
-  const [purifiedTDS, setPurifiedTDS] = useState('');
   const [termsAccepted, setTermsAccepted] = useState(false);
 
   // File Upload State
@@ -111,7 +113,12 @@ export default function WarrantyClaimPage() {
     }
 
     if (!productId) {
-      newErrors.productId = 'Please select your CLARYN product.';
+      newErrors.productId = 'Please select your product model.';
+    } else {
+      const selected = products.find((p) => p.id === productId);
+      if (selected && selected.category !== 'pumps') {
+        newErrors.productId = 'Warranty claims apply exclusively to CLARYN RO Booster Pumps. RO Membranes are consumable filtration items and not eligible for warranty claims.';
+      }
     }
 
     if (!purchaseDate) {
@@ -137,7 +144,7 @@ export default function WarrantyClaimPage() {
     }
 
     if (!termsAccepted) {
-      newErrors.terms = 'Please acknowledge that the product was operated within rated conditions.';
+      newErrors.terms = 'Please acknowledge that the pump was installed and operated within rated specifications.';
     }
 
     setErrors(newErrors);
@@ -230,8 +237,6 @@ export default function WarrantyClaimPage() {
         registrationId: registrationId.trim() || undefined,
         issueCategory,
         issueDescription: issueDescription.trim(),
-        sourceTDS: sourceTDS.trim() || undefined,
-        purifiedTDS: purifiedTDS.trim() || undefined,
       };
 
       // Upload file directly to Cloudflare R2 if present
@@ -392,7 +397,7 @@ export default function WarrantyClaimPage() {
               Submit a Warranty Claim
             </h1>
             <p className={styles.heroDesc}>
-              Experiencing an issue with your CLARYN product? Fill in the details below to initiate our verified warranty support and inspection process.
+              Experiencing an issue with your CLARYN RO Booster Pump? Fill in the details below to initiate our verified warranty technical evaluation and replacement process.
             </p>
           </div>
         </div>
@@ -517,22 +522,31 @@ export default function WarrantyClaimPage() {
                 <div className={styles.formCardBody}>
                   <div className={styles.formGroup}>
                     <label htmlFor="claim-product" className={styles.formLabel}>
-                      Product <span className={styles.requiredStar}>*</span>
+                      Product Model <span className={styles.requiredStar}>*</span>
                     </label>
                     <select
                       id="claim-product"
                       className={`${styles.formSelect} ${errors.productId ? styles.inputError : ''}`}
                       value={productId}
                       onChange={(e) => {
-                        setProductId(e.target.value);
-                        if (errors.productId) setErrors({ ...errors, productId: '' });
+                        const val = e.target.value;
+                        setProductId(val);
+                        const selected = products.find((p) => p.id === val);
+                        if (selected && selected.category !== 'pumps') {
+                          setErrors((prev) => ({
+                            ...prev,
+                            productId: 'Warranty claims apply exclusively to CLARYN RO Booster Pumps. RO Membranes are consumable filtration items and not eligible for warranty claims.',
+                          }));
+                        } else {
+                          setErrors((prev) => ({ ...prev, productId: '' }));
+                        }
                       }}
                       required
                     >
-                      <option value="">Select your CLARYN product…</option>
+                      <option value="">Select your CLARYN product model…</option>
                       {products.map((p) => (
                         <option key={p.id} value={p.id}>
-                          {p.name} {p.model ? `(${p.model})` : ''}
+                          {p.name}{p.model ? ` (${p.model})` : ''}
                         </option>
                       ))}
                     </select>
@@ -541,6 +555,17 @@ export default function WarrantyClaimPage() {
                         <AlertCircle size={14} aria-hidden="true" /> {errors.productId}
                       </span>
                     )}
+
+                    {/* Notice clarifying Pumps only vs Membranes */}
+                    <div style={{ marginTop: '0.75rem', padding: '0.75rem 1rem', background: '#F0F9FF', border: '1px solid #BAE6FD', borderRadius: '8px', fontSize: '0.8125rem', color: '#0369A1', lineHeight: 1.5, display: 'flex', gap: '0.625rem', alignItems: 'flex-start' }}>
+                      <Info size={16} style={{ color: '#0284C7', flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
+                      <div>
+                        <strong style={{ color: '#071426' }}>Warranty Eligibility Notice:</strong>
+                        <div style={{ margin: '0.2rem 0 0 0', color: '#0C4A6E' }}>
+                          Warranty claims are valid exclusively for <strong>CLARYN RO Booster Pumps</strong> (up to 6 months from purchase date). RO Membranes and replacement filter media are consumable filtration items and do not carry warranty claim coverage. To record an RO membrane for purchase records and maintenance reminders, visit our <Link href="/register-product" style={{ color: '#0284C7', fontWeight: 600, textDecoration: 'underline' }}>Product Registration Portal &rarr;</Link>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div className={styles.formRow}>
@@ -678,7 +703,7 @@ export default function WarrantyClaimPage() {
                     <textarea
                       id="claim-issue"
                       className={`${styles.formTextarea} ${errors.issueDescription ? styles.inputError : ''}`}
-                      placeholder="Please explain the symptoms observed (e.g., when did the issue start, what was the purifer behavior, any visible damage, filter replacement history...)"
+                      placeholder="Please explain the symptoms observed (e.g. pump not starting, humming noise without rotation, water dripping from pump head, inadequate output pressure, cut-off behavior, or burning smell)..."
                       value={issueDescription}
                       onChange={(e) => {
                         setIssueDescription(e.target.value);
@@ -692,46 +717,6 @@ export default function WarrantyClaimPage() {
                       </span>
                     )}
                   </div>
-
-                  {/* Optional TDS Readings Box */}
-                  <div className={styles.tdsBox}>
-                    <div className={styles.tdsHeader}>
-                      <Info size={16} aria-hidden="true" />
-                      <span>Water TDS Readings (If measured with a TDS meter)</span>
-                    </div>
-
-                    <div className={styles.formRow}>
-                      <div className={styles.formGroup}>
-                        <label htmlFor="claim-source-tds" className={styles.formLabel}>
-                          Raw / Feed Water TDS <span className={styles.optionalBadge}>(ppm)</span>
-                        </label>
-                        <input
-                          id="claim-source-tds"
-                          type="number"
-                          className={styles.formInput}
-                          placeholder="e.g. 800"
-                          value={sourceTDS}
-                          onChange={(e) => setSourceTDS(e.target.value)}
-                        />
-                        <span className={styles.fieldHelper}>Input water before the purifier</span>
-                      </div>
-
-                      <div className={styles.formGroup}>
-                        <label htmlFor="claim-purified-tds" className={styles.formLabel}>
-                          Purified Water TDS <span className={styles.optionalBadge}>(ppm)</span>
-                        </label>
-                        <input
-                          id="claim-purified-tds"
-                          type="number"
-                          className={styles.formInput}
-                          placeholder="e.g. 60"
-                          value={purifiedTDS}
-                          onChange={(e) => setPurifiedTDS(e.target.value)}
-                        />
-                        <span className={styles.fieldHelper}>Output water after the RO membrane</span>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
 
@@ -743,7 +728,7 @@ export default function WarrantyClaimPage() {
                   </div>
                   <div>
                     <h2 className={styles.formCardTitle}>Section D — Supporting Documents or Photos</h2>
-                    <p className={styles.formCardSubtitle}>Attach purchase invoice or a photo showing the issue or membrane installation</p>
+                    <p className={styles.formCardSubtitle}>Attach purchase invoice or a photo showing the issue or pump installation</p>
                   </div>
                 </div>
 
@@ -819,7 +804,7 @@ export default function WarrantyClaimPage() {
                     }}
                   />
                   <span className={styles.checkboxText}>
-                    I confirm that the product was installed in a compatible domestic RO system and operated under recommended pressure and temperature conditions.
+                    I confirm that the RO booster pump was installed with a compatible power supply adapter and operated with adequate inlet water feed without dry running.
                   </span>
                 </label>
                 {errors.terms && (
@@ -878,7 +863,7 @@ export default function WarrantyClaimPage() {
                     <div className={styles.processStepNum}>02</div>
                     <div className={styles.processStepContent}>
                       <strong>Pack & Book Courier</strong>
-                      Pack the membrane securely and courier it to the CLARYN office address provided by our team.
+                      Pack the pump securely and courier it to the CLARYN office address provided by our team.
                     </div>
                   </div>
 
@@ -908,21 +893,21 @@ export default function WarrantyClaimPage() {
               <div className={styles.sidebarCard}>
                 <div className={styles.sidebarCardHeader}>
                   <ShieldCheck size={20} className={styles.sidebarCardIcon} aria-hidden="true" />
-                  <h3 className={styles.sidebarCardTitle}>Warranty Coverage Terms</h3>
+                  <h3 className={styles.sidebarCardTitle}>RO Pump Warranty Terms</h3>
                 </div>
 
                 <div className={styles.coverageList}>
                   <div className={styles.coverageItem}>
                     <CheckCircle2 size={16} className={styles.checkIcon} aria-hidden="true" />
-                    <span><strong>Up to 6 Months Coverage:</strong> Applies from the date of purchase on authorized channels for eligible products.</span>
+                    <span><strong>RO Booster Pumps Only:</strong> Warranty claim service is available exclusively for CLARYN RO Booster Pumps (Up to 6 months from purchase date).</span>
                   </div>
                   <div className={styles.coverageItem}>
                     <CheckCircle2 size={16} className={styles.checkIcon} aria-hidden="true" />
-                    <span><strong>Defect Protection:</strong> Covers material flaws and premature filtration degradation.</span>
+                    <span><strong>Pump Defect Protection:</strong> Covers internal motor windings, diaphragm seal failures, and mechanical pressure defects.</span>
                   </div>
                   <div className={styles.coverageItem}>
                     <CheckCircle2 size={16} className={styles.checkIcon} aria-hidden="true" />
-                    <span><strong>Exclusions:</strong> Does not cover physical damage, dry running, or misuse beyond rated TDS.</span>
+                    <span><strong>Exclusions:</strong> Does not cover dry running without water feed, severe electrical voltage spikes, physical casing damage, or consumable RO membranes/filters.</span>
                   </div>
                 </div>
               </div>

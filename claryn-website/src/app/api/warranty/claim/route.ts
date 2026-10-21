@@ -30,6 +30,12 @@ export async function POST(req: NextRequest) {
 
     // 1. Resolve product details
     const matchedProduct = products.find(p => p.id === data.productId);
+    if (matchedProduct && matchedProduct.category !== 'pumps') {
+      return NextResponse.json(
+        { error: 'Warranty claims apply exclusively to CLARYN RO Booster Pumps. RO Membranes are consumable filtration items and not eligible for warranty claims.' },
+        { status: 400 }
+      );
+    }
     const productName = matchedProduct?.name || data.productId;
     const productModel = matchedProduct?.model || null;
 

@@ -37,7 +37,6 @@ export const products: Product[] = [
       weight: '270 g',
       flowRate: null, // [SPEC TO BE CONFIRMED]
       compatibility: ['Compatible domestic and residential RO water purifiers', 'Requires 100 GPD support', 'Requires compatible membrane housing and fittings'],
-      warrantyPeriod: 'Up to 6 months',
     },
 
     benefits: [
@@ -65,7 +64,6 @@ export const products: Product[] = [
       { id: 'dl-100-2500-mn', label: 'Installation Manual', fileUrl: '/downloads/claryn-membrane-installation.pdf', type: 'manual' },
     ],
 
-    warrantyPolicyId: 'wp-standard-6m',
     faqIds: ['faq-membrane-life', 'faq-tds-after', 'faq-compatibility', 'faq-installation', 'faq-replacement-freq'],
     relatedProductIds: ['claryn-100-gpd-15layer'],
 
@@ -120,7 +118,6 @@ export const products: Product[] = [
       weight: '270 g',
       flowRate: null, // [SPEC TO BE CONFIRMED]
       compatibility: ['Suitable as a replacement membrane for most compatible domestic RO water purifiers'],
-      warrantyPeriod: 'Up to 6 months',
     },
 
     benefits: [
@@ -152,7 +149,6 @@ export const products: Product[] = [
       { id: 'dl-100-mn', label: 'Installation Manual', fileUrl: '/downloads/claryn-membrane-installation.pdf', type: 'manual' },
     ],
 
-    warrantyPolicyId: 'wp-standard-6m',
     faqIds: ['faq-membrane-life', 'faq-tds-after', 'faq-compatibility', 'faq-installation', 'faq-replacement-freq'],
     relatedProductIds: ['claryn-100-gpd-2500tds'],
 
@@ -207,7 +203,6 @@ export const products: Product[] = [
       weight: '270 g',
       flowRate: null, // [SPEC TO BE CONFIRMED]
       compatibility: ['Suitable as a replacement membrane for most compatible domestic RO water purifiers'],
-      warrantyPeriod: 'Up to 6 months',
     },
 
     benefits: [
@@ -239,7 +234,6 @@ export const products: Product[] = [
       { id: 'dl-100-5000-mn', label: 'Installation Manual', fileUrl: '/downloads/claryn-membrane-installation.pdf', type: 'manual' },
     ],
 
-    warrantyPolicyId: 'wp-standard-6m',
     faqIds: ['faq-membrane-life', 'faq-tds-after', 'faq-compatibility', 'faq-installation', 'faq-replacement-freq'],
     relatedProductIds: ['claryn-100-gpd-15layer', 'claryn-100-gpd-2500tds'],
 
@@ -260,6 +254,51 @@ export const products: Product[] = [
 
     seoTitle: 'CLARYN 100 GPD RO Membrane | 15-Layer | Up to 5000 ppm',
     seoDescription: 'Upgrade your compatible domestic RO water purifier with the CLARYN 100 GPD RO Membrane. 15-layer polyamide membrane for high-TDS up to 5000 ppm. Buy on Amazon.in.',
+  },
+
+  {
+    id: 'claryn-ro-booster-pump',
+    slug: 'claryn-ro-booster-pump',
+    name: 'CLARYN RO Booster Pump',
+    model: '',
+    category: 'pumps',
+    subcategory: 'booster-pumps',
+    status: 'active',
+    shortDescription:
+      'High-Performance RO Booster Pump for Domestic Water Purifiers. Heavy-duty copper-wound motor delivers consistent operating pressure.',
+    longDescription:
+      'Maintain steady water purification performance with the CLARYN RO Booster Pump. Designed for domestic RO purifiers operating under low input pressure conditions, it provides dependable boost pressure with low vibration and quiet operation. Backed by up to 6 months standard warranty from the date of purchase.',
+    images: [
+      '/brand/product-placeholder.png',
+    ],
+    specs: {
+      operatingPressure: '80–120 PSI',
+      flowRate: '1.8 LPM',
+      operatingTemperature: '4°C – 45°C',
+      compatibility: [
+        'Compatible with standard domestic RO water purifiers',
+      ],
+      warrantyPeriod: 'Up to 6 months',
+    },
+    benefits: [
+      'Reliable boost pressure for optimal RO membrane performance',
+      'Low noise and vibration design',
+      'Durable copper-wound motor',
+      'Up to 6 months warranty from date of purchase',
+    ],
+    applications: [
+      'Domestic RO water purifier booster pump replacement',
+    ],
+    suitableFor: [
+      'Compatible domestic RO water purifiers',
+    ],
+    downloads: [],
+    warrantyPolicyId: 'wp-standard-6m',
+    faqIds: ['faq-warranty-coverage', 'faq-warranty-claim'],
+    relatedProductIds: ['claryn-100-gpd-2500tds', 'claryn-100-gpd-15layer'],
+    marketplaceLinks: [],
+    seoTitle: 'CLARYN RO Booster Pump | 6-Month Warranty',
+    seoDescription: 'CLARYN RO Booster Pump for domestic water purifiers with up to 6 months standard warranty.',
   },
 ];
 
