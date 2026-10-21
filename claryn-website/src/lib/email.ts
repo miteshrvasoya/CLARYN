@@ -65,7 +65,7 @@ export function generateWarrantyConfirmationHtml(params: SendWarrantyEmailParams
 
   const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://claryn.in').replace(/\/$/, '');
   const claimUrl = `${siteUrl}/warranty/claim`;
-  const supportEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'support@claryn.in';
+  const supportEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'udartawatertech@gmail.com';
   const supportPhone = process.env.NEXT_PUBLIC_CONTACT_PHONE || '+91 92748 41287';
 
   return `<!DOCTYPE html>
@@ -313,7 +313,7 @@ export async function sendWarrantyRegistrationEmails(
     year: 'numeric',
   });
 
-  const supportEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'support@claryn.in';
+  const supportEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'udartawatertech@gmail.com';
   const senderEmail = process.env.SMTP_USER || 'no-reply@claryn.in';
   const customerHtml = generateWarrantyConfirmationHtml(params);
 
@@ -375,6 +375,165 @@ export async function sendWarrantyRegistrationEmails(
     console.log(`[Email] Admin notification sent to ${supportEmail}`);
   } catch (err) {
     console.error('[Email] Failed to send admin notification:', err);
+  }
+
+  return { customerEmailSent, adminEmailSent, isSimulated: false };
+}
+
+export interface SendWarrantyClaimEmailParams {
+  claimId: string;
+  registrationId?: string | null;
+  customerName: string;
+  customerEmail: string;
+  customerMobile: string;
+  productName: string;
+  productModel?: string | null;
+  purchaseDate: string;
+  purchasePlatform: string;
+  orderId?: string | null;
+  issueCategory: string;
+  issueDescription: string;
+  sourceTDS?: string | null;
+  purifiedTDS?: string | null;
+  attachmentUrl?: string | null;
+}
+
+/**
+ * Sends warranty claim acknowledgement to customer and internal alert to support
+ */
+export async function sendWarrantyClaimEmails(
+  params: SendWarrantyClaimEmailParams
+): Promise<{ customerEmailSent: boolean; adminEmailSent: boolean; isSimulated: boolean }> {
+  const transporter = getTransporter();
+  const supportEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'support@claryn.in';
+  const supportPhone = process.env.NEXT_PUBLIC_CONTACT_PHONE || '+91 92748 41287';
+  const senderEmail = process.env.SMTP_USER || 'no-reply@claryn.in';
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://claryn.in').replace(/\/$/, '');
+
+  const customerHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CLARYN Warranty Claim Received [${params.claimId}]</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1e293b;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="padding: 32px 12px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="100%" style="max-width: 600px; background-color: #ffffff; border-radius: 14px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 16px rgba(0,0,0,0.06);">
+          <tr>
+            <td style="background-color: #071426; padding: 32px; text-align: center; border-bottom: 3px solid #0284c7;">
+              <span style="font-size: 24px; font-weight: 800; letter-spacing: 2.5px; color: #ffffff;">CLARYN</span>
+              <p style="margin: 6px 0 0 0; color: #94a3b8; font-size: 11px; letter-spacing: 1px; text-transform: uppercase;">Warranty Claim Acknowledgement</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 28px;">
+              <div style="background-color: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 14px 18px; margin-bottom: 20px;">
+                <h3 style="margin: 0 0 4px 0; color: #1e40af; font-size: 16px;">Warranty Claim Received</h3>
+                <p style="margin: 0; color: #1e3a8a; font-size: 13px;">Our technical support team is reviewing your claim details.</p>
+              </div>
+
+              <p style="font-size: 15px; margin: 0 0 16px 0;">Dear <strong>${params.customerName}</strong>,</p>
+              <p style="font-size: 14px; color: #475569; line-height: 1.6; margin: 0 0 20px 0;">
+                We have received your warranty claim for the <strong>${params.productName}</strong>. Your claim has been assigned a unique tracking number below:
+              </p>
+
+              <div style="background-color: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 14px; text-align: center; margin-bottom: 24px;">
+                <div style="font-size: 11px; text-transform: uppercase; color: #64748b; font-weight: 600;">Claim Tracking Number</div>
+                <div style="font-size: 20px; font-weight: 800; color: #0284c7; font-family: monospace; margin-top: 4px;">${params.claimId}</div>
+              </div>
+
+              <h4 style="font-size: 12px; text-transform: uppercase; color: #071426; margin: 0 0 10px 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 6px;">Claim Summary</h4>
+              <table width="100%" cellspacing="0" cellpadding="6" style="font-size: 13px; margin-bottom: 24px;">
+                <tr><td style="color: #64748b; width: 35%;">Product:</td><td style="color: #0f172a; font-weight: 600;">${params.productName}</td></tr>
+                <tr><td style="color: #64748b;">Primary Issue:</td><td style="color: #0f172a; font-weight: 600;">${params.issueCategory}</td></tr>
+                <tr><td style="color: #64748b;">Purchase Date:</td><td style="color: #0f172a;">${params.purchaseDate}</td></tr>
+                ${params.sourceTDS ? `<tr><td style="color: #64748b;">Source / Purified TDS:</td><td style="color: #0f172a;">${params.sourceTDS} ppm / ${params.purifiedTDS || 'N/A'} ppm</td></tr>` : ''}
+              </table>
+
+              <!-- Shipping Process Box -->
+              <div style="background-color: #f8fafc; border-left: 4px solid #0284c7; padding: 14px 16px; border-radius: 0 8px 8px 0; margin-bottom: 24px;">
+                <h5 style="margin: 0 0 6px 0; font-size: 13px; color: #071426;">Warranty Claim — Next Steps & Parcel Shipping</h5>
+                <ol style="margin: 0; padding-left: 18px; font-size: 12px; color: #475569; line-height: 1.55;">
+                  <li><strong>Wait for instructions:</strong> Our team will review your claim within 1–2 business days and provide the return authorization and shipping address.</li>
+                  <li><strong>Pack securely:</strong> Pack the product safely and book courier dispatch.</li>
+                  <li><strong>Keep proof of payment:</strong> Retain the shipping receipt. Eligible courier charges are reimbursed upon claim review.</li>
+                </ol>
+              </div>
+
+              <!-- Support Box -->
+              <div style="background-color: #f1f5f9; border-radius: 8px; padding: 14px; font-size: 12px; color: #475569; text-align: center;">
+                <p style="margin: 0 0 4px 0; font-weight: 600; color: #0f172a;">CLARYN Support Helpline</p>
+                <p style="margin: 0;">Email: <a href="mailto:${supportEmail}" style="color: #0284c7;">${supportEmail}</a> | Phone: ${supportPhone}</p>
+              </div>
+
+            </td>
+          </tr>
+          <tr>
+            <td style="background-color: #071426; padding: 18px; text-align: center; color: #94a3b8; font-size: 11px;">
+              © ${new Date().getFullYear()} CLARYN. All rights reserved. Surat, Gujarat, India.
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+
+  const adminHtml = `
+    <div style="font-family: sans-serif; font-size: 14px; color: #1e293b; max-width: 600px;">
+      <h2 style="color: #071426; border-bottom: 2px solid #0284c7; padding-bottom: 6px;">New Warranty Claim [${params.claimId}]</h2>
+      <table style="width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px;">
+        <tr><td style="padding: 6px; border: 1px solid #ddd; font-weight: bold;">Claim ID:</td><td style="padding: 6px; border: 1px solid #ddd; font-weight: bold; color: #0284c7;">${params.claimId}</td></tr>
+        <tr><td style="padding: 6px; border: 1px solid #ddd; font-weight: bold;">Customer:</td><td style="padding: 6px; border: 1px solid #ddd;">${params.customerName}</td></tr>
+        <tr><td style="padding: 6px; border: 1px solid #ddd; font-weight: bold;">Phone:</td><td style="padding: 6px; border: 1px solid #ddd;"><a href="tel:${params.customerMobile}">${params.customerMobile}</a></td></tr>
+        <tr><td style="padding: 6px; border: 1px solid #ddd; font-weight: bold;">Email:</td><td style="padding: 6px; border: 1px solid #ddd;"><a href="mailto:${params.customerEmail}">${params.customerEmail}</a></td></tr>
+        <tr><td style="padding: 6px; border: 1px solid #ddd; font-weight: bold;">Product:</td><td style="padding: 6px; border: 1px solid #ddd;">${params.productName} (${params.productModel || 'Standard'})</td></tr>
+        <tr><td style="padding: 6px; border: 1px solid #ddd; font-weight: bold;">Purchase Date / Platform:</td><td style="padding: 6px; border: 1px solid #ddd;">${params.purchaseDate} (${params.purchasePlatform})</td></tr>
+        <tr><td style="padding: 6px; border: 1px solid #ddd; font-weight: bold;">Order ID:</td><td style="padding: 6px; border: 1px solid #ddd;">${params.orderId || 'None'}</td></tr>
+        <tr><td style="padding: 6px; border: 1px solid #ddd; font-weight: bold;">Registration Ref:</td><td style="padding: 6px; border: 1px solid #ddd;">${params.registrationId || 'Not provided'}</td></tr>
+        <tr><td style="padding: 6px; border: 1px solid #ddd; font-weight: bold;">Issue Category:</td><td style="padding: 6px; border: 1px solid #ddd; font-weight: bold;">${params.issueCategory}</td></tr>
+        <tr><td style="padding: 6px; border: 1px solid #ddd; font-weight: bold;">Issue Description:</td><td style="padding: 6px; border: 1px solid #ddd;">${params.issueDescription}</td></tr>
+        <tr><td style="padding: 6px; border: 1px solid #ddd; font-weight: bold;">TDS Measurements:</td><td style="padding: 6px; border: 1px solid #ddd;">Raw: ${params.sourceTDS || 'N/A'} ppm | Purified: ${params.purifiedTDS || 'N/A'} ppm</td></tr>
+        <tr><td style="padding: 6px; border: 1px solid #ddd; font-weight: bold;">Attachment:</td><td style="padding: 6px; border: 1px solid #ddd;">${params.attachmentUrl ? `<a href="${params.attachmentUrl}" target="_blank">View Stored File</a>` : 'None'}</td></tr>
+      </table>
+    </div>
+  `;
+
+  if (!transporter) {
+    console.log('[Email Simulated] Claim confirmation to:', params.customerEmail, `(${params.claimId})`);
+    console.log('[Email Simulated] Admin claim notification to:', supportEmail);
+    return { customerEmailSent: false, adminEmailSent: false, isSimulated: true };
+  }
+
+  let customerEmailSent = false;
+  let adminEmailSent = false;
+
+  try {
+    await transporter.sendMail({
+      from: `"CLARYN Warranty Support" <${senderEmail}>`,
+      to: params.customerEmail,
+      replyTo: supportEmail,
+      subject: `Your CLARYN Warranty Claim Has Been Received [${params.claimId}]`,
+      html: customerHtml,
+    });
+    customerEmailSent = true;
+  } catch (e) {
+    console.error('[Email] Failed to send customer claim confirmation:', e);
+  }
+
+  try {
+    await transporter.sendMail({
+      from: `"CLARYN Portal" <${senderEmail}>`,
+      to: supportEmail,
+      subject: `[New Warranty Claim] ${params.productName} - ${params.customerName} [${params.claimId}]`,
+      html: adminHtml,
+    });
+    adminEmailSent = true;
+  } catch (e) {
+    console.error('[Email] Failed to send admin claim alert:', e);
   }
 
   return { customerEmailSent, adminEmailSent, isSimulated: false };

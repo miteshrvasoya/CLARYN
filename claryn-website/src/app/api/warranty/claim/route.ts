@@ -1,18 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
+import { products } from '@/data/products';
+import { saveClaimToSupabase } from '@/lib/supabase';
+import { sendWarrantyClaimEmails } from '@/lib/email';
 
 const ClaimSchema = z.object({
-  name:             z.string().min(2),
-  email:            z.string().email(),
-  phone:            z.string().min(10),
-  productId:        z.string().min(1),
-  serialNumber:     z.string().optional(),
-  purchaseDate:     z.string().min(1),
-  purchasePlatform: z.string().min(1),
-  orderId:          z.string().optional(),
-  issueDescription: z.string().min(10),
-  sourceTDS:        z.string().optional(),
-  purifiedTDS:      z.string().optional(),
+  name:               z.string().min(2, 'Name must be at least 2 characters'),
+  email:              z.string().email('Please enter a valid email address'),
+  phone:              z.string().min(10, 'Mobile number must be at least 10 digits'),
+  productId:          z.string().min(1, 'Please select your product'),
+  purchaseDate:       z.string().min(1, 'Please select purchase date'),
+  purchasePlatform:   z.string().min(1, 'Please select purchase platform'),
+  orderId:            z.string().optional(),
+  registrationId:     z.string().optional(),
+  issueCategory:      z.string().min(1, 'Please select the issue category'),
+  issueDescription:   z.string().min(10, 'Please describe the issue in at least 10 characters'),
+  sourceTDS:          z.string().optional(),
+  purifiedTDS:        z.string().optional(),
+  attachmentUrl:      z.string().optional(),
+  attachmentFileName: z.string().optional(),
+  attachmentFileSize: z.number().optional(),
+  attachmentFileType: z.string().optional(),
 });
 
 export async function POST(req: NextRequest) {
@@ -20,19 +28,82 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const data = ClaimSchema.parse(body);
 
-    // TODO: Save to DB
-    // const { prisma } = await import('@/lib/prisma');
-    // const claim = await prisma.warrantyClaim.create({ data: { ...data, status: 'pending', submittedAt: new Date() } });
+    // 1. Resolve product details
+    const matchedProduct = products.find(p => p.id === data.productId);
+    const productName = matchedProduct?.name || data.productId;
+    const productModel = matchedProduct?.model || null;
 
-    // TODO: Send confirmation email and internal notification
-    console.log('[warranty/claim] New claim:', data);
+    // 2. Generate unique Claim Reference ID
+    const randomHex = Math.random().toString(36).substring(2, 6).toUpperCase();
+    const timestampPart = Date.now().toString(36).slice(-4).toUpperCase();
+    const claimId = `CLR-CLM-${timestampPart}${randomHex}`;
 
-    return NextResponse.json({ success: true, message: 'Warranty claim submitted. We\'ll respond within 2–3 business days.' });
+    // 3. Save to Supabase
+    const supabaseResult = await saveClaimToSupabase({
+      claim_id: claimId,
+      registration_id: data.registrationId || null,
+      full_name: data.name,
+      mobile_number: data.phone,
+      email: data.email,
+      product_id: data.productId,
+      product_name: productName,
+      product_model: productModel,
+      purchase_date: data.purchaseDate,
+      purchase_platform: data.purchasePlatform,
+      order_id: data.orderId || null,
+      issue_category: data.issueCategory,
+      issue_description: data.issueDescription,
+      source_tds: data.sourceTDS || null,
+      purified_tds: data.purifiedTDS || null,
+      attachment_url: data.attachmentUrl || null,
+      attachment_file_name: data.attachmentFileName || null,
+      status: 'pending',
+    });
+
+    // 4. Send Confirmation Emails
+    const emailResult = await sendWarrantyClaimEmails({
+      claimId,
+      registrationId: data.registrationId,
+      customerName: data.name,
+      customerEmail: data.email,
+      customerMobile: data.phone,
+      productName,
+      productModel,
+      purchaseDate: data.purchaseDate,
+      purchasePlatform: data.purchasePlatform,
+      orderId: data.orderId,
+      issueCategory: data.issueCategory,
+      issueDescription: data.issueDescription,
+      sourceTDS: data.sourceTDS,
+      purifiedTDS: data.purifiedTDS,
+      attachmentUrl: data.attachmentUrl,
+    });
+
+    // 5. Audit Log (Mask phone digits for privacy)
+    console.log('[warranty/claim] Processed claim:', {
+      claimId,
+      customer: data.name,
+      email: data.email,
+      phone: data.phone.replace(/\d(?=\d{4})/g, '*'),
+      product: productName,
+      issue: data.issueCategory,
+      hasAttachment: Boolean(data.attachmentUrl),
+      supabaseSaved: supabaseResult.success,
+      emailSent: emailResult.customerEmailSent,
+    });
+
+    return NextResponse.json({
+      success: true,
+      claimId,
+      productName,
+      message: 'Warranty claim received. Our support team will review it within 1–2 business days.',
+      submittedAt: new Date().toISOString(),
+    });
   } catch (err) {
     if (err instanceof z.ZodError) {
       return NextResponse.json({ error: 'Invalid form data', issues: err.issues }, { status: 400 });
     }
-    console.error('[warranty/claim] Error:', err);
-    return NextResponse.json({ error: 'Submission failed. Please try again.' }, { status: 500 });
+    console.error('[warranty/claim] Error processing claim:', err);
+    return NextResponse.json({ error: 'Claim submission failed. Please try again.' }, { status: 500 });
   }
 }

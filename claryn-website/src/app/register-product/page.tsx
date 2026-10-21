@@ -311,7 +311,7 @@ export default function RegisterProductPage() {
                 {invoiceFile && (
                   <div className={styles.summaryRow}>
                     <span className={styles.summaryLabel}>Invoice:</span>
-                    <span className={styles.summaryValue}>{invoiceFile.name} (Stored in Cloudflare R2)</span>
+                    <span className={styles.summaryValue}>{invoiceFile.name}</span>
                   </div>
                 )}
                 <div className={styles.summaryRow}>
