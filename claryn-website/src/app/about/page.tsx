@@ -55,7 +55,7 @@ export default function AboutPage() {
           <div style={{ marginBottom: 'var(--space-16)' }}>
             <h2 style={{ marginBottom: 'var(--space-8)' }}>Our Quality Commitments</h2>
             <div className="grid-2">
-              {['Transparent, accurate product specifications — we never fabricate specs','No unsupported health claims — we rely on evidence-based water science','Premium 5-layer TFC Polyamide membrane construction','Universal compatibility — designed to work with existing RO systems','12-month manufacturer warranty on every product','Real product support — not just a marketplace listing'].map(item => (
+              {['Transparent, accurate product specifications — we never fabricate specs','No unsupported health claims — we rely on evidence-based water science','Premium 5-layer TFC Polyamide membrane construction','Universal compatibility — designed to work with existing RO systems','Up to 6-month standard warranty on eligible products','Real product support — not just a marketplace listing'].map(item => (
                 <div key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--space-3)', padding: 'var(--space-4)', background: 'var(--color-gray-50)', borderRadius: 'var(--radius-lg)' }}>
                   <CheckCircle size={18} style={{ color: 'var(--color-teal)', flexShrink: 0, marginTop: 2 }} aria-hidden />
                   <span style={{ fontSize: 'var(--text-sm)', color: 'var(--color-gray-700)', lineHeight: 1.7 }}>{item}</span>

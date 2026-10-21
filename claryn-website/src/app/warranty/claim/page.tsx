@@ -904,7 +904,7 @@ export default function WarrantyClaimPage() {
                 </div>
               </div>
 
-              {/* ── Card 2: 12-Month Coverage Policy ── */}
+              {/* ── Card 2: Coverage Policy ── */}
               <div className={styles.sidebarCard}>
                 <div className={styles.sidebarCardHeader}>
                   <ShieldCheck size={20} className={styles.sidebarCardIcon} aria-hidden="true" />
@@ -914,7 +914,7 @@ export default function WarrantyClaimPage() {
                 <div className={styles.coverageList}>
                   <div className={styles.coverageItem}>
                     <CheckCircle2 size={16} className={styles.checkIcon} aria-hidden="true" />
-                    <span><strong>12 Months Coverage:</strong> Applies from the date of purchase on authorized channels.</span>
+                    <span><strong>Up to 6 Months Coverage:</strong> Applies from the date of purchase on authorized channels for eligible products.</span>
                   </div>
                   <div className={styles.coverageItem}>
                     <CheckCircle2 size={16} className={styles.checkIcon} aria-hidden="true" />
@@ -937,8 +937,8 @@ export default function WarrantyClaimPage() {
                 <div className={styles.supportList}>
                   <div className={styles.supportItem}>
                     <Mail size={16} className={styles.supportIcon} aria-hidden="true" />
-                    <a href="mailto:support@claryn.in" className={styles.supportLink}>
-                      support@claryn.in
+                    <a href="mailto:udartawatertech@gmail.com" className={styles.supportLink}>
+                      udartawatertech@gmail.com
                     </a>
                   </div>
                   <div className={styles.supportItem}>

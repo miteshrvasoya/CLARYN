@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
     orderId,
     invoiceUrl: 'https://invoices.claryn.in/sample-invoice.pdf',
     invoiceFileName: 'Invoice_AMZ_4039182.pdf',
-    warrantyPeriodMonths: 12,
+    warrantyPeriodMonths: 6,
   });
 
   return new NextResponse(html, {

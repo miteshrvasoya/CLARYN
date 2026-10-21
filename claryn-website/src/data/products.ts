@@ -37,7 +37,7 @@ export const products: Product[] = [
       weight: '270 g',
       flowRate: null, // [SPEC TO BE CONFIRMED]
       compatibility: ['Compatible domestic and residential RO water purifiers', 'Requires 100 GPD support', 'Requires compatible membrane housing and fittings'],
-      warrantyPeriod: '12 months',
+      warrantyPeriod: 'Up to 6 months',
     },
 
     benefits: [
@@ -65,7 +65,7 @@ export const products: Product[] = [
       { id: 'dl-100-2500-mn', label: 'Installation Manual', fileUrl: '/downloads/claryn-membrane-installation.pdf', type: 'manual' },
     ],
 
-    warrantyPolicyId: 'wp-standard-12m',
+    warrantyPolicyId: 'wp-standard-6m',
     faqIds: ['faq-membrane-life', 'faq-tds-after', 'faq-compatibility', 'faq-installation', 'faq-replacement-freq'],
     relatedProductIds: ['claryn-100-gpd-15layer'],
 
@@ -120,7 +120,7 @@ export const products: Product[] = [
       weight: '270 g',
       flowRate: null, // [SPEC TO BE CONFIRMED]
       compatibility: ['Suitable as a replacement membrane for most compatible domestic RO water purifiers'],
-      warrantyPeriod: '12 months',
+      warrantyPeriod: 'Up to 6 months',
     },
 
     benefits: [
@@ -152,7 +152,7 @@ export const products: Product[] = [
       { id: 'dl-100-mn', label: 'Installation Manual', fileUrl: '/downloads/claryn-membrane-installation.pdf', type: 'manual' },
     ],
 
-    warrantyPolicyId: 'wp-standard-12m',
+    warrantyPolicyId: 'wp-standard-6m',
     faqIds: ['faq-membrane-life', 'faq-tds-after', 'faq-compatibility', 'faq-installation', 'faq-replacement-freq'],
     relatedProductIds: ['claryn-100-gpd-2500tds'],
 
@@ -207,7 +207,7 @@ export const products: Product[] = [
       weight: '270 g',
       flowRate: null, // [SPEC TO BE CONFIRMED]
       compatibility: ['Suitable as a replacement membrane for most compatible domestic RO water purifiers'],
-      warrantyPeriod: '12 months',
+      warrantyPeriod: 'Up to 6 months',
     },
 
     benefits: [
@@ -239,7 +239,7 @@ export const products: Product[] = [
       { id: 'dl-100-5000-mn', label: 'Installation Manual', fileUrl: '/downloads/claryn-membrane-installation.pdf', type: 'manual' },
     ],
 
-    warrantyPolicyId: 'wp-standard-12m',
+    warrantyPolicyId: 'wp-standard-6m',
     faqIds: ['faq-membrane-life', 'faq-tds-after', 'faq-compatibility', 'faq-installation', 'faq-replacement-freq'],
     relatedProductIds: ['claryn-100-gpd-15layer', 'claryn-100-gpd-2500tds'],
 

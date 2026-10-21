@@ -87,7 +87,7 @@ export default async function ProductDetailPage({ params }: Props) {
     ['Max Feed Water TDS', product.specs.maxTDS ? `Up to ${product.specs.maxTDS} ppm` : null],
     ['Dimensions', product.specs.dimensions ?? null],
     ['Weight', product.specs.weight ?? null],
-    ['Warranty', product.specs.warrantyPeriod ?? '12 months'],
+    ['Warranty', product.specs.warrantyPeriod ?? 'Up to 6 months'],
   ].filter(([, v]) => v !== null) as [string, string][];
 
   return (
@@ -167,7 +167,7 @@ export default async function ProductDetailPage({ params }: Props) {
                 {/* Warranty Strip */}
                 <div className={styles.warrantyStrip}>
                   <ShieldCheck size={16} className={styles.warrantyIcon} aria-hidden />
-                  <span>12-month manufacturer warranty · Register product after purchase to activate</span>
+                  <span>{product.specs.warrantyPeriod ? `${product.specs.warrantyPeriod} standard warranty` : 'Up to 6 months standard warranty'} on eligible products · Register product after purchase to activate</span>
                 </div>
               </div>
 

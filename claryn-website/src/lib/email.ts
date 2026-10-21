@@ -44,12 +44,11 @@ function getTransporter() {
  */
 export function generateWarrantyConfirmationHtml(params: SendWarrantyEmailParams): string {
   const purchase = new Date(params.purchaseDate);
-  const warrantyMonths = params.warrantyPeriodMonths || 12;
+  const warrantyMonths = params.warrantyPeriodMonths || 6;
 
   const startDate = isNaN(purchase.getTime()) ? new Date() : purchase;
   const endDate = new Date(startDate);
-  endDate.setFullYear(endDate.getFullYear() + Math.floor(warrantyMonths / 12));
-  endDate.setMonth(endDate.getMonth() + (warrantyMonths % 12));
+  endDate.setMonth(endDate.getMonth() + warrantyMonths);
 
   const formattedStartDate = startDate.toLocaleDateString('en-IN', {
     day: 'numeric',
@@ -205,7 +204,7 @@ export function generateWarrantyConfirmationHtml(params: SendWarrantyEmailParams
                         <td align="center" class="timeline-box" style="width: 38%; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 8px;">
                           <div style="font-size: 11px; text-transform: uppercase; color: #64748b; font-weight: 600;">Warranty Expires</div>
                           <div style="font-size: 14px; font-weight: 700; color: #0f766e; margin-top: 4px;">${formattedEndDate}</div>
-                          <div style="font-size: 10px; color: #14b8a6; font-weight: 600; margin-top: 2px;">1 Year Validity</div>
+                          <div style="font-size: 10px; color: #14b8a6; font-weight: 600; margin-top: 2px;">${warrantyMonths} Months Validity</div>
                         </td>
                       </tr>
                     </table>
@@ -314,7 +313,7 @@ export async function sendWarrantyRegistrationEmails(
   });
 
   const supportEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'udartawatertech@gmail.com';
-  const senderEmail = process.env.SMTP_USER || 'no-reply@claryn.in';
+  const senderEmail = process.env.SMTP_USER || 'udartawatertech@gmail.com';
   const customerHtml = generateWarrantyConfirmationHtml(params);
 
   // ─── Admin Alert Template ────────────────────────────────────────────────
@@ -405,9 +404,9 @@ export async function sendWarrantyClaimEmails(
   params: SendWarrantyClaimEmailParams
 ): Promise<{ customerEmailSent: boolean; adminEmailSent: boolean; isSimulated: boolean }> {
   const transporter = getTransporter();
-  const supportEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'support@claryn.in';
+  const supportEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'udartawatertech@gmail.com';
   const supportPhone = process.env.NEXT_PUBLIC_CONTACT_PHONE || '+91 92748 41287';
-  const senderEmail = process.env.SMTP_USER || 'no-reply@claryn.in';
+  const senderEmail = process.env.SMTP_USER || 'udartawatertech@gmail.com';
   const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://claryn.in').replace(/\/$/, '');
 
   const customerHtml = `<!DOCTYPE html>

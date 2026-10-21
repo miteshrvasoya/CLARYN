@@ -22,7 +22,7 @@ import styles from './page.module.css';
 export const metadata: Metadata = {
   title: 'Warranty Policy & Claim Portal | CLARYN Products',
   description:
-    'Understand CLARYN\'s 12-month manufacturer warranty, coverage specifications, exclusions, and file an online claim with rapid 2-3 day resolution.',
+    'Understand CLARYN\'s standard manufacturer warranty on eligible products for up to 6 months from the date of purchase, coverage specifications, exclusions, and claim process.',
 };
 
 export default function WarrantyPage() {
@@ -45,7 +45,7 @@ export default function WarrantyPage() {
 
               <div className={styles.badge}>
                 <ShieldCheck size={14} />
-                <span>Official 12-Month Warranty Policy</span>
+                <span>Official Warranty Policy (Up to 6 Months)</span>
               </div>
 
               <h1 className={styles.title}>
@@ -75,7 +75,7 @@ export default function WarrantyPage() {
               <div className={styles.heroTrustList}>
                 <div className={styles.heroTrustItem}>
                   <CheckCircle2 size={16} className={styles.heroTrustIcon} />
-                  <span>12 Months Standard Coverage</span>
+                  <span>Up to 6 Months Standard Coverage</span>
                 </div>
                 <div className={styles.heroTrustItem}>
                   <CheckCircle2 size={16} className={styles.heroTrustIcon} />
@@ -147,9 +147,9 @@ export default function WarrantyPage() {
                 <ShieldCheck size={22} />
               </div>
               <div>
-                <div className={styles.highlightTitle}>12-Month Warranty</div>
+                <div className={styles.highlightTitle}>Up to 6-Month Warranty</div>
                 <div className={styles.highlightDesc}>
-                  Full protection against manufacturing defects from the date of purchase.
+                  Full protection against manufacturing defects for up to 6 months from the date of purchase on eligible products.
                 </div>
               </div>
             </div>
@@ -216,7 +216,7 @@ export default function WarrantyPage() {
 
               <h3 className={styles.coverageCardTitle}>What Is Covered</h3>
               <p className={styles.coverageCardSubtitle}>
-                Eligible for free repair, replacement, or service credit within 12 months:
+                Eligible for free repair, replacement, or service credit within up to 6 months from the date of purchase:
               </p>
 
               <div className={styles.coverageList}>
@@ -463,10 +463,10 @@ export default function WarrantyPage() {
                 <Clock size={20} />
               </div>
               <div>
-                <h4 className={styles.checklistTitle}>Within 12-Month Period</h4>
+                <h4 className={styles.checklistTitle}>Within Warranty Period (Up to 6 Months)</h4>
                 <p className={styles.checklistText}>
-                  The warranty claim must be initiated within 365 calendar days from the invoice
-                  issue date.
+                  The warranty claim must be initiated within up to 6 months (180 calendar days) from the invoice
+                  issue date on eligible products.
                 </p>
               </div>
             </div>

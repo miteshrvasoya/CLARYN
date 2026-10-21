@@ -109,9 +109,17 @@ export const faqs: FAQ[] = [
 
   // ── Warranty ──
   {
-    id: 'faq-warranty-claim',
+    id: 'faq-warranty-coverage',
     category: 'Warranty',
     displayOrder: 1,
+    relatedProductIds: ['claryn-100-gpd-2500tds', 'claryn-100-gpd-15layer', 'claryn-100-gpd-5000tds'],
+    question: 'What is the standard warranty coverage on CLARYN products?',
+    answer: 'CLARYN offers up to 6 months standard warranty on eligible products from the date of purchase against manufacturing defects and premature performance drop. To ensure complete coverage, activate your warranty by registering your product at claryn.in/register-product with your purchase invoice.',
+  },
+  {
+    id: 'faq-warranty-claim',
+    category: 'Warranty',
+    displayOrder: 2,
     relatedProductIds: [],
     question: 'How do I make a warranty claim?',
     answer: 'Visit claryn.in/warranty/claim and fill in the online form. You\'ll need: your name, contact details, purchase date and platform, product model, and a description of the issue (photos/video helpful). Our team reviews claims within 2–3 business days. Registering your product at claryn.in/register-product speeds up the process significantly.',

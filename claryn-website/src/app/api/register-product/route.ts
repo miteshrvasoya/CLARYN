@@ -57,8 +57,8 @@ export async function POST(req: NextRequest) {
 
     // 4. Send Confirmation Email to Customer and Internal Alert to Support
     const warrantyMonths = matchedProduct?.specs?.warrantyPeriod
-      ? parseInt(matchedProduct.specs.warrantyPeriod, 10) || 12
-      : 12;
+      ? parseInt(matchedProduct.specs.warrantyPeriod.replace(/\D+/g, ''), 10) || 6
+      : 6;
 
     const emailResult = await sendWarrantyRegistrationEmails({
       registrationId,
