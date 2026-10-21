@@ -82,9 +82,14 @@ export async function createPresignedUploadUrl(params: {
     // 5 minutes expiry for presigned PUT URL
     const presignedUrl = await getSignedUrl(client, command, { expiresIn: 300 });
 
-    const publicUrl = publicDomain
-      ? `${publicDomain}/${fileKey}`
-      : `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com/${bucket}/${fileKey}`;
+    let publicUrl = `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com/${bucket}/${fileKey}`;
+    if (publicDomain) {
+      if (publicDomain.includes('cloudflarestorage.com')) {
+        publicUrl = `${publicDomain}/${bucket}/${fileKey}`;
+      } else {
+        publicUrl = `${publicDomain}/${fileKey}`;
+      }
+    }
 
     return {
       presignedUrl,
